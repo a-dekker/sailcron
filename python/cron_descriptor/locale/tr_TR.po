@@ -1,0 +1,218 @@
+# Translation of cron_descriptor
+# Copyright (C) 2016
+# This file is distributed under the same license as the cron_descriptor package.
+# Adam Schubert <adam.schubert@sg1-game.net>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2016-01-19 02:00+0100\n"
+"PO-Revision-Date: 2016-01-19 02:00+0100\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+
+#: ExpressionDescriptor.py:130
+msgid ""
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr ""
+"İfade açıklamasını oluştururken bir hata oluştu. Cron ifadesini gözden "
+"geçirin."
+
+#: ExpressionDescriptor.py:151
+msgid "At "
+msgstr "Saat "
+
+#: ExpressionDescriptor.py:160
+#, python-brace-format
+msgid "Every minute between {0} and {1}"
+msgstr "Saat {0} ve {1} arasındaki her dakika"
+
+#: ExpressionDescriptor.py:165
+msgid "At"
+msgstr "Saat"
+
+#: ExpressionDescriptor.py:175
+msgid " and"
+msgstr " ve"
+
+#: ExpressionDescriptor.py:201
+msgid "every second"
+msgstr "her saniye"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "every {0} seconds"
+msgstr "her {0} saniyede bir"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "seconds {0} through {1} past the minute"
+msgstr "dakikaların {0}. ve {1}. saniyeleri arası"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "at {0} seconds past the minute"
+msgstr "dakikaların {0}. saniyesinde"
+
+#: ExpressionDescriptor.py:209
+msgid "every minute"
+msgstr "her dakika"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "every {0} minutes"
+msgstr "her {0} dakikada bir"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "minutes {0} through {1} past the hour"
+msgstr "saatlerin {0}. ve {1}. dakikaları arası"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "at {0} minutes past the hour"
+msgstr "saatlerin {0}. dakikasında"
+
+#: ExpressionDescriptor.py:218
+msgid "every hour"
+msgstr "her saat"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "every {0} hours"
+msgstr "her {0} saatte"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "between {0} and {1}"
+msgstr "{0} ile {1} arasında"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "at {0}"
+msgstr "saat {0}"
+
+#: ExpressionDescriptor.py:241
+msgid "first"
+msgstr "ilk"
+
+#: ExpressionDescriptor.py:243
+msgid "second"
+msgstr "ikinci"
+
+#: ExpressionDescriptor.py:245
+msgid "third"
+msgstr "üçüncü"
+
+#: ExpressionDescriptor.py:247
+msgid "forth"
+msgstr "dördüncü"
+
+#: ExpressionDescriptor.py:249
+msgid "fifth"
+msgstr "beşinci"
+
+#: ExpressionDescriptor.py:251
+msgid ", on the "
+msgstr ", ayın "
+
+#: ExpressionDescriptor.py:252
+#, python-brace-format
+msgid " {0} of the month"
+msgstr " {0} günü"
+
+#: ExpressionDescriptor.py:254
+#, python-brace-format
+msgid ", on the last {0} of the month"
+msgstr ", ayın son {0} günü"
+
+#: ExpressionDescriptor.py:256
+#, python-brace-format
+msgid ", only on {0}"
+msgstr ", sadece {0} günü"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
+#: ExpressionDescriptor.py:435
+msgid ", every day"
+msgstr ", her gün"
+
+#: ExpressionDescriptor.py:260
+#, python-brace-format
+msgid ", every {0} days of the week"
+msgstr ", ayın her {0} günü"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274
+#: ExpressionDescriptor.py:318
+#, python-brace-format
+msgid ", {0} through {1}"
+msgstr ", {0} ile {1} arasında"
+
+#: ExpressionDescriptor.py:272
+#, python-brace-format
+msgid ", every {0} months"
+msgstr ", {0} ayda bir"
+
+#: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
+#, python-brace-format
+msgid ", only in {0}"
+msgstr ", sadece {0} için"
+
+#: ExpressionDescriptor.py:288
+msgid ", on the last day of the month"
+msgstr ", ayın son günü"
+
+#: ExpressionDescriptor.py:290
+msgid ", on the last weekday of the month"
+msgstr ", ayın son iş günü"
+
+#: ExpressionDescriptor.py:297
+msgid "first weekday"
+msgstr "ilk iş günü"
+
+#: ExpressionDescriptor.py:297
+#, python-brace-format
+msgid "weekday nearest day {0}"
+msgstr "{0}. günü sonrasındaki ilk iş günü"
+
+#: ExpressionDescriptor.py:299
+#, python-brace-format
+msgid ", on the {0} of the month"
+msgstr ", ayın {0}"
+
+#: ExpressionDescriptor.py:303
+#, python-brace-format
+msgid ", every {0} days"
+msgstr ", {0} günde bir"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", between day {0} and {1} of the month"
+msgstr ", ayın {0}. ve {1}. günleri arası"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", on day {0} of the month"
+msgstr ", ayın {0}. günü"
+
+#: ExpressionDescriptor.py:316
+#, python-brace-format
+msgid ", every {0} years"
+msgstr ", {0} yılda bir"
+
+#: ExpressionDescriptor.py:385
+msgid " and "
+msgstr " ve "
+
+#: ExpressionDescriptor.py:433
+msgid ", every minute"
+msgstr ", her dakika"
+
+#: ExpressionDescriptor.py:434
+msgid ", every hour"
+msgstr ", her saat"
