@@ -89,7 +89,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="175"/>
         <source>Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervall från 1-12. Jokertecknet (*) betyder varje månad. Flera månader skrivs som, 2-4 eller 2,5</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="182"/>
@@ -104,7 +104,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="197"/>
         <source>Range from 0-7. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervall från 0-7. Jokertecknet (*) betyder varje veckodag. Söndag är 0 (eller SUN). Flera dagar skrivs som, 2-4 eller 2,5</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="206"/>
@@ -119,7 +119,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="220"/>
         <source>This command will be executed if it is matched with the time</source>
-        <translation type="unfinished"></translation>
+        <translation>Detta kommando kommer att exekveras om det matchas med tidsangivelsen</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="229"/>
