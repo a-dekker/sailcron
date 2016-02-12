@@ -59,7 +59,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="109"/>
         <source>Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervall från 0-59. Jokerteckenet (*) betyder varje minut, */15 var 15:e minut.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="117"/>
@@ -74,7 +74,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="131"/>
         <source>Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervall från 0-23. Jokertecknet (*) betyder varje timma, */2 varannan timma. Flera timmar skrivs som, 7-11 eller 6,7,9</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="139"/>
@@ -215,7 +215,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="203"/>
         <source>No cron entries found for user </source>
-        <translation type="unfinished"></translation>
+        <translation>Inga cron-poster hittades för användare </translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="210"/>
