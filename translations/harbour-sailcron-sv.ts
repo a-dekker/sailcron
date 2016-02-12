@@ -87,6 +87,11 @@
         <translation>Månad</translation>
     </message>
     <message>
+        <location filename="../qml/pages/AddPage.qml" line="175"/>
+        <source>Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/pages/AddPage.qml" line="182"/>
         <source>Enter month</source>
         <translation>Ange månad</translation>
@@ -97,6 +102,11 @@
         <translation>Veckodag</translation>
     </message>
     <message>
+        <location filename="../qml/pages/AddPage.qml" line="197"/>
+        <source>Range from 0-7. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/pages/AddPage.qml" line="206"/>
         <source>Enter day of week</source>
         <translation>Ange veckodag</translation>
@@ -105,6 +115,11 @@
         <location filename="../qml/pages/AddPage.qml" line="219"/>
         <source>Command</source>
         <translation>Kommando</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="220"/>
+        <source>This command will be executed if it is matched with the time</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="229"/>

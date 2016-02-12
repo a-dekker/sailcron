@@ -172,7 +172,7 @@ Dialog {
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
                 text: "<b>" + qsTr(
-                          "Month") + "</b><br>" + "Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5"
+                          "Month") + "</b><br>" + qsTr("Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -194,7 +194,7 @@ Dialog {
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
                 text: "<b>" + qsTr("Day of the week") + "</b><br>"
-                      + "Range from 0-7. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5"
+                      + qsTr("Range from 0-7. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -217,7 +217,7 @@ Dialog {
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
                 text: "<b>" + qsTr("Command") + "</b><br>"
-                      + "This command will be executed if it is matched with the time"
+                      + qsTr("This command will be executed if it is matched with the time")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }

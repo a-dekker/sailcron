@@ -67,8 +67,8 @@ OTHER_FILES += qml/sailcron.qml \
 
 INSTALLS += translations
 
-# TRANSLATIONS = translations/harbour-sailcron-nl.ts \
-#                translations/harbour-sailcron-cs_CZ.ts
+TRANSLATIONS = translations/harbour-sailcron-nl.ts \
+               translations/harbour-sailcron-sv.ts
 
 # only include these files for translation:
 lupdate_only {
