@@ -200,7 +200,7 @@ Page {
             ViewPlaceholder {
                 id: placeholder
                 enabled: listPass.count === 0
-                text: qsTr("No cron entries found for user " + mainapp.current_cron_user)
+                text: qsTr("No cron entries found for user ") + mainapp.current_cron_user
             }
             delegate: ListItem {
                 id: listPassItem
