@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .Exception import WrongArgumentException
+from calendar import day_name
 
 
 def number_to_day(day_number):
@@ -26,7 +27,7 @@ def number_to_day(day_number):
     Raises:
         IndexError: When day_numer is not found
     """
-    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][day_number]
+    return [day_name[6], day_name[0], day_name[1], day_name[2], day_name[3], day_name[4], day_name[5]][day_number]
 
 
 def number_to_month(month_number):
