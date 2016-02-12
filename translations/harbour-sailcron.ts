@@ -57,6 +57,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/AddPage.qml" line="109"/>
+        <source>Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/pages/AddPage.qml" line="117"/>
         <source>Enter minutes</source>
         <translation type="unfinished"></translation>
@@ -64,6 +69,11 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="130"/>
         <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="131"/>
+        <source>Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -200,6 +210,11 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="180"/>
         <source>Add new entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="203"/>
+        <source>No cron entries found for user </source>
         <translation type="unfinished"></translation>
     </message>
     <message>

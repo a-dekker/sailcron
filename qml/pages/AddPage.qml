@@ -106,7 +106,7 @@ Dialog {
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
                 text: "<b>" + qsTr("Minutes past every hour") + "</b><br>"
-                      + "Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes."
+                      + qsTr("Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes.")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -128,7 +128,7 @@ Dialog {
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
                 text: "<b>" + qsTr(
-                          "Hours") + "</b><br>" + "Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9"
+                          "Hours") + "</b><br>" + qsTr("Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
