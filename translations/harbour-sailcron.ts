@@ -87,6 +87,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/AddPage.qml" line="153"/>
+        <source>Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/pages/AddPage.qml" line="161"/>
         <source>Enter day of month</source>
         <translation type="unfinished"></translation>

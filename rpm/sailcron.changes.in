@@ -9,7 +9,7 @@
 # - Summary of changes
 
 * Fri Feb 12 2016 Arno Dekker <jack.tar@example.com> 0.0.1-1
-- Added Swedish tranlation
+- Added Swedish translation
 - Localized days of week in cron-descriptor part
 * Mon Feb 8 2016 Arno Dekker <jack.tar@example.com> 0.0.1-0
 - Initial version

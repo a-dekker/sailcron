@@ -87,6 +87,11 @@
         <translation>Dag i månaden</translation>
     </message>
     <message>
+        <location filename="../qml/pages/AddPage.qml" line="153"/>
+        <source>Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21</source>
+        <translation>Intervall från 1-31. Jokertecknet (*) betyder varje dag. Flera dagar skrivs som, 1-11 eller 20,21</translation>
+    </message>
+    <message>
         <location filename="../qml/pages/AddPage.qml" line="161"/>
         <source>Enter day of month</source>
         <translation>Ange dag i månaden</translation>

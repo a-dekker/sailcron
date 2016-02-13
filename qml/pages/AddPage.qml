@@ -150,7 +150,7 @@ Dialog {
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
                 text: "<b>" + qsTr("Day of the month") + "</b><br>"
-                      + "Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21"
+                      + qsTr("Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
