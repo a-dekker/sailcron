@@ -261,38 +261,63 @@
 <context>
     <name>SettingPage</name>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="43"/>
+        <location filename="../qml/pages/SettingPage.qml" line="65"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="44"/>
+        <location filename="../qml/pages/SettingPage.qml" line="66"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="47"/>
+        <location filename="../qml/pages/SettingPage.qml" line="69"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="53"/>
+        <location filename="../qml/pages/SettingPage.qml" line="75"/>
         <source>Default cron user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="54"/>
+        <location filename="../qml/pages/SettingPage.qml" line="76"/>
         <source>Which users crontab is shown at startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="58"/>
+        <location filename="../qml/pages/SettingPage.qml" line="80"/>
         <source>nemo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="61"/>
+        <location filename="../qml/pages/SettingPage.qml" line="83"/>
         <source>root</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingPage.qml" line="88"/>
+        <source>Cron(d) daemon actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingPage.qml" line="101"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingPage.qml" line="101"/>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingPage.qml" line="112"/>
+        <source>No autostart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingPage.qml" line="112"/>
+        <source>Autostart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

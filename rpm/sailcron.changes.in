@@ -8,7 +8,12 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Fri Feb 12 2016 Arno Dekker <jack.tar@example.com> 0.0.1-1
+* Sun Feb 14 2016 Arno Dekker <jack.tar@example.com> 0.0.1-3
+- Fix: ignoring settings in crontab led to corruption
+- Manage crontab daemon from settingspage
+* Sat Feb 13 2016 Arno Dekker <jack.tar@example.com> 0.0.1-2
+- Fix: try to ignore settings done in crontab
+* Sat Feb 13 2016 Arno Dekker <jack.tar@example.com> 0.0.1-1
 - Added Swedish translation
 - Localized days of week in cron-descriptor part
 * Mon Feb 8 2016 Arno Dekker <jack.tar@example.com> 0.0.1-0
