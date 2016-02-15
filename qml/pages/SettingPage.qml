@@ -67,6 +67,7 @@ Dialog {
             }
             SectionHeader {
                 text: qsTr("Settings")
+                visible: isPortrait
             }
 
             ComboBox {
@@ -98,21 +99,55 @@ Dialog {
                     id: startButton
                     anchors.bottom: parent.bottom
                     width: (parent.width / 2) * 0.95
-                    text: isStarted === "false" ? qsTr("Start") : qsTr("Stop")
+                    text: qsTr("Start")
+                    enabled: isStarted === "false"
                     onClicked: {
                         bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper " + (text === "Start" ? "start_cron" : "stop_cron"))
+                        "/usr/share/harbour-sailcron/helper/sailcronhelper start_cron")
                         checkCronStatus()
                     }
                 }
                 Button {
-                    id: enableButton
+                    id: stopButton
                     anchors.bottom: parent.bottom
                     width: (parent.width / 2) * 0.95
-                    text: isEnabled === "enabled" ? qsTr("No autostart") : qsTr("Autostart")
+                    text: qsTr("Stop")
+                    enabled: isStarted === "true"
                     onClicked: {
                         bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper " + (text === "Autostart" ? "enable_cron" : "disable_cron"))
+                        "/usr/share/harbour-sailcron/helper/sailcronhelper stop_cron")
+                        checkCronStatus()
+                    }
+                }
+            }
+            Row {
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                spacing: (width / 2) * 0.1
+                height: Theme.itemSizeMedium + Theme.paddingMedium
+                Button {
+                    id: enabledButton
+                    anchors.bottom: parent.bottom
+                    width: (parent.width / 2) * 0.95
+                    text: qsTr("Autostart")
+                    enabled: isEnabled !== "enabled"
+                    onClicked: {
+                        bar.launch(
+                        "/usr/share/harbour-sailcron/helper/sailcronhelper enable_cron")
+                        checkCronStatus()
+                    }
+                }
+                Button {
+                    id: disableButton
+                    anchors.bottom: parent.bottom
+                    width: (parent.width / 2) * 0.95
+                    text: qsTr("No autostart")
+                    enabled: isEnabled === "enabled"
+                    onClicked: {
+                        bar.launch(
+                        "/usr/share/harbour-sailcron/helper/sailcronhelper disable_cron")
                         checkCronStatus()
                     }
                 }

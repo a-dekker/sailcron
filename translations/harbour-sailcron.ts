@@ -276,47 +276,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="75"/>
+        <location filename="../qml/pages/SettingPage.qml" line="76"/>
         <source>Default cron user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="76"/>
+        <location filename="../qml/pages/SettingPage.qml" line="77"/>
         <source>Which users crontab is shown at startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="80"/>
+        <location filename="../qml/pages/SettingPage.qml" line="81"/>
         <source>nemo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="83"/>
+        <location filename="../qml/pages/SettingPage.qml" line="84"/>
         <source>root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="88"/>
+        <location filename="../qml/pages/SettingPage.qml" line="89"/>
         <source>Cron(d) daemon actions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="101"/>
+        <location filename="../qml/pages/SettingPage.qml" line="102"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="101"/>
+        <location filename="../qml/pages/SettingPage.qml" line="114"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="112"/>
+        <location filename="../qml/pages/SettingPage.qml" line="146"/>
         <source>No autostart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="112"/>
+        <location filename="../qml/pages/SettingPage.qml" line="134"/>
         <source>Autostart</source>
         <translation type="unfinished"></translation>
     </message>
