@@ -278,47 +278,47 @@
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="75"/>
         <source>Default cron user</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard cron-användare</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="76"/>
         <source>Which users crontab is shown at startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Vilken användares cron-flik som visas vid uppstart</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="80"/>
         <source>nemo</source>
-        <translation type="unfinished"></translation>
+        <translation>nemo</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="83"/>
         <source>root</source>
-        <translation type="unfinished"></translation>
+        <translation>root</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="88"/>
         <source>Cron(d) daemon actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Cron(d) demonåtgärder</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="101"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Starta</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="101"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Stoppa</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="112"/>
         <source>No autostart</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen autostart</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="112"/>
         <source>Autostart</source>
-        <translation type="unfinished"></translation>
+        <translation>Autostarta</translation>
     </message>
 </context>
 </TS>
