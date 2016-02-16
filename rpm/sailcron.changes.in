@@ -8,6 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Mon Feb 15 2016 Arno Dekker <jack.tar@example.com> 0.0.1-5
+- Fix: pipe symbol was not handled correctly
 * Mon Feb 15 2016 Arno Dekker <jack.tar@example.com> 0.0.1-4
 - Included upstream change for week/month localizations
 - Swedish translation updated

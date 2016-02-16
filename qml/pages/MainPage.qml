@@ -75,7 +75,7 @@ Page {
                         + mainapp.current_cron_user))
         data = data.split('\n')
         for (var i = 0; i < data.length - 1; i++) {
-            myElement = data[i].split("|")
+            myElement = data[i].split("~|")
             lineNbr = myElement[0].trim()
             isEnabled = myElement[1].trim()
             minutes = myElement[2].trim()

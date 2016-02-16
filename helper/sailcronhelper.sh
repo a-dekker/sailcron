@@ -63,7 +63,7 @@ get_cron_data ()
         exit 1
     fi
     # also exclude environment settings
-    crontab -l -u ${CRON_USER}|awk '{ if (index($0, "# Disabled by Sailcron ") != 0) print "false|" substr($0,24); else print "true|"$0 }'|grep -nv "^true| \?#"|sed -e 's/ /|/1' -e 's/ /|/1' -e 's/ /|/1' -e 's/ /|/1' -e 's/ /|/1'|sed "s/:/|/"|grep -v "\w*.=.*$"|base64
+    crontab -l -u ${CRON_USER}|awk '{ if (index($0, "# Disabled by Sailcron ") != 0) print "false~|" substr($0,24); else print "true~|"$0 }'|grep -nv "^true~| \?#"|sed -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1'|sed "s/:/~|/"|grep -v "\w*.=.*$"|base64
 }
 
 disable_entry ()
