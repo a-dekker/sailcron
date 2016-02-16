@@ -194,7 +194,7 @@ Dialog {
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
                 text: "<b>" + qsTr("Day of the week") + "</b><br>"
-                      + qsTr("Range from 0-7. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5")
+                      + qsTr("Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }

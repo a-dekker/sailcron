@@ -118,7 +118,7 @@
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="197"/>
-        <source>Range from 0-7. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5</source>
+        <source>Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
