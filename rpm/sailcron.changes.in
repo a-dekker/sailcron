@@ -8,6 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Feb 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-7
+- Fixed not showing cron entries with '=' sign
 * Tue Feb 16 2016 Arno Dekker <jack.tar@example.com> 0.0.1-6
 - Fixed weekday numbers explanation
 * Mon Feb 15 2016 Arno Dekker <jack.tar@example.com> 0.0.1-5
