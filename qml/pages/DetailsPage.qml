@@ -8,6 +8,7 @@ Page {
                          | Orientation.LandscapeInverted
 
     property string execCommand: ""
+    property string aliasCommand: ""
     property string detail_minute: ""
     property string detail_hour: ""
     property string detail_dom: ""
@@ -46,6 +47,18 @@ Page {
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.secondaryColor
                 text: mainapp.current_cron_user
+                wrapMode: Text.Wrap
+            }
+            Label {
+                x: Theme.paddingLarge
+                text: qsTr("Command displayed")
+            }
+            Label {
+                x: Theme.paddingLarge
+                width: parent.width - Theme.paddingLarge
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.secondaryColor
+                text: aliasCommand
                 wrapMode: Text.Wrap
             }
             Label {

@@ -5,8 +5,8 @@ import org.nemomobile.notifications 1.0
 import harbour.sailcron.Settings 1.0
 import io.thp.pyotherside 1.4
 
-// using cron_descriptor: https://github.com/Salamek/cron-descriptor
 
+// using cron_descriptor: https://github.com/Salamek/cron-descriptor
 Page {
     id: mainPage
     allowedOrientations: Orientation.Portrait | Orientation.Landscape
@@ -69,6 +69,7 @@ Page {
         var myElement
         var cronString
         var timeStringHuman
+        var aliasString
         var data = Qt.atob(
                     bar.launch(
                         "/usr/share/harbour-sailcron/helper/sailcronhelper readcron "
@@ -84,13 +85,16 @@ Page {
             month = myElement[5].trim()
             dayOfWeek = myElement[6].trim()
             command_string = myElement[7].trim()
-            cronString = minutes + " " + hours + " "
-                    + dayOfMonth + " " + month + " " + dayOfWeek
-            // sync python call else timeStringHuman is not filled on time ?
+            cronString = minutes + " " + hours + " " + dayOfMonth + " " + month + " " + dayOfWeek
+            // check if alias is present
+            aliasString = bar.launch(
+                        "/usr/share/harbour-sailcron/helper/sailcronhelper readalias " + Qt.btoa(
+                            command_string)).trim()
+            // synchronous python call else timeStringHuman is not filled on time ?
             timeStringHuman = python.call_sync("pretty_cron.get_pretty",
-                                           [cronString])
+                                               [cronString])
             appendList(lineNbr, isEnabled, minutes, hours, dayOfMonth, month,
-                       dayOfWeek, command_string, timeStringHuman)
+                       dayOfWeek, command_string, aliasString, timeStringHuman)
         }
     }
 
@@ -115,7 +119,7 @@ Page {
     }
 
     // helper function to add lists to the list
-    function appendList(lineNbr, isEnabled, minutes, hours, dayOfMonth, month, dayOfWeek, command_string, timeStringHuman) {
+    function appendList(lineNbr, isEnabled, minutes, hours, dayOfMonth, month, dayOfWeek, command_string, aliasString, timeStringHuman) {
         listCronModel.append({
                                  lineNbr: lineNbr,
                                  isEnabled: isEnabled,
@@ -125,6 +129,7 @@ Page {
                                  month: month,
                                  dayOfWeek: dayOfWeek,
                                  command_string: command_string,
+                                 aliasString: aliasString,
                                  timeStringHuman: timeStringHuman
                              })
     }
@@ -134,15 +139,15 @@ Page {
 
         Component.onCompleted: {
             // Add the directory of this .qml file to the search path
-            addImportPath(Qt.resolvedUrl('.'));
+            addImportPath(Qt.resolvedUrl('.'))
             // Import the main module
             importModule('pretty_cron', function () {
-                console.log('pretty_cron module is now imported');
-            });
+                console.log('pretty_cron module is now imported')
+            })
         }
         onError: {
             // when an exception is raised, this error handler will be called
-            console.log('python error: ' + traceback);
+            console.log('python error: ' + traceback)
         }
     }
 
@@ -179,7 +184,8 @@ Page {
                 MenuItem {
                     text: qsTr("Add new entry")
                     onClicked: {
-                        var dialog = pageStack.push(Qt.resolvedUrl("AddPage.qml"))
+                        var dialog = pageStack.push(Qt.resolvedUrl(
+                                                        "AddPage.qml"))
                         dialog.accepted.connect(function () {
                             listCronModel.clear()
                             loadCron()
@@ -220,32 +226,32 @@ Page {
                 }
 
                 function disable() {
-                    remorseAction(qsTr("Disabling") + " '" + listCronModel.get(
-                                      index).command_string.substring(
-                                      0, 20) + "'", function () {
-                                          var infoString = listCronModel.get(
-                                                      index).lineNbr
-                                          var data = bar.launch(
-                                                      "/usr/share/harbour-sailcron/helper/sailcronhelper disable " + infoString + " " + mainapp.current_cron_user)
-                                          listCronModel.get(
-                                                      index).isEnabled = "false"
-                                      })
+                    remorseAction(
+                                qsTr("Disabling") + " '" + commandLabel.text.substring(
+                                    0, 20) + "'", function () {
+                                        var infoString = listCronModel.get(
+                                                    index).lineNbr
+                                        var data = bar.launch(
+                                                    "/usr/share/harbour-sailcron/helper/sailcronhelper disable " + infoString + " " + mainapp.current_cron_user)
+                                        listCronModel.get(
+                                                    index).isEnabled = "false"
+                                    })
                 }
                 function remove() {
-                    remorseAction(qsTr("Deleting") + " '" + listCronModel.get(
-                                      index).command_string.substring(
-                                      0, 20) + "'", function () {
-                                          var infoString = listCronModel.get(
-                                                      index).lineNbr
-                                          var data = bar.launch(
-                                                      "/usr/share/harbour-sailcron/helper/sailcronhelper delete " + infoString + " " + mainapp.current_cron_user)
-                                          console.log(data)
-                                          listCronModel.remove(index)
-                                          // reload to prevent possible line number shift
-                                          listCronModel.clear()
-                                          loadCron()
-                                      })
-                                  }
+                    remorseAction(
+                                qsTr("Deleting") + " '" + commandLabel.text.substring(
+                                    0, 20) + "'", function () {
+                                        var infoString = listCronModel.get(
+                                                    index).lineNbr
+                                        var data = bar.launch(
+                                                    "/usr/share/harbour-sailcron/helper/sailcronhelper delete " + infoString + " " + mainapp.current_cron_user)
+                                        console.log(data)
+                                        listCronModel.remove(index)
+                                        // reload to prevent possible line number shift
+                                        listCronModel.clear()
+                                        loadCron()
+                                    })
+                }
                 RemorseItem {
                     id: listRemorse
                 }
@@ -274,8 +280,7 @@ Page {
 
                 Label {
                     id: commandLabel
-                    // anchors.left: hotspotIcon.right
-                    text: command_string
+                    text: aliasString === "" ? command_string : aliasString
                     font.pixelSize: Theme.fontSizeSmall
                     font.strikeout: isEnabled === "false"
                     width: parent.width
@@ -301,16 +306,25 @@ Page {
                             visible: isEnabled === "true"
                             text: qsTr("Edit")
                             onClicked: {
-                                var dialog = pageStack.push(Qt.resolvedUrl(
-                                                        "AddPage.qml"), {
-                                                        linenumber: listCronModel.get(index).lineNbr,
-                                                        str_minute: listCronModel.get(index).minutes,
-                                                        str_hour: listCronModel.get(index).hours,
-                                                        str_dom: listCronModel.get(index).dayOfMonth,
-                                                        str_month: listCronModel.get(index).month,
-                                                        str_dow: listCronModel.get(index).dayOfWeek,
-                                                        commandTXT: commandLabel.text
-                                                    })
+                                var dialog = pageStack.push(
+                                            Qt.resolvedUrl("AddPage.qml"), {
+                                                linenumber: listCronModel.get(
+                                                                index).lineNbr,
+                                                str_minute: listCronModel.get(
+                                                                index).minutes,
+                                                str_hour: listCronModel.get(
+                                                              index).hours,
+                                                str_dom: listCronModel.get(
+                                                             index).dayOfMonth,
+                                                str_month: listCronModel.get(
+                                                               index).month,
+                                                str_dow: listCronModel.get(
+                                                             index).dayOfWeek,
+                                                commandTXT: listCronModel.get(
+                                                                index).command_string,
+                                                aliasTXT: listCronModel.get(
+                                                              index).aliasString
+                                            })
                             }
                         }
                         MenuItem {
@@ -334,12 +348,19 @@ Page {
                 }
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("DetailsPage.qml"), {
-                                       detail_minute: listCronModel.get(index).minutes,
-                                       detail_hour: listCronModel.get(index).hours,
-                                       detail_dom: listCronModel.get(index).dayOfMonth,
-                                       detail_month: listCronModel.get(index).month,
-                                       detail_dow: listCronModel.get(index).dayOfWeek,
-                                       execCommand: commandLabel.text,
+                                       detail_minute: listCronModel.get(
+                                                          index).minutes,
+                                       detail_hour: listCronModel.get(
+                                                        index).hours,
+                                       detail_dom: listCronModel.get(
+                                                       index).dayOfMonth,
+                                       detail_month: listCronModel.get(
+                                                         index).month,
+                                       detail_dow: listCronModel.get(
+                                                       index).dayOfWeek,
+                                       execCommand: listCronModel.get(
+                                                        index).command_string,
+                                       aliasCommand: commandLabel.text,
                                        timeStringHuman: timeLabel.text
                                    })
                 }

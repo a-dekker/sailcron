@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Mar 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-8
+- No auto capitalisation in command field
+- Create custom names for execution string
 * Wed Feb 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-7
 - Fixed not showing cron entries with '=' sign
 * Tue Feb 16 2016 Arno Dekker <jack.tar@example.com> 0.0.1-6

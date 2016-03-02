@@ -21,13 +21,21 @@ check_params ()
             delete_entry
             ;;
         "append")
+            SEP='[~][s][e][p][a][r][a][t][o][r][~]'
             CRON_COMMAND=$(echo $2|base64 --decode)
-            EXEC_COMMAND=$(echo $4|base64 --decode)
+            EXEC_COMMAND=$(echo $4|awk -F ${SEP} '{print $1'}|base64 --decode)
+            ALIAS_COMMAND=$(echo $4|awk -F ${SEP} '{print $2'}|base64 --decode)
+            EXEC_COMMAND_B64=$(echo $4|awk -F ${SEP} '{print $1'})
+            ALIAS_COMMAND_B64=$(echo $4|awk -F ${SEP} '{print $2'})
             append_entry
             ;;
         "edit")
+            SEP='[~][s][e][p][a][r][a][t][o][r][~]'
             CRON_COMMAND=$(echo $4|base64 --decode)
-            EXEC_COMMAND=$(echo $5|base64 --decode|sed -e 's/[\/&]/\\&/g')
+            EXEC_COMMAND=$(echo $5|awk -F ${SEP} '{print $1'}|base64 --decode|sed -e 's/[\/&]/\\&/g')
+            ALIAS_COMMAND=$(echo $5|awk -F ${SEP} '{print $2'}|base64 --decode|sed -e 's/[\/&]/\\&/g')
+            EXEC_COMMAND_B64=$(echo $5|awk -F ${SEP} '{print $1'})
+            ALIAS_COMMAND_B64=$(echo $5|awk -F ${SEP} '{print $2'})
             edit_entry
             ;;
         "start_cron")
@@ -48,6 +56,10 @@ check_params ()
         "isStarted")
             check_cron_service isStarted
             ;;
+        "readalias")
+            CRON_ALIAS=$2
+            read_alias
+            ;;
         *)
             echo "Unknown call"
             exit 1
@@ -63,7 +75,10 @@ get_cron_data ()
         exit 1
     fi
     # also exclude environment settings
-    crontab -l -u ${CRON_USER}|awk '{ if (index($0, "# Disabled by Sailcron ") != 0) print "false~|" substr($0,24); else print "true~|"$0 }'|grep -nv "^true~| \?#"|sed -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1'|sed "s/:/~|/"|egrep -v "[0-9]+~\|(true|false)~\|[a-zA-Z]"|base64
+    crontab -l -u ${CRON_USER}|awk '{ if (index($0, "# Disabled by Sailcron ") != 0) \
+        print "false~|" substr($0,24); else print "true~|"$0 }'|grep -nv "^true~| \?#"| \
+        sed -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1' -e 's/ /~|/1'| \
+        sed "s/:/~|/"|egrep -v "[0-9]+~\|(true|false)~\|[a-zA-Z]"|base64
 }
 
 disable_entry ()
@@ -81,9 +96,23 @@ delete_entry ()
     sed -i "${LINE_NBR}d" ${CRON_FILE}
 }
 
+add_alias ()
+{
+    if [ ! -z "${ALIAS_COMMAND}" ]
+    then
+        # see if alias is already added
+        grep -q "${EXEC_COMMAND_B64}~separator~${ALIAS_COMMAND_B64}" ${ALIAS_FILE}
+        if [ $? -ne 0 ]
+        then
+            echo "${EXEC_COMMAND_B64}~separator~${ALIAS_COMMAND_B64}" >> ${ALIAS_FILE}
+        fi
+    fi
+}
+
 append_entry ()
 {
     echo "${CRON_COMMAND} ${EXEC_COMMAND}" >> ${CRON_FILE}
+    add_alias
 }
 
 edit_entry ()
@@ -91,6 +120,13 @@ edit_entry ()
     set -f
     sed -i -r "${LINE_NBR}s/.*$/${CRON_COMMAND} ${EXEC_COMMAND}/" ${CRON_FILE} 2>&1
     echo "${LINE_NBR} ${CRON_COMMAND} ${EXEC_COMMAND} ${CRON_FILE}"
+    # remove any existing alias entry
+    LINE_NBR=$(grep -n "${EXEC_COMMAND_B64}~separator~" ${ALIAS_FILE}|cut -f1 -d:)
+    if [ ! -z "${LINE_NBR}" ]
+    then
+        sed -i "${LINE_NBR}d" ${ALIAS_FILE}
+    fi
+    add_alias
 }
 
 start_cron_service ()
@@ -117,6 +153,16 @@ enable_cron_service ()
     EXIT_CODE=$?
 }
 
+read_alias ()
+{
+    SEP='[~][s][e][p][a][r][a][t][o][r][~]'
+    ALIAS_LINE=$(grep ${CRON_ALIAS} ${ALIAS_FILE}|head -1)
+    # echo "${CRON_ALIAS}"|base64 --decode
+    # echo "alias_line: ${ALIAS_LINE}"
+    ALIAS_VALUE=$(echo ${ALIAS_LINE}|awk -F ${SEP} '{print $2'}|base64 --decode|sed -e 's/[\/&]/\\&/g')
+    printf "${ALIAS_VALUE}"
+}
+
 check_cron_service ()
 {
     case "$1" in
@@ -139,6 +185,18 @@ check_cron_service ()
 
 main ()
 {
+    CONFIG_DIR="/home/nemo/.config/harbour-sailcron"
+    ALIAS_FILE="${CONFIG_DIR}/cron_command_alias.txt"
+    if [ ! -d "${CONFIG_DIR}" ]
+    then
+        mkdir ${CONFIG_DIR}
+        chown nemo:nemo ${CONFIG_DIR}
+    fi
+    if [ ! -f "${CONFIG_DIR}/cron_command_alias.txt" ]
+    then
+        touch ${ALIAS_FILE}
+        chown nemo:nemo ${ALIAS_FILE}
+    fi
     check_params $@
 }
 

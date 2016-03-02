@@ -20,6 +20,7 @@ Dialog {
     property string timeStringHuman: ""
     property string cronString: ""
     property string commandTXT: ""
+    property string aliasTXT: ""
     property bool isValidCron: false
     property string linenumber: ""
     property string str_minute: ""
@@ -35,14 +36,16 @@ Dialog {
             data = bar.launch(
                         "/usr/share/harbour-sailcron/helper/sailcronhelper append " + Qt.btoa(
                             cronString) + " " + mainapp.current_cron_user + " " + Qt.btoa(
-                                commandField.text))
+                            commandField.text) + "~separator~" + Qt.btoa(
+                            aliasField.text))
             console.log(data)
         } else {
             data = bar.launch(
                         "/usr/share/harbour-sailcron/helper/sailcronhelper edit "
                         + linenumber + " " + mainapp.current_cron_user + " " + Qt.btoa(
                             cronString) + " " + Qt.btoa(
-                                commandField.text))
+                            commandField.text) + "~separator~" + Qt.btoa(
+                            aliasField.text))
             mainapp.changestatus = "edited"
             console.log(data)
         }
@@ -98,15 +101,18 @@ Dialog {
                 cancelText: qsTr("Cancel")
             }
             SectionHeader {
-                text: (linenumber === "" ? qsTr("Add cron entry") : qsTr("Edit cron entry")) + " (" + mainapp.current_cron_user + ")"
+                text: (linenumber === "" ? qsTr("Add cron entry") : qsTr(
+                                               "Edit cron entry")) + " ("
+                      + mainapp.current_cron_user + ")"
                 // visible: isPortrait
             }
             Label {
                 width: col.width - Theme.paddingLarge * 2
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
-                text: "<b>" + qsTr("Minutes past every hour") + "</b><br>"
-                      + qsTr("Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes.")
+                text: "<b>" + qsTr(
+                          "Minutes past every hour") + "</b><br>" + qsTr(
+                          "Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes.")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -127,8 +133,8 @@ Dialog {
                 width: col.width - Theme.paddingLarge * 2
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
-                text: "<b>" + qsTr(
-                          "Hours") + "</b><br>" + qsTr("Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9")
+                text: "<b>" + qsTr("Hours") + "</b><br>" + qsTr(
+                          "Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -149,8 +155,8 @@ Dialog {
                 width: col.width - Theme.paddingLarge * 2
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
-                text: "<b>" + qsTr("Day of the month") + "</b><br>"
-                      + qsTr("Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21")
+                text: "<b>" + qsTr("Day of the month") + "</b><br>" + qsTr(
+                          "Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -171,8 +177,8 @@ Dialog {
                 width: col.width - Theme.paddingLarge * 2
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
-                text: "<b>" + qsTr(
-                          "Month") + "</b><br>" + qsTr("Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5")
+                text: "<b>" + qsTr("Month") + "</b><br>" + qsTr(
+                          "Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -193,8 +199,8 @@ Dialog {
                 width: col.width - Theme.paddingLarge * 2
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
-                text: "<b>" + qsTr("Day of the week") + "</b><br>"
-                      + qsTr("Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5")
+                text: "<b>" + qsTr("Day of the week") + "</b><br>" + qsTr(
+                          "Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -216,8 +222,8 @@ Dialog {
                 width: col.width - Theme.paddingLarge * 2
                 x: Theme.paddingLarge
                 y: Theme.paddingLarge
-                text: "<b>" + qsTr("Command") + "</b><br>"
-                      + qsTr("This command will be executed if it is matched with the time")
+                text: "<b>" + qsTr("Command") + "</b><br>" + qsTr(
+                          "This command will be executed if it is matched with the time")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
             }
@@ -225,13 +231,35 @@ Dialog {
                 id: commandField
                 text: commandTXT
                 font.pixelSize: Theme.fontSizeSmall
-                inputMethodHints: Qt.ImhNoPredictiveText
+                inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
                 placeholderText: qsTr("Enter command here")
                 maximumLength: 200
                 width: col.width - Theme.paddingLarge * 2
                 EnterKey.enabled: text.trim().length > 0
                 EnterKey.onClicked: {
-                    commandField.focus = false
+                    aliasField.focus = true
+                }
+            }
+            Label {
+                width: col.width - Theme.paddingLarge * 2
+                x: Theme.paddingLarge
+                y: Theme.paddingLarge
+                text: "<b>" + qsTr("Custom text") + "</b><br>" + qsTr(
+                          "Show a more meaningful command text, e.g. 'Flightmode on'")
+                font.pixelSize: Theme.fontSizeSmall
+                wrapMode: Text.Wrap
+            }
+            TextField {
+                id: aliasField
+                text: aliasTXT
+                font.pixelSize: Theme.fontSizeSmall
+                inputMethodHints: Qt.ImhNoPredictiveText
+                placeholderText: qsTr("Enter custom text here")
+                maximumLength: 100
+                width: col.width - Theme.paddingLarge * 2
+                EnterKey.enabled: text.trim().length > 0
+                EnterKey.onClicked: {
+                    aliasField.focus = false
                 }
             }
             Label {
