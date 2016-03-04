@@ -144,17 +144,17 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="247"/>
         <source>Custom text</source>
-        <translation type="unfinished"></translation>
+        <translation>Anpassad text</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="247"/>
         <source>Show a more meaningful command text, e.g. &apos;Flightmode on&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa en mer meningsfull kommandotext, ex. &apos;Flygläge på&apos;</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="257"/>
         <source>Enter custom text here</source>
-        <translation type="unfinished"></translation>
+        <translation>Ange anpassad text här</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="297"/>
@@ -210,72 +210,72 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="115"/>
         <source>Cron daemon is not running!</source>
-        <translation type="unfinished"></translation>
+        <translation>Cron-demonen är inte startad</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="165"/>
         <source>About</source>
-        <translation type="unfinished">Om</translation>
+        <translation>Om</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="169"/>
         <source>Settings</source>
-        <translation type="unfinished">Inställningar</translation>
+        <translation>Inställningar</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="174"/>
         <source>Switch to user root</source>
-        <translation type="unfinished"></translation>
+        <translation>Byt till användare root</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="174"/>
         <source>Switch to user nemo</source>
-        <translation type="unfinished"></translation>
+        <translation>Byt till användare nemo</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="185"/>
         <source>Add new entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till ny post</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="209"/>
         <source>No cron entries found for user </source>
-        <translation type="unfinished"></translation>
+        <translation>Inga cron-poster hittades för användare</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="216"/>
         <source>Enabling</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiverar</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="230"/>
         <source>Disabling</source>
-        <translation type="unfinished"></translation>
+        <translation>Avaktiverar</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="242"/>
         <source>Deleting</source>
-        <translation type="unfinished"></translation>
+        <translation>Tar bort</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="307"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigera</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="331"/>
         <source>Disable</source>
-        <translation type="unfinished"></translation>
+        <translation>Inaktivera</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="331"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivera</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="342"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta bort</translation>
     </message>
 </context>
 <context>
