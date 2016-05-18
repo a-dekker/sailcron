@@ -8,7 +8,13 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Wed Mar 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-8
+* Wed May 18 2016 Arno Dekker <jack.tar@example.com> 0.0.1-10
+- Increased max length of input fields
+- Included upstream fix for cron-descriptor
+* Wed Mar 2 2016 Arno Dekker <jack.tar@example.com> 0.0.1-9
+- Updated Swedish
+- Added Dutch language
+* Wed Mar 2 2016 Arno Dekker <jack.tar@example.com> 0.0.1-8
 - No auto capitalisation in command field
 - Create custom names for execution string
 * Wed Feb 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-7

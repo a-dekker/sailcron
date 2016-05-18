@@ -5,6 +5,8 @@ Page {
     id: aboutPage
     allowedOrientations: Orientation.Portrait | Orientation.Landscape
                          | Orientation.LandscapeInverted
+    property bool largeScreen: Screen.sizeCategory === Screen.Large ||
+                               Screen.sizeCategory === Screen.ExtraLarge
     SilicaFlickable {
         anchors.fill: parent
         contentWidth: parent.width
@@ -22,25 +24,26 @@ Page {
             }
             SectionHeader {
                 text: qsTr("Info")
-                visible: isPortrait
+                visible: isPortrait || largeScreen
             }
             Separator {
                 color: Theme.primaryColor
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Qt.AlignHCenter
-                visible: isPortrait
+                visible: isPortrait || largeScreen
             }
             Label {
                 text: "Sailcron"
-                font.pixelSize: Theme.fontSizeExtraLarge
+                font.pixelSize: largeScreen ? Theme.fontSizeHuge : Theme.fontSizeExtraLarge
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Image {
                 anchors.horizontalCenter: parent.horizontalCenter
-                source: isLandscape ? "/usr/share/icons/hicolor/86x86/apps/harbour-sailcron.png" : "/usr/share/icons/hicolor/128x128/apps/harbour-sailcron.png"
+                    source: largeScreen ? "/usr/share/icons/hicolor/256x256/apps/harbour-sailcron.png" : "/usr/share/icons/hicolor/86x86/apps/harbour-sailcron.png"
             }
             Label {
+                font.pixelSize: largeScreen ? Theme.fontSizeLarge : Theme.fontSizeMedium
                 text: qsTr("Version") + " " + version
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: Theme.secondaryHighlightColor
@@ -56,14 +59,14 @@ Page {
             }
             SectionHeader {
                 text: qsTr("Author")
-                visible: isPortrait
+                visible: isPortrait || largeScreen
             }
             Separator {
                 color: Theme.primaryColor
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Qt.AlignHCenter
-                visible: isPortrait
+                visible: isPortrait || largeScreen
             }
             Label {
                 text: "© Arno Dekker 2016"

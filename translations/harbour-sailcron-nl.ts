@@ -21,7 +21,7 @@
     <message>
         <location filename="../qml/pages/About.qml" line="52"/>
         <source>Manage your crontabs</source>
-        <translation>Beheer jouw crontabs</translation>
+        <translation>Beheer je crontabs</translation>
     </message>
     <message>
         <location filename="../qml/pages/About.qml" line="61"/>
@@ -119,7 +119,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="202"/>
         <source>Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5</source>
-        <translation>Bereik van 0-6. Wildcard (*) betekent elke dag van de week. Zondag is 0 (of geen SUN). Meerdere dagen van de week als 2-4 of 2,5</translation>
+        <translation>Bereik van 0-6. Wildcard (*) betekent elke dag van de week. Zondag is 0 (of SUN). Meerdere dagen van de week als 2-4 of 2,5</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="212"/>
@@ -134,7 +134,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="225"/>
         <source>This command will be executed if it is matched with the time</source>
-        <translation>Dit commando wordt uitgevoerd als het overeenkomt met de tijd</translation>
+        <translation>Dit commando wordt uitgevoerd als het overeenkomt met het opgevoerde moment</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="235"/>
@@ -149,7 +149,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="247"/>
         <source>Show a more meaningful command text, e.g. &apos;Flightmode on&apos;</source>
-        <translation>Toon een meer tekst met meer betekenis, bijvoorbeeld &apos;Flightmode aan&apos;</translation>
+        <translation>Toon een tekst met meer betekenis, bijvoorbeeld &apos;Flightmode aan&apos;</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="257"/>
@@ -202,7 +202,7 @@
     <message>
         <location filename="../qml/pages/DetailsPage.qml" line="89"/>
         <source>Human readable execution time</source>
-        <translation>Uitvoeringstijd in voor mensen leesbare vorm</translation>
+        <translation>Uitvoeringstijd</translation>
     </message>
 </context>
 <context>
@@ -225,12 +225,12 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="174"/>
         <source>Switch to user root</source>
-        <translation>Wissel naar gebruiker root</translation>
+        <translation>Naar gebruiker root</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="174"/>
         <source>Switch to user nemo</source>
-        <translation>Wissel naar gebruiker nemo</translation>
+        <translation>Naar gebruiker nemo</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="185"/>
@@ -240,7 +240,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="209"/>
         <source>No cron entries found for user </source>
-        <translation>Geen cron regels aanwezig voor gebruiker</translation>
+        <translation>Geen cron regels aanwezig voor gebruiker </translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="216"/>

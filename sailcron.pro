@@ -12,6 +12,11 @@
 # The name of your application
 TARGET = harbour-sailcron
 
+DEPLOYMENT_PATH = /usr/share/$${TARGET}
+
+translations.files = translations
+translations.path = $${DEPLOYMENT_PATH}
+
 CONFIG += sailfishapp
 
 TEMPLATE = subdirs

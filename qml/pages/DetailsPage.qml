@@ -87,6 +87,7 @@ Page {
             Label {
                 x: Theme.paddingLarge
                 text: qsTr("Human readable execution time")
+                wrapMode: Text.Wrap
             }
             Label {
                 x: Theme.paddingLarge

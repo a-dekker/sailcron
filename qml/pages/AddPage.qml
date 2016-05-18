@@ -123,7 +123,7 @@ Dialog {
                 placeholderText: qsTr('Enter minutes')
                 text: str_minute
                 width: col.width / 2
-                maximumLength: 10
+                maximumLength: 25
                 EnterKey.enabled: text.trim().length > 0
                 EnterKey.onClicked: {
                     hoursField.focus = true
@@ -146,7 +146,7 @@ Dialog {
                 EnterKey.enabled: text.trim().length > 0
                 text: str_hour
                 width: col.width / 2
-                maximumLength: 10
+                maximumLength: 25
                 EnterKey.onClicked: {
                     dotmField.focus = true
                 }
@@ -168,7 +168,7 @@ Dialog {
                 EnterKey.enabled: text.trim().length > 0
                 text: str_dom
                 width: col.width / 2
-                maximumLength: 10
+                maximumLength: 25
                 EnterKey.onClicked: {
                     monthField.focus = true
                 }
@@ -190,7 +190,7 @@ Dialog {
                 EnterKey.enabled: text.trim().length > 0
                 text: str_month
                 width: col.width / 2
-                maximumLength: 10
+                maximumLength: 20
                 EnterKey.onClicked: {
                     dowField.focus = true
                 }
@@ -213,7 +213,7 @@ Dialog {
                 EnterKey.enabled: text.trim().length > 0
                 text: str_dow
                 width: isPortrait ? font.pixelSize * 9 : font.pixelSize * 18
-                maximumLength: 10
+                maximumLength: 25
                 EnterKey.onClicked: {
                     commandField.focus = true
                 }

@@ -14,7 +14,7 @@ Name:       harbour-sailcron
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Manage your crontabs
 Version:    0.1
-Release:    8
+Release:    10
 Group:      Qt/Qt
 License:    LICENSE
 URL:        https://github.com/a-dekker/sailcron
@@ -76,6 +76,7 @@ desktop-file-install --delete-original       \
 %{_datadir}/icons/hicolor/108x108/apps/%{name}.png
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/icons/hicolor/256x256/apps/%{name}.png
+%{_datadir}/%{name}/translations
 /usr/bin
 /usr/share/harbour-sailcron
 /usr/share/applications

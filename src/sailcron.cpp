@@ -32,14 +32,15 @@ modification, are permitted provided that the following conditions are met:
 #include <QtQuick>
 #endif
 
+#include <sailfishapp.h>
 #include <QtQml>
 #include <QProcess>
+#include <QTranslator>
 #include <qqml.h>
 #include <QtGui>
 #include <QQuickView>
 #include "osread.h"
 #include "settings.h"
-#include <sailfishapp.h>
 
 int main(int argc, char *argv[])
 {
@@ -59,18 +60,28 @@ int main(int argc, char *argv[])
     if (appinfo.bytesAvailable() > 0) {
         appversion = appinfo.readAll();
     }
+
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    QQuickView* view = SailfishApp::createView();
     qmlRegisterType<Launcher>("harbour.sailcron.Launcher", 1 , 0 , "App");
     qmlRegisterType<Settings>("harbour.sailcron.Settings", 1 , 0 , "MySettings");
     // To display the view, call "show()" (will show fullscreen on device).
 
-    QGuiApplication* app = SailfishApp::application(argc, argv);
+    QSettings mySets;
+    int languageNbr = mySets.value("language","0").toInt();
 
-    QLocale::setDefault(QLocale::c());
+    QTranslator translator;
+    if ( languageNbr == 3 ) {
+        // for python session localization
+        qputenv("LC_ALL", "nl_NL.UTF-8");
+        // for qt session localization
+        translator.load("harbour-sailcron-nl.qm", SailfishApp::pathTo(QString("translations")).toLocalFile());
+        app->installTranslator(&translator);
+    }
 
-    QQuickView* view = SailfishApp::createView();
     view->rootContext()->setContextProperty("version", appversion);
     view->setSource(SailfishApp::pathTo("qml/sailcron.qml"));
-    view->show();
+    view->showFullScreen();
     return app->exec();
 
 }

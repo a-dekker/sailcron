@@ -4,27 +4,27 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../qml/pages/About.qml" line="21"/>
+        <location filename="../qml/pages/About.qml" line="23"/>
         <source>About</source>
         <translation>Om</translation>
     </message>
     <message>
-        <location filename="../qml/pages/About.qml" line="24"/>
+        <location filename="../qml/pages/About.qml" line="26"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../qml/pages/About.qml" line="44"/>
+        <location filename="../qml/pages/About.qml" line="47"/>
         <source>Version</source>
         <translation>Version</translation>
     </message>
     <message>
-        <location filename="../qml/pages/About.qml" line="49"/>
+        <location filename="../qml/pages/About.qml" line="52"/>
         <source>Manage your crontabs</source>
         <translation>Hantera dina cron-flikar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/About.qml" line="58"/>
+        <location filename="../qml/pages/About.qml" line="61"/>
         <source>Author</source>
         <translation>Utvecklare</translation>
     </message>
@@ -342,4 +342,3 @@
     </message>
 </context>
 </TS>
-
