@@ -32,7 +32,10 @@ OTHER_FILES += qml/sailcron.qml \
     qml/pages/MainPage.qml \
     qml/pages/SettingPage.qml \
     qml/pages/AddPage.qml \
+    qml/pages/pretty_cron.py \
+    qml/pages/valid_cron.py \
     helper/sailcronhelper.sh \
+    python/python-crontab/crontab.py \
     python/cron_descriptor/CasingTypeEnum.py \
     python/cron_descriptor/DescriptionTypeEnum.py \
     python/cron_descriptor/Exception.py \
@@ -84,8 +87,8 @@ lupdate_only {
 script.files = helper/*
 script.path = /usr/share/harbour-sailcron/helper
 
-python.files = python/cron_descriptor/*
-python.path = /usr/share/harbour-sailcron/python/cron_descriptor
+python.files = python/*
+python.path = /usr/share/harbour-sailcron/python
 
 icon86.files += icons/86x86/harbour-sailcron.png
 icon86.path = /usr/share/icons/hicolor/86x86/apps

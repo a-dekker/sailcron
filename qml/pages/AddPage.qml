@@ -18,6 +18,7 @@ Dialog {
     }
 
     property string timeStringHuman: ""
+    property bool timeStringIsValid: false
     property string cronString: ""
     property string commandTXT: ""
     property string aliasTXT: ""
@@ -30,24 +31,27 @@ Dialog {
     property string str_dow: ""
 
     onAccepted: {
-        var data
-        if (linenumber === "") {
-            // add cron entry
-            data = bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper append " + Qt.btoa(
-                            cronString) + " " + mainapp.current_cron_user + " " + Qt.btoa(
-                            commandField.text) + "~separator~" + Qt.btoa(
-                            aliasField.text))
-            console.log(data)
-        } else {
-            data = bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper edit "
-                        + linenumber + " " + mainapp.current_cron_user + " " + Qt.btoa(
-                            cronString) + " " + Qt.btoa(
-                            commandField.text) + "~separator~" + Qt.btoa(
-                            aliasField.text))
-            mainapp.changestatus = "edited"
-            console.log(data)
+        check_validity()
+        if (isValidCron === true) {
+            var data
+            if (linenumber === "") {
+                // add cron entry
+                data = bar.launch(
+                            "/usr/share/harbour-sailcron/helper/sailcronhelper append " + Qt.btoa(
+                                cronString) + " " + mainapp.current_cron_user + " " + Qt.btoa(
+                                commandField.text) + "~separator~" + Qt.btoa(
+                                aliasField.text))
+                console.log(data)
+            } else {
+                data = bar.launch(
+                            "/usr/share/harbour-sailcron/helper/sailcronhelper edit "
+                            + linenumber + " " + mainapp.current_cron_user + " " + Qt.btoa(
+                                cronString) + " " + Qt.btoa(
+                                commandField.text) + "~separator~" + Qt.btoa(
+                                aliasField.text))
+                mainapp.changestatus = "edited"
+                console.log(data)
+            }
         }
     }
 
@@ -72,6 +76,29 @@ Dialog {
         notification.previewBody = message
         notification.previewSummary = "Sailcron"
         notification.publish()
+    }
+
+    function check_validity() {
+        cronString = minutesField.text + " " + hoursField.text + " "
+                + dotmField.text + " " + monthField.text + " " + dowField.text
+        // sync python call else timeStringValid is not filled on time ?
+        timeStringIsValid = py.call_sync("valid_cron.validate_cron",
+                                       [cronString])
+        if (timeStringIsValid == false) {
+            banner("ERROR", qsTr("Invalid cron syntax!"))
+            isValidCron = false
+        } else {
+            // sync python call else timeStringHuman is not filled on time ?
+            timeStringHuman = py.call_sync("pretty_cron.get_pretty",
+                                           [cronString])
+            if (timeStringHuman.indexOf("error") >= 0) {
+                banner("ERROR", qsTr("Invalid cron syntax!"))
+                isValidCron = false
+            } else {
+                banner("OK", qsTr("Cron syntax valid"))
+                isValidCron = true
+            }
+        }
     }
 
     Notification {
@@ -121,6 +148,9 @@ Dialog {
                 font.pixelSize: Theme.fontSizeSmall
                 inputMethodHints: Qt.ImhNoPredictiveText
                 placeholderText: qsTr('Enter minutes')
+                validator: RegExpValidator {
+                    regExp: /[*]{0,1}[0-9,-/]{0,25}/
+                }
                 text: str_minute
                 width: col.width / 2
                 maximumLength: 25
@@ -144,6 +174,9 @@ Dialog {
                 inputMethodHints: Qt.ImhNoPredictiveText
                 placeholderText: qsTr('Enter hours')
                 EnterKey.enabled: text.trim().length > 0
+                validator: RegExpValidator {
+                    regExp: /[*]{0,1}[0-9,-/]{0,25}/
+                }
                 text: str_hour
                 width: col.width / 2
                 maximumLength: 25
@@ -166,6 +199,9 @@ Dialog {
                 inputMethodHints: Qt.ImhNoPredictiveText
                 placeholderText: qsTr('Enter day of month')
                 EnterKey.enabled: text.trim().length > 0
+                validator: RegExpValidator {
+                    regExp: /[*]{0,1}[0-9,-]{0,25}/
+                }
                 text: str_dom
                 width: col.width / 2
                 maximumLength: 25
@@ -188,9 +224,12 @@ Dialog {
                 placeholderText: qsTr('Enter month')
                 inputMethodHints: Qt.ImhNoPredictiveText
                 EnterKey.enabled: text.trim().length > 0
+                validator: RegExpValidator {
+                    regExp: /[*]{0,1}[0-9A-Z,-]{0,25}/
+                }
                 text: str_month
                 width: col.width / 2
-                maximumLength: 20
+                maximumLength: 25
                 EnterKey.onClicked: {
                     dowField.focus = true
                 }
@@ -210,6 +249,9 @@ Dialog {
                 font.capitalization: Font.AllUppercase
                 inputMethodHints: Qt.ImhNoPredictiveText
                 placeholderText: qsTr('Enter day of week')
+                validator: RegExpValidator {
+                    regExp: /[*]{0,1}[0-9A-Z,-]{0,25}/
+                }
                 EnterKey.enabled: text.trim().length > 0
                 text: str_dow
                 width: isPortrait ? font.pixelSize * 9 : font.pixelSize * 18
@@ -282,6 +324,9 @@ Dialog {
                     importModule('pretty_cron', function () {
                         console.log('pretty_cron module is now imported')
                     })
+                    importModule('valid_cron', function () {
+                        console.log('valid_cron module is now imported')
+                    })
                 }
                 onError: {
                     // when an exception is raised, this error handler will be called
@@ -297,18 +342,7 @@ Dialog {
                 text: qsTr("Verify cron time")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    cronString = minutesField.text + " " + hoursField.text + " "
-                            + dotmField.text + " " + monthField.text + " " + dowField.text
-                    // sync python call else timeStringHuman is not filled on time ?
-                    timeStringHuman = py.call_sync("pretty_cron.get_pretty",
-                                                   [cronString])
-                    if (timeStringHuman.indexOf("error") >= 0) {
-                        banner("ERROR", qsTr("Invalid cron syntax!"))
-                        isValidCron = false
-                    } else {
-                        banner("OK", qsTr("Cron syntax valid"))
-                        isValidCron = true
-                    }
+                    check_validity()
                 }
             }
         }

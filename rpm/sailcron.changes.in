@@ -8,6 +8,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed May 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-11
+- The input "*/number" was not correctly passed
+- Limit accepted input characters
+- Added new python module for actual cron string checking
 * Wed May 18 2016 Arno Dekker <jack.tar@example.com> 0.0.1-10
 - Increased max length of input fields
 - Included upstream fix for cron-descriptor

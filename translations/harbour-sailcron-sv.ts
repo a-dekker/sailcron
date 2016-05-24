@@ -32,142 +32,143 @@
 <context>
     <name>AddPage</name>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="100"/>
+        <location filename="../qml/pages/AddPage.qml" line="127"/>
         <source>Save</source>
         <translation>Spara</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="101"/>
+        <location filename="../qml/pages/AddPage.qml" line="128"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="104"/>
+        <location filename="../qml/pages/AddPage.qml" line="131"/>
         <source>Add cron entry</source>
         <translation>Lägg till cron-post</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="104"/>
+        <location filename="../qml/pages/AddPage.qml" line="131"/>
         <source>Edit cron entry</source>
         <translation>Redigera cron-post</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="113"/>
+        <location filename="../qml/pages/AddPage.qml" line="140"/>
         <source>Minutes past every hour</source>
         <translation>Minuter över varje timma</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="114"/>
+        <location filename="../qml/pages/AddPage.qml" line="141"/>
         <source>Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes.</source>
         <translation>Intervall från 0-59. Jokerteckenet (*) betyder varje minut, */15 var 15:e minut.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="123"/>
+        <location filename="../qml/pages/AddPage.qml" line="150"/>
         <source>Enter minutes</source>
         <translation>Ange minuter</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="136"/>
+        <location filename="../qml/pages/AddPage.qml" line="166"/>
         <source>Hours</source>
         <translation>Timmar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="136"/>
+        <location filename="../qml/pages/AddPage.qml" line="166"/>
         <source>Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9</source>
         <translation>Intervall från 0-23. Jokertecknet (*) betyder varje timma, */2 varannan timma. Flera timmar skrivs som, 7-11 eller 6,7,9</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="145"/>
+        <location filename="../qml/pages/AddPage.qml" line="175"/>
         <source>Enter hours</source>
         <translation>Ange timmar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="158"/>
+        <location filename="../qml/pages/AddPage.qml" line="191"/>
         <source>Day of the month</source>
         <translation>Dag i månaden</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="158"/>
+        <location filename="../qml/pages/AddPage.qml" line="191"/>
         <source>Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21</source>
         <translation>Intervall från 1-31. Jokertecknet (*) betyder varje dag. Flera dagar skrivs som, 1-11 eller 20,21</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="167"/>
+        <location filename="../qml/pages/AddPage.qml" line="200"/>
         <source>Enter day of month</source>
         <translation>Ange dag i månaden</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="180"/>
+        <location filename="../qml/pages/AddPage.qml" line="216"/>
         <source>Month</source>
         <translation>Månad</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="180"/>
+        <location filename="../qml/pages/AddPage.qml" line="216"/>
         <source>Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5</source>
         <translation>Intervall från 1-12. Jokertecknet (*) betyder varje månad. Flera månader skrivs som, 2-4 eller 2,5</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="188"/>
+        <location filename="../qml/pages/AddPage.qml" line="224"/>
         <source>Enter month</source>
         <translation>Ange månad</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="202"/>
+        <location filename="../qml/pages/AddPage.qml" line="241"/>
         <source>Day of the week</source>
         <translation>Veckodag</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="202"/>
+        <location filename="../qml/pages/AddPage.qml" line="241"/>
         <source>Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5</source>
         <translation>Intervall från 0-6. Jokertecknet (*) betyder varje veckodag. Söndag är 0 (eller SUN). Flera dagar skrivs som, 2-4 eller 2,5</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="212"/>
+        <location filename="../qml/pages/AddPage.qml" line="251"/>
         <source>Enter day of week</source>
         <translation>Ange veckodag</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="225"/>
+        <location filename="../qml/pages/AddPage.qml" line="267"/>
         <source>Command</source>
         <translation>Kommando</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="225"/>
+        <location filename="../qml/pages/AddPage.qml" line="267"/>
         <source>This command will be executed if it is matched with the time</source>
         <translation>Detta kommando kommer att exekveras om det matchas med tidsangivelsen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="235"/>
+        <location filename="../qml/pages/AddPage.qml" line="277"/>
         <source>Enter command here</source>
         <translation>Ange kommando här</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="247"/>
+        <location filename="../qml/pages/AddPage.qml" line="289"/>
         <source>Custom text</source>
         <translation>Anpassad text</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="247"/>
+        <location filename="../qml/pages/AddPage.qml" line="289"/>
         <source>Show a more meaningful command text, e.g. &apos;Flightmode on&apos;</source>
         <translation>Visa en mer meningsfull kommandotext, ex. &apos;Flygläge på&apos;</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="257"/>
+        <location filename="../qml/pages/AddPage.qml" line="299"/>
         <source>Enter custom text here</source>
         <translation>Ange anpassad text här</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="297"/>
+        <location filename="../qml/pages/AddPage.qml" line="342"/>
         <source>Verify cron time</source>
         <translation>Verifiera cron-tid</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="306"/>
+        <location filename="../qml/pages/AddPage.qml" line="88"/>
+        <location filename="../qml/pages/AddPage.qml" line="95"/>
         <source>Invalid cron syntax!</source>
         <translation>Ogiltigt cron-syntax!</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="309"/>
+        <location filename="../qml/pages/AddPage.qml" line="98"/>
         <source>Cron syntax valid</source>
         <translation>Cron-syntax giltigt</translation>
     </message>

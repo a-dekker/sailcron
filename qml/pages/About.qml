@@ -40,7 +40,7 @@ Page {
             }
             Image {
                 anchors.horizontalCenter: parent.horizontalCenter
-                    source: largeScreen ? "/usr/share/icons/hicolor/256x256/apps/harbour-sailcron.png" : "/usr/share/icons/hicolor/86x86/apps/harbour-sailcron.png"
+                source: isLandscape ? (largeScreen ? "/usr/share/icons/hicolor/256x256/apps/harbour-sailcron.png" : "/usr/share/icons/hicolor/86x86/apps/harbour-sailcron.png") : (largeScreen ? "/usr/share/icons/hicolor/256x256/apps/harbour-sailcron.png" : "/usr/share/icons/hicolor/128x128/apps/harbour-sailcron.png")
             }
             Label {
                 font.pixelSize: largeScreen ? Theme.fontSizeLarge : Theme.fontSizeMedium
@@ -80,6 +80,16 @@ Page {
                 linkColor: Theme.highlightColor
                 onLinkActivated: Qt.openUrlExternally(
                                      "https://github.com/Salamek/cron-descriptor")
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Label {
+                x: Theme.paddingLarge
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeTiny
+                text: "Using <a href='#'>python-crontab</a> for validation checks"
+                linkColor: Theme.highlightColor
+                onLinkActivated: Qt.openUrlExternally(
+                                     "https://launchpad.net/python-crontab")
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
