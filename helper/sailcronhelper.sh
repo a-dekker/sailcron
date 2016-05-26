@@ -31,7 +31,7 @@ check_params ()
             ;;
         "edit")
             SEP='[~][s][e][p][a][r][a][t][o][r][~]'
-            CRON_COMMAND=$(echo $4|base64 --decode)
+            CRON_COMMAND=$(echo $4|base64 --decode|sed 's/\//\\\//g')
             EXEC_COMMAND=$(echo $5|awk -F ${SEP} '{print $1'}|base64 --decode|sed -e 's/[\/&]/\\&/g')
             ALIAS_COMMAND=$(echo $5|awk -F ${SEP} '{print $2'}|base64 --decode|sed -e 's/[\/&]/\\&/g')
             EXEC_COMMAND_B64=$(echo $5|awk -F ${SEP} '{print $1'})

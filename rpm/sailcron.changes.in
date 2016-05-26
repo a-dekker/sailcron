@@ -8,6 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed May 26 2016 Arno Dekker <jack.tar@example.com> 0.0.1-12
+- fix introduced bug that would insert invalid cron entry
 * Wed May 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-11
 - The input "*/number" was not correctly passed
 - Limit accepted input characters
