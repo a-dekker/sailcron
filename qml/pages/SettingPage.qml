@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import harbour.sailcron.Launcher 1.0
 import harbour.sailcron.Settings 1.0
 
-Dialog {
+Page {
     id: settingsPage
 
     App {
@@ -15,17 +15,6 @@ Dialog {
 
     allowedOrientations: Orientation.Portrait | Orientation.Landscape
                          | Orientation.LandscapeInverted
-    canAccept: true
-
-    onAccepted: {
-        if (cron_user.currentIndex === 0) {
-            myset.setValue("default_cron", "nemo")
-        }
-        if (cron_user.currentIndex === 1) {
-            myset.setValue("default_cron", "root")
-        }
-        myset.sync()
-    }
 
     objectName: "SettingPage"
 
@@ -60,14 +49,8 @@ Dialog {
             id: col
             spacing: isPortrait ? Theme.paddingLarge : Theme.paddingMedium
             width: parent.width
-            DialogHeader {
-
-                acceptText: qsTr("Save")
-                cancelText: qsTr("Cancel")
-            }
-            SectionHeader {
-                text: qsTr("Settings")
-                visible: isPortrait
+            PageHeader {
+                title: qsTr("Settings")
             }
 
             ComboBox {
@@ -83,6 +66,15 @@ Dialog {
                     MenuItem {
                         text: qsTr("root") // 1
                     }
+                }
+                onCurrentItemChanged: {
+                    if (cron_user.currentIndex === 0) {
+                        myset.setValue("default_cron", "nemo")
+                    }
+                    if (cron_user.currentIndex === 1) {
+                        myset.setValue("default_cron", "root")
+                    }
+                    myset.sync()
                 }
             }
             SectionHeader {

@@ -282,62 +282,52 @@
 <context>
     <name>SettingPage</name>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="65"/>
-        <source>Save</source>
-        <translation>Spara</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SettingPage.qml" line="66"/>
-        <source>Cancel</source>
-        <translation>Avbryt</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SettingPage.qml" line="69"/>
+        <location filename="../qml/pages/SettingPage.qml" line="53"/>
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="76"/>
+        <location filename="../qml/pages/SettingPage.qml" line="59"/>
         <source>Default cron user</source>
         <translation>Standard cron-användare</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="77"/>
+        <location filename="../qml/pages/SettingPage.qml" line="60"/>
         <source>Which users crontab is shown at startup</source>
         <translation>Vilken användares cron-flik som visas vid uppstart</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="81"/>
+        <location filename="../qml/pages/SettingPage.qml" line="64"/>
         <source>nemo</source>
         <translation>nemo</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="84"/>
+        <location filename="../qml/pages/SettingPage.qml" line="67"/>
         <source>root</source>
         <translation>root</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="89"/>
+        <location filename="../qml/pages/SettingPage.qml" line="81"/>
         <source>Cron(d) daemon actions</source>
         <translation>Cron(d) demonåtgärder</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="102"/>
+        <location filename="../qml/pages/SettingPage.qml" line="94"/>
         <source>Start</source>
         <translation>Starta</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="114"/>
+        <location filename="../qml/pages/SettingPage.qml" line="106"/>
         <source>Stop</source>
         <translation>Stoppa</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="146"/>
+        <location filename="../qml/pages/SettingPage.qml" line="138"/>
         <source>No autostart</source>
         <translation>Ingen autostart</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="134"/>
+        <location filename="../qml/pages/SettingPage.qml" line="126"/>
         <source>Autostart</source>
         <translation>Autostarta</translation>
     </message>
