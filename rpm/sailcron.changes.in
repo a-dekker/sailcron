@@ -8,6 +8,11 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Dec 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-14
+- Edit menu selectable directly from detailspage
+- Changed a python call from sync to async
+- Synced python-crontab to upstream 2.1.1
+- Cron syntax checker will now fail if cron range is backwards
 * Tue Jun 28 2016 Arno Dekker <jack.tar@example.com> 0.0.1-13
 - Settingspage no longer a dialog page (with cancel/accept)
 * Wed May 26 2016 Arno Dekker <jack.tar@example.com> 0.0.1-12

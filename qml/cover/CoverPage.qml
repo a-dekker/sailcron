@@ -32,6 +32,18 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 CoverBackground {
+    id: covB
+    RotationAnimation on rotation {
+        running: mainapp.orientation === Orientation.Landscape && active && Screen.sizeCategory < 2
+        duration: 1000
+        from: 90; to: 90
+    }
+    RotationAnimation on rotation {
+        running: mainapp.orientation === Orientation.Portrait && active && Screen.sizeCategory < 2
+        duration: 1000
+        from: 0; to: 0
+    }
+    property bool active: status === Cover.Active || Cover.Activating
 
     Column {
         width: parent.width

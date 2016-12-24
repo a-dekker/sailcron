@@ -90,7 +90,7 @@ Dialog {
         } else {
             // sync python call else timeStringHuman is not filled on time ?
             timeStringHuman = py.call_sync("pretty_cron.get_pretty",
-                                           [cronString])
+                                           [1, cronString])
             if (timeStringHuman.indexOf("error") >= 0) {
                 banner("ERROR", qsTr("Invalid cron syntax!"))
                 isValidCron = false

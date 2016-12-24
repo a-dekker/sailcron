@@ -32,6 +32,17 @@
 <context>
     <name>AddPage</name>
     <message>
+        <location filename="../qml/pages/AddPage.qml" line="88"/>
+        <location filename="../qml/pages/AddPage.qml" line="95"/>
+        <source>Invalid cron syntax!</source>
+        <translation>Foutieve cron syntax!</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="98"/>
+        <source>Cron syntax valid</source>
+        <translation>Cron syntax fout</translation>
+    </message>
+    <message>
         <location filename="../qml/pages/AddPage.qml" line="127"/>
         <source>Save</source>
         <translation>Opslaan</translation>
@@ -64,7 +75,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="150"/>
         <source>Enter minutes</source>
-        <translation>Geef minuten</translation>
+        <translation>Geef minuten op</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="166"/>
@@ -74,12 +85,12 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="166"/>
         <source>Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9</source>
-        <translation>Bereik van 0-23. Wildcard (*) betekent elk uur, */2 om elk uur. Meerdere uren als 7-11 of 6,7,9</translation>
+        <translation>Bereik van 0-23. Wildcard (*) betekent elk uur, */2 elke 2 uur. Meerdere uren als 7-11 of 6,7,9</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="175"/>
         <source>Enter hours</source>
-        <translation>Geef uren</translation>
+        <translation>Geen uren op</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="191"/>
@@ -94,7 +105,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="200"/>
         <source>Enter day of month</source>
-        <translation>Geef dag van de maand</translation>
+        <translation>Geef dag van de maand op</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="216"/>
@@ -109,7 +120,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="224"/>
         <source>Enter month</source>
-        <translation>Elke maand</translation>
+        <translation>Geef maand op</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="241"/>
@@ -119,7 +130,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="241"/>
         <source>Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5</source>
-        <translation>Bereik van 0-6. Wildcard (*) betekent elke dag van de week. Zondag is 0 (of SUN). Meerdere dagen van de week als 2-4 of 2,5</translation>
+        <translation>Bereik van 0-6. Wildcard (*) betekent elke dag van de week. Zondag is 0 (of gebruik SUN). Meerdere dagen van de week als 2-4 of 2,5</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="251"/>
@@ -129,17 +140,17 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="267"/>
         <source>Command</source>
-        <translation>Commando</translation>
+        <translation>Opdracht</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="267"/>
         <source>This command will be executed if it is matched with the time</source>
-        <translation>Dit commando wordt uitgevoerd als het overeenkomt met het opgevoerde moment</translation>
+        <translation>Deze opdracht zal uitgevoerd worden als het overeenkomt met de opgegeven tijd</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="277"/>
         <source>Enter command here</source>
-        <translation>Geen commando hier</translation>
+        <translation>Geef opdracht hier</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="289"/>
@@ -149,61 +160,55 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="289"/>
         <source>Show a more meaningful command text, e.g. &apos;Flightmode on&apos;</source>
-        <translation>Toon een tekst met meer betekenis, bijvoorbeeld &apos;Flightmode aan&apos;</translation>
+        <translation>Toon een meer zinvolle tekst, bijvoorbeeld &apos;Vliegmodus aan&apos;</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="299"/>
         <source>Enter custom text here</source>
-        <translation>Geen eigen tekst hier op</translation>
+        <translation>Geef eigen tekst hier op</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="342"/>
         <source>Verify cron time</source>
         <translation>Controleer de cron tijd</translation>
     </message>
-    <message>
-        <location filename="../qml/pages/AddPage.qml" line="88"/>
-        <location filename="../qml/pages/AddPage.qml" line="95"/>
-        <source>Invalid cron syntax!</source>
-        <translation>Foutieve cron syntax!</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/AddPage.qml" line="98"/>
-        <source>Cron syntax valid</source>
-        <translation>De cron syntax is correct</translation>
-    </message>
 </context>
 <context>
     <name>DetailsPage</name>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="38"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="40"/>
+        <source>Edit</source>
+        <translation>Wijzigen</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/DetailsPage.qml" line="75"/>
         <source>Cron entry details</source>
         <translation>Cron regel details</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="42"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="79"/>
         <source>User</source>
         <translation>Gebruiker</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="54"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="91"/>
         <source>Command displayed</source>
-        <translation>Commando getoond</translation>
+        <translation>Getoonde opdracht</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="66"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="103"/>
         <source>Command to execute</source>
-        <translation>Commando uitgevoerd</translation>
+        <translation>Uit te voeren opdracht</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="78"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="115"/>
         <source>Cron format execution time</source>
-        <translation>Uitvoeringstijd in cron formaat</translation>
+        <translation>Uitvoer tijd in cron formaat</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="89"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="126"/>
         <source>Human readable execution time</source>
-        <translation>Uitvoeringstijd</translation>
+        <translation>Leesbare uitvoeringstijd</translation>
     </message>
 </context>
 <context>
@@ -214,67 +219,67 @@
         <translation>De cron daemon is niet actief!</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="165"/>
+        <location filename="../qml/pages/MainPage.qml" line="179"/>
         <source>About</source>
         <translation>Over</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="169"/>
+        <location filename="../qml/pages/MainPage.qml" line="183"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="174"/>
+        <location filename="../qml/pages/MainPage.qml" line="188"/>
         <source>Switch to user root</source>
         <translation>Naar gebruiker root</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="174"/>
+        <location filename="../qml/pages/MainPage.qml" line="188"/>
         <source>Switch to user nemo</source>
         <translation>Naar gebruiker nemo</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="185"/>
+        <location filename="../qml/pages/MainPage.qml" line="199"/>
         <source>Add new entry</source>
         <translation>Voeg nieuwe regel toe</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="209"/>
+        <location filename="../qml/pages/MainPage.qml" line="223"/>
         <source>No cron entries found for user </source>
         <translation>Geen cron regels aanwezig voor gebruiker </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="216"/>
+        <location filename="../qml/pages/MainPage.qml" line="230"/>
         <source>Enabling</source>
         <translation>Aanzetten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="230"/>
+        <location filename="../qml/pages/MainPage.qml" line="244"/>
         <source>Disabling</source>
         <translation>Aan het uitzetten van </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="242"/>
+        <location filename="../qml/pages/MainPage.qml" line="256"/>
         <source>Deleting</source>
         <translation>Aan het verwijderen van </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="307"/>
+        <location filename="../qml/pages/MainPage.qml" line="321"/>
         <source>Edit</source>
         <translation>Wijzigen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="331"/>
+        <location filename="../qml/pages/MainPage.qml" line="345"/>
         <source>Disable</source>
         <translation>Uitzetten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="331"/>
+        <location filename="../qml/pages/MainPage.qml" line="345"/>
         <source>Enable</source>
         <translation>Aanzetten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="342"/>
+        <location filename="../qml/pages/MainPage.qml" line="356"/>
         <source>Remove</source>
         <translation>Verwijderen</translation>
     </message>

@@ -1,5 +1,6 @@
-def get_pretty(expression):
+def get_pretty(line_nbr, expression):
     import sys
+    import pyotherside
     # By default the module is installed in the 2.7 branch, pyotherside uses python 3
     # We use a custom location
     sys.path.append("/usr/share/harbour-sailcron/python/")
@@ -23,4 +24,5 @@ def get_pretty(expression):
     descripter = ExpressionDescriptor(expression, options)
     human_format = descripter.get_description(DescriptionTypeEnum.FULL)
 
+    pyotherside.send('result', line_nbr, human_format)
     return human_format

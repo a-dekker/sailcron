@@ -7,6 +7,7 @@ import io.thp.pyotherside 1.4
 
 
 // using cron_descriptor: https://github.com/Salamek/cron-descriptor
+// using python-crontab : https://code.launchpad.net/python-crontab
 Page {
     id: mainPage
     allowedOrientations: Orientation.Portrait | Orientation.Landscape
@@ -68,7 +69,6 @@ Page {
     function loadCron() {
         var myElement
         var cronString
-        var timeStringHuman
         var aliasString
         var data = Qt.atob(
                     bar.launch(
@@ -85,16 +85,16 @@ Page {
             month = myElement[5].trim()
             dayOfWeek = myElement[6].trim()
             command_string = myElement[7].trim()
-            cronString = minutes + " " + hours + " " + dayOfMonth + " " + month + " " + dayOfWeek
             // check if alias is present
             aliasString = bar.launch(
                         "/usr/share/harbour-sailcron/helper/sailcronhelper readalias " + Qt.btoa(
                             command_string)).trim()
-            // synchronous python call else timeStringHuman is not filled on time ?
-            timeStringHuman = python.call_sync("pretty_cron.get_pretty",
-                                               [cronString])
             appendList(lineNbr, isEnabled, minutes, hours, dayOfMonth, month,
-                       dayOfWeek, command_string, aliasString, timeStringHuman)
+                       dayOfWeek, command_string, aliasString, "")
+            // we did add an empty string for the human value
+            // we deal with that async in the onReceived python part, with index-id as reference
+            cronString = minutes + " " + hours + " " + dayOfMonth + " " + month + " " + dayOfWeek
+            python.call("pretty_cron.get_pretty", [listCronModel.count, cronString])
         }
     }
 
@@ -144,11 +144,25 @@ Page {
             importModule('pretty_cron', function () {
                 console.log('pretty_cron module is now imported')
             })
+            setHandler('result', function(result_index,human_string) {
+                listCronModel.setProperty(result_index-1, "timeStringHuman", human_string)
+                // console.log(result_index,human_string)
+            });
         }
         onError: {
             // when an exception is raised, this error handler will be called
             console.log('python error: ' + traceback)
         }
+        onReceived: {
+            // asychronous messages from Python arrive here
+            // in Python, this can be accomplished via pyotherside.send()
+            // console.log(data[0]-1, "timeStringHuman", data[1])
+        }
+    }
+    BusyIndicator {
+        anchors.centerIn: parent
+        running: listCronModel.count === 0
+        size: BusyIndicatorSize.Large
     }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
@@ -361,7 +375,9 @@ Page {
                                        execCommand: listCronModel.get(
                                                         index).command_string,
                                        aliasCommand: commandLabel.text,
-                                       timeStringHuman: timeLabel.text
+                                       timeStringHuman: timeLabel.text,
+                                       detail_lnbr: listCronModel.get(
+                                                       index).lineNbr
                                    })
                 }
             }
