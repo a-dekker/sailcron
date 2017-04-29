@@ -76,20 +76,20 @@ Page {
                 x: Theme.paddingLarge
                 color: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeTiny
-                text: "Using <a href='#'>Cron Descriptor</a> for human readable strings"
+                text: isPortrait ? "Using <a href=\"https://github.com/Salamek/cron-descriptor\">Cron Descriptor</a> for human readable strings" : "Using <a href=\"https://github.com/Salamek/cron-descriptor\">Cron Descriptor</a> for human readable strings and <a href=\"https://github.com/doctormo/python-crontab\">python-crontab</a> for validation checks"
                 linkColor: Theme.highlightColor
-                onLinkActivated: Qt.openUrlExternally(
-                                     "https://github.com/Salamek/cron-descriptor")
+                onLinkActivated: Qt.openUrlExternally(link)
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Label {
                 x: Theme.paddingLarge
+                visible: isPortrait
                 color: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeTiny
                 text: "Using <a href='#'>python-crontab</a> for validation checks"
                 linkColor: Theme.highlightColor
                 onLinkActivated: Qt.openUrlExternally(
-                                     "https://launchpad.net/python-crontab")
+                                     "https://github.com/doctormo/python-crontab")
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

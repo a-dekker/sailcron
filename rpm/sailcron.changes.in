@@ -8,6 +8,14 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Apr 29 2017 Arno Dekker <jack.tar@example.com> 0.0.1-17
+- Increased max length cron line
+- Cron descriptor updated to 1.2.8
+- Python-crontab updated to 2.2.1
+* Mon Feb 20 2017 Arno Dekker <jack.tar@example.com> 0.0.1-16
+- Implemented python call_sync workaround due to bug in 2.1.0.9
+* Sun Dec 25 2016 Arno Dekker <jack.tar@example.com> 0.0.1-15
+- Updated Swedish translation
 * Sat Dec 24 2016 Arno Dekker <jack.tar@example.com> 0.0.1-14
 - Edit menu selectable directly from detailspage
 - Changed a python call from sync to async

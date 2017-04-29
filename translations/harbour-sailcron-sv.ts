@@ -168,7 +168,7 @@
         <translation>Ange anpassad text här</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="342"/>
+        <location filename="../qml/pages/AddPage.qml" line="370"/>
         <source>Verify cron time</source>
         <translation>Verifiera cron-tid</translation>
     </message>

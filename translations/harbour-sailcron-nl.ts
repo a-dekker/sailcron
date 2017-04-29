@@ -40,7 +40,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="98"/>
         <source>Cron syntax valid</source>
-        <translation>Cron syntax fout</translation>
+        <translation>Cron syntax correct</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="127"/>
@@ -168,7 +168,7 @@
         <translation>Geef eigen tekst hier op</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="342"/>
+        <location filename="../qml/pages/AddPage.qml" line="370"/>
         <source>Verify cron time</source>
         <translation>Controleer de cron tijd</translation>
     </message>

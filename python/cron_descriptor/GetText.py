@@ -19,21 +19,23 @@ import os
 import logging
 
 
+logger = logging.getLogger(__name__)
+
+
 class GetText(object):
 
     """
     Handles language translations and Initializes global _() function
     """
 
-    def __init__(self):
-        """Initialize GetText
-        """
+    def __init__(self, locale_code):
         code, encoding = locale.getlocale()
         try:
             filename = os.path.join('/usr/share/harbour-sailcron/python/cron_descriptor/locale', '{}.mo'.format(code))
             trans = gettext.GNUTranslations(open(filename, "rb"))
-            logging.debug('{} Loaded'.format(filename))
+            logger.debug('{} Loaded'.format(filename))
         except IOError:
+            logger.debug('Failed to found locale {}'.format(locale_code))
             trans = gettext.NullTranslations()
 
         trans.install()
