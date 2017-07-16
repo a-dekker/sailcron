@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import locale
 import gettext
 import os
 import logging
@@ -29,9 +28,12 @@ class GetText(object):
     """
 
     def __init__(self, locale_code):
-        code, encoding = locale.getlocale()
+        """
+        Initialize GetText
+        :param locale_code selected locale
+        """
         try:
-            filename = os.path.join('/usr/share/harbour-sailcron/python/cron_descriptor/locale', '{}.mo'.format(code))
+            filename = os.path.join('/usr/share/harbour-sailcron/python/cron_descriptor/locale', '{}.mo'.format(locale_code))
             trans = gettext.GNUTranslations(open(filename, "rb"))
             logger.debug('{} Loaded'.format(filename))
         except IOError:

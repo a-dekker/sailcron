@@ -145,31 +145,24 @@ class ExpressionParser(object):
         if expression_parts[5].startswith("1/"):
             expression_parts[5] = expression_parts[5].replace("1/", "*/")  # DOW
 
-        # convert */1 to *
-        length = len(expression_parts)
-        for i in range(length):
-            if expression_parts[i] == "*/1":
-                expression_parts[i] = "*"
+        if expression_parts[6].startswith("1/"):
+            expression_parts[6] = expression_parts[6].replace("1/", "*/")
 
         # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
         if self._options.day_of_week_start_index_zero is False:
-            dow_chars = list(expression_parts[5])
-            for i, dow_char in enumerate(dow_chars):
-                if i == 0 or dow_chars[i - 1] != '#':
-                    try:
-                        char_numeric = int(dow_char)
-                        dow_chars[i] = str(char_numeric - 1)[0]
-                    except ValueError:
-                        pass
-            expression_parts[5] = ''.join(dow_chars)
+            expression_parts[5] = self.decrease_days_of_week(expression_parts[5])
+
+        if expression_parts[3] == "?":
+            expression_parts[3] = "*"
 
         # convert SUN-SAT format to 0-6 format
         for day_number in self._cron_days:
-            expression_parts[5] = expression_parts[5].replace(self._cron_days[day_number], str(day_number))
+            expression_parts[5] = expression_parts[5].upper().replace(self._cron_days[day_number], str(day_number))
 
         # convert JAN-DEC format to 1-12 format
         for month_number in self._cron_months:
-            expression_parts[4] = expression_parts[4].replace(self._cron_months[month_number], str(month_number))
+            expression_parts[4] = expression_parts[4].upper().replace(
+                self._cron_months[month_number], str(month_number))
 
         # convert 0 second to (empty)
         if expression_parts[0] == "0":

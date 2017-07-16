@@ -104,7 +104,7 @@ except ImportError:
                 " install ordereddict 1.1 from pypi for python2.6")
 
 __pkgname__ = 'python-crontab'
-__version__ = '2.2.1'
+__version__ = '2.2.3'
 
 ITEMREX = re.compile(r'^\s*([^@#\s]+)\s+([^@#\s]+)\s+([^@#\s]+)\s+([^@#\s]+)'
                      r'\s+([^@#\s]+)\s+([^#\n]*)(\s+#\s*([^\n]*)|$)')
@@ -365,8 +365,6 @@ class CronTab(object):
 
     def render(self):
         """Render this crontab as it would be in the crontab."""
-        envs = self.env.items()
-        env = ["%s=%s" % (key, _unicode(val)) for (key, val) in envs]
         crons = [unicode(cron) for cron in self.lines]
         result = unicode(self.env) + u'\n'.join(crons)
         if result and result[-1] not in (u'\n', u'\r'):
@@ -386,13 +384,19 @@ class CronTab(object):
     def find_command(self, command):
         """Return an iter of jobs matching any part of the command."""
         for job in list(self.crons):
-            if command in job.command:
+            if isinstance(command, re._pattern_type):
+                if command.findall(job.command):
+                    yield job
+            elif command in job.command:
                 yield job
 
     def find_comment(self, comment):
         """Return an iter of jobs that match the comment field exactly."""
         for job in list(self.crons):
-            if job.comment == comment:
+            if isinstance(comment, re._pattern_type):
+                if comment.findall(job.comment):
+                    yield job
+            elif comment == job.comment:
                 yield job
 
     def find_time(self, *args):
@@ -446,9 +450,19 @@ class CronTab(object):
 
     def _remove(self, item):
         """Internal removal of an item"""
-        # The last item often has a trailing line feed
-        if self.crons[-1] == item and self.lines[-1] == '':
-            self.lines.remove(self.lines[-1])
+        # Manage siblings when items are deleted
+        for sibling in self.lines[self.lines.index(item)+1:]:
+            if isinstance(sibling, CronItem):
+                env = sibling.env
+                sibling.env = item.env
+                sibling.env.update(env)
+                sibling.env.job = sibling
+                break
+            elif sibling == '':
+                self.lines.remove(sibling)
+            else:
+                break
+
         self.crons.remove(item)
         self.lines.remove(item)
         return 1
@@ -680,7 +694,7 @@ class CronItem(object):
     def description(self, **kw):
         """
         Returns a description of the crontab's schedule (if available)
-
+        
         **kw - Keyword arguments to pass to cron_descriptor (see docs)
         """
         try:

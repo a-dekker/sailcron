@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sun Jul 16 2017 Arno Dekker <jack.tar@example.com> 0.0.1-18
+- Cron descriptor updated to 1.2.9
+- Python-crontab updated to 2.2.3
 * Sat Apr 29 2017 Arno Dekker <jack.tar@example.com> 0.0.1-17
 - Increased max length cron line
 - Cron descriptor updated to 1.2.8
