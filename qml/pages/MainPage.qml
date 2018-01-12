@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import harbour.sailcron.Launcher 1.0
 import org.nemomobile.notifications 1.0
 import harbour.sailcron.Settings 1.0
-import io.thp.pyotherside 1.4
+import io.thp.pyotherside 1.5
 
 
 // using cron_descriptor: https://github.com/Salamek/cron-descriptor

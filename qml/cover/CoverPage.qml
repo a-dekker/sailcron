@@ -33,6 +33,8 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
     id: covB
+    property bool largeScreen: screen.width >= 1080
+
     RotationAnimation on rotation {
         running: mainapp.orientation === Orientation.Landscape && active && Screen.sizeCategory < 2
         duration: 1000
@@ -56,7 +58,7 @@ CoverBackground {
             text: "Sailcron"
         }
         Image {
-           source: "/usr/share/icons/hicolor/86x86/apps/harbour-sailcron.png"
+            source: largeScreen ? "/usr/share/icons/hicolor/128x128/apps/harbour-sailcron.png" : "/usr/share/icons/hicolor/86x86/apps/harbour-sailcron.png"
            anchors.horizontalCenter: parent.horizontalCenter
         }
     }

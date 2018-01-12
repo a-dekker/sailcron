@@ -4,7 +4,7 @@
 #include <string.h>
 
 int main(int argc, char **argv) {
-    char command[4096], cmdline[4096];;
+    char command[4096], cmdline[4096];
     int i;
     if (setuid(0) != 0) {
         perror("Setuid failed, no suid-bit set?");
@@ -14,7 +14,6 @@ int main(int argc, char **argv) {
         strcat(command,argv[i]);
         strcat(command," ");
     }
-    setuid(0);
     sprintf(cmdline, "/usr/share/harbour-sailcron/helper/sailcronhelper.sh %s", command);
 
     system(cmdline);

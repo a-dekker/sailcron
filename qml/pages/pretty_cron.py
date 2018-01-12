@@ -1,20 +1,20 @@
 def get_pretty(line_nbr, expression):
+    """Get a human readable string for the cron expression"""
     import sys
+    import subprocess
     import pyotherside
     # By default the module is installed in the 2.7 branch, pyotherside uses python 3
     # We use a custom location
     sys.path.append("/usr/share/harbour-sailcron/python/")
     # https://github.com/Salamek/cron-descriptor
     from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
-    import subprocess
 
     # get proper 24/12 hour notation and strip output
-    output = subprocess.check_output("/usr/bin/dconf read /sailfish/i18n/lc_timeformat24h", shell=True)
-    output = str(output).replace("'","").replace('b"',"").replace('\\n"',"").strip()
-    if output == "24":
-        is24h = True
-    else:
-        is24h = False
+    output = subprocess.check_output(
+        "/usr/bin/dconf read /sailfish/i18n/lc_timeformat24h", shell=True)
+    output = str(output).replace("'", "").replace(
+        'b"', "").replace('\\n"', "").strip()
+    is24h = bool(output == "24")
 
     # set options
     options = Options()
