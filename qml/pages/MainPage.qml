@@ -1,17 +1,15 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import harbour.sailcron.Launcher 1.0
-import org.nemomobile.notifications 1.0
+import Nemo.Notifications 1.0
 import harbour.sailcron.Settings 1.0
 import io.thp.pyotherside 1.5
 
 
 // using cron_descriptor: https://github.com/Salamek/cron-descriptor
-// using python-crontab : https://code.launchpad.net/python-crontab
+// using python-crontab : https://github.com/doctormo/python-crontab
 Page {
     id: mainPage
-    allowedOrientations: Orientation.Portrait | Orientation.Landscape
-                         | Orientation.LandscapeInverted
 
     App {
         id: bar
@@ -29,6 +27,7 @@ Page {
     property string month
     property string dayOfWeek
     property string command_string
+    property var specials: ["@reboot", "@hourly", "@daily", "@weekly", "@monthly", "@yearly", "@annually", "@midnight"]
 
     function banner(notificationType, message) {
         notification.close()
@@ -80,10 +79,17 @@ Page {
             lineNbr = myElement[0].trim()
             isEnabled = myElement[1].trim()
             minutes = myElement[2].trim()
-            hours = myElement[3].trim()
-            dayOfMonth = myElement[4].trim()
-            month = myElement[5].trim()
-            dayOfWeek = myElement[6].trim()
+            if (specials.indexOf(minutes) >= 0) {
+                hours = ""
+                dayOfMonth = ""
+                month = ""
+                dayOfWeek = ""
+            } else {
+                hours = myElement[3].trim()
+                dayOfMonth = myElement[4].trim()
+                month = myElement[5].trim()
+                dayOfWeek = myElement[6].trim()
+            }
             command_string = myElement[7].trim()
             // check if alias is present
             aliasString = bar.launch(
@@ -94,7 +100,8 @@ Page {
             // we did add an empty string for the human value
             // we deal with that async in the onReceived python part, with index-id as reference
             cronString = minutes + " " + hours + " " + dayOfMonth + " " + month + " " + dayOfWeek
-            python.call("pretty_cron.get_pretty", [listCronModel.count, cronString])
+            python.call("pretty_cron.get_pretty",
+                        [listCronModel.count, cronString])
         }
     }
 
@@ -121,16 +128,16 @@ Page {
     // helper function to add lists to the list
     function appendList(lineNbr, isEnabled, minutes, hours, dayOfMonth, month, dayOfWeek, command_string, aliasString, timeStringHuman) {
         listCronModel.append({
-                                 lineNbr: lineNbr,
-                                 isEnabled: isEnabled,
-                                 minutes: minutes,
-                                 hours: hours,
-                                 dayOfMonth: dayOfMonth,
-                                 month: month,
-                                 dayOfWeek: dayOfWeek,
-                                 command_string: command_string,
-                                 aliasString: aliasString,
-                                 timeStringHuman: timeStringHuman
+                                 "lineNbr": lineNbr,
+                                 "isEnabled": isEnabled,
+                                 "minutes": minutes,
+                                 "hours": hours,
+                                 "dayOfMonth": dayOfMonth,
+                                 "month": month,
+                                 "dayOfWeek": dayOfWeek,
+                                 "command_string": command_string,
+                                 "aliasString": aliasString,
+                                 "timeStringHuman": timeStringHuman
                              })
     }
 
@@ -144,16 +151,18 @@ Page {
             importModule('pretty_cron', function () {
                 console.log('pretty_cron module is now imported')
             })
-            setHandler('result', function(result_index,human_string) {
-                listCronModel.setProperty(result_index-1, "timeStringHuman", human_string)
+            setHandler('result', function (result_index, human_string) {
+                listCronModel.setProperty(result_index - 1, "timeStringHuman",
+                                          human_string)
                 // console.log(result_index,human_string)
-            });
+            })
         }
         onError: {
             // when an exception is raised, this error handler will be called
             console.log('python error: ' + traceback)
         }
         onReceived: {
+
             // asychronous messages from Python arrive here
             // in Python, this can be accomplished via pyotherside.send()
             // console.log(data[0]-1, "timeStringHuman", data[1])
@@ -322,22 +331,22 @@ Page {
                             onClicked: {
                                 var dialog = pageStack.push(
                                             Qt.resolvedUrl("AddPage.qml"), {
-                                                linenumber: listCronModel.get(
-                                                                index).lineNbr,
-                                                str_minute: listCronModel.get(
-                                                                index).minutes,
-                                                str_hour: listCronModel.get(
-                                                              index).hours,
-                                                str_dom: listCronModel.get(
-                                                             index).dayOfMonth,
-                                                str_month: listCronModel.get(
-                                                               index).month,
-                                                str_dow: listCronModel.get(
-                                                             index).dayOfWeek,
-                                                commandTXT: listCronModel.get(
-                                                                index).command_string,
-                                                aliasTXT: listCronModel.get(
-                                                              index).aliasString
+                                                "linenumber": listCronModel.get(
+                                                                  index).lineNbr,
+                                                "str_minute": listCronModel.get(
+                                                                  index).minutes,
+                                                "str_hour": listCronModel.get(
+                                                                index).hours,
+                                                "str_dom": listCronModel.get(
+                                                               index).dayOfMonth,
+                                                "str_month": listCronModel.get(
+                                                                 index).month,
+                                                "str_dow": listCronModel.get(
+                                                               index).dayOfWeek,
+                                                "commandTXT": listCronModel.get(
+                                                                  index).command_string,
+                                                "aliasTXT": listCronModel.get(
+                                                                index).aliasString
                                             })
                             }
                         }
@@ -362,22 +371,22 @@ Page {
                 }
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("DetailsPage.qml"), {
-                                       detail_minute: listCronModel.get(
-                                                          index).minutes,
-                                       detail_hour: listCronModel.get(
-                                                        index).hours,
-                                       detail_dom: listCronModel.get(
-                                                       index).dayOfMonth,
-                                       detail_month: listCronModel.get(
-                                                         index).month,
-                                       detail_dow: listCronModel.get(
-                                                       index).dayOfWeek,
-                                       execCommand: listCronModel.get(
-                                                        index).command_string,
-                                       aliasCommand: commandLabel.text,
-                                       timeStringHuman: timeLabel.text,
-                                       detail_lnbr: listCronModel.get(
-                                                       index).lineNbr
+                                       "detail_minute": listCronModel.get(
+                                                            index).minutes,
+                                       "detail_hour": listCronModel.get(
+                                                          index).hours,
+                                       "detail_dom": listCronModel.get(
+                                                         index).dayOfMonth,
+                                       "detail_month": listCronModel.get(
+                                                           index).month,
+                                       "detail_dow": listCronModel.get(
+                                                         index).dayOfWeek,
+                                       "execCommand": listCronModel.get(
+                                                          index).command_string,
+                                       "aliasCommand": commandLabel.text,
+                                       "timeStringHuman": timeLabel.text,
+                                       "detail_lnbr": listCronModel.get(
+                                                          index).lineNbr
                                    })
                 }
             }

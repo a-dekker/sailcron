@@ -4,8 +4,6 @@ import Sailfish.Silica 1.0
 
 Page {
     id: cronEntryDetailPage
-    allowedOrientations: Orientation.Portrait | Orientation.Landscape
-                         | Orientation.LandscapeInverted
 
     property string execCommand: ""
     property string aliasCommand: ""

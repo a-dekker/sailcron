@@ -8,6 +8,11 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Feb 13 2019 Arno Dekker <jack.tar@example.com> 0.0.1-20
+- Now support @reboot, @weekly etc.
+- Updated python-crontab and cron descriptor to latest version
+* Sun Aug 16 2018 Arno Dekker <jack.tar@example.com> 0.0.1-19
+- Python-crontab updated to 2.2.8
 * Sun Jul 16 2017 Arno Dekker <jack.tar@example.com> 0.0.1-18
 - Cron descriptor updated to 1.2.9
 - Python-crontab updated to 2.2.3

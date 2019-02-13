@@ -2,16 +2,14 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import io.thp.pyotherside 1.5
 import harbour.sailcron.Launcher 1.0
-import org.nemomobile.notifications 1.0
+import Nemo.Notifications 1.0
 
 Dialog {
     id: addPage
-    allowedOrientations: Orientation.Portrait | Orientation.Landscape
-                         | Orientation.LandscapeInverted
-    canAccept: isValidCron === true && minutesField.text !== ""
-               && hoursField.text !== "" && dotmField.text !== ""
-               && monthField.text !== "" && dowField.text !== ""
-               && commandField.text !== ""
+    canAccept: (isValidCron === true && minutesField.text !== "" && hoursField.text
+                !== "" && dotmField.text !== "" && monthField.text !== "" && dowField.text
+                !== "" && commandField.text !== "") || (isValidCron
+                                                        && special_toggle.checked)
 
     App {
         id: bar
@@ -29,11 +27,23 @@ Dialog {
     property string str_dom: ""
     property string str_month: ""
     property string str_dow: ""
+    property string special: ""
+
+    Component.onCompleted: {
+        if (str_minute.substring(0, 1) === "@") {
+            special = str_minute
+            minutesField.text = ''
+            special_toggle.checked = true
+        }
+    }
 
     onAccepted: {
         check_validity()
         if (isValidCron === true) {
             var data
+            if (special_toggle.checked) {
+                cronString = '@' + cronString
+            }
             if (linenumber === "") {
                 // add cron entry
                 data = bar.launch(
@@ -43,15 +53,34 @@ Dialog {
                                 aliasField.text))
                 console.log(data)
             } else {
-                data = bar.launch(
-                            "/usr/share/harbour-sailcron/helper/sailcronhelper edit "
-                            + linenumber + " " + mainapp.current_cron_user + " " + Qt.btoa(
-                                cronString) + " " + Qt.btoa(
-                                commandField.text) + "~separator~" + Qt.btoa(
-                                aliasField.text))
+                data = bar.launch("/usr/share/harbour-sailcron/helper/sailcronhelper edit "
+                                  + linenumber + " " + mainapp.current_cron_user + " "
+                                  + Qt.btoa(cronString) + " " + Qt.btoa(
+                                      commandField.text) + "~separator~" + Qt.btoa(aliasField.text))
                 mainapp.changestatus = "edited"
                 console.log(data)
             }
+        }
+    }
+
+    function specialNbr() {
+        switch (str_minute) {
+        case "@reboot":
+            return 0
+        case "@yearly":
+            return 1
+        case "@annually":
+            return 1
+        case "@monthly":
+            return 2
+        case "@weekly":
+            return 3
+        case "@daily":
+            return 4
+        case "@hourly":
+            return 5
+        default:
+            return 0
         }
     }
 
@@ -79,11 +108,15 @@ Dialog {
     }
 
     function check_validity() {
-        cronString = minutesField.text + " " + hoursField.text + " "
-                + dotmField.text + " " + monthField.text + " " + dowField.text
+        if (special_toggle.checked) {
+            cronString = special.replace('@', '')
+        } else {
+            cronString = minutesField.text + " " + hoursField.text + " "
+                    + dotmField.text + " " + monthField.text + " " + dowField.text
+        }
         // sync python call else timeStringValid is not filled on time ?
         timeStringIsValid = py.call_sync("valid_cron.validate_cron",
-                                       [cronString])
+                                         [cronString.trim()])
         if (timeStringIsValid == false) {
             banner("ERROR", qsTr("Invalid cron syntax!"))
             isValidCron = false
@@ -95,7 +128,7 @@ Dialog {
                 banner("ERROR", qsTr("Invalid cron syntax!"))
                 isValidCron = false
             } else {
-                banner("OK", qsTr("Cron syntax valid"))
+                banner("OK", '✓ ' + qsTr("Cron syntax valid"))
                 isValidCron = true
             }
         }
@@ -131,7 +164,47 @@ Dialog {
                 text: (linenumber === "" ? qsTr("Add cron entry") : qsTr(
                                                "Edit cron entry")) + " ("
                       + mainapp.current_cron_user + ")"
-                // visible: isPortrait
+            }
+            TextSwitch {
+                id: special_toggle
+                text: qsTr("Special")
+                description: qsTr("Use alternative cron time indicator")
+                onCheckedChanged: {
+                    if (checked) {
+                        special = '@' + specialtime.value
+                    }
+                }
+            }
+            ComboBox {
+                id: specialtime
+                label: qsTr("Interval")
+                description: qsTr("Choose the preferred moment.")
+                visible: special_toggle.checked
+                currentIndex: specialNbr()
+                width: col.width
+                menu: ContextMenu {
+                    MenuItem {
+                        text: "reboot"
+                    } // 1
+                    MenuItem {
+                        text: "yearly"
+                    } // 2
+                    MenuItem {
+                        text: "monthly"
+                    } // 3
+                    MenuItem {
+                        text: "weekly"
+                    } // 4
+                    MenuItem {
+                        text: "daily"
+                    } // 5
+                    MenuItem {
+                        text: "hourly"
+                    } // 6
+                }
+                onCurrentIndexChanged: {
+                    special = '@' + specialtime.value
+                }
             }
             Label {
                 width: col.width - Theme.paddingLarge * 2
@@ -142,6 +215,7 @@ Dialog {
                           "Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes.")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
+                visible: !special_toggle.checked
             }
             TextField {
                 id: minutesField
@@ -158,6 +232,7 @@ Dialog {
                 EnterKey.onClicked: {
                     hoursField.focus = true
                 }
+                visible: !special_toggle.checked
             }
             Label {
                 width: col.width - Theme.paddingLarge * 2
@@ -167,6 +242,7 @@ Dialog {
                           "Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
+                visible: !special_toggle.checked
             }
             TextField {
                 id: hoursField
@@ -183,6 +259,7 @@ Dialog {
                 EnterKey.onClicked: {
                     dotmField.focus = true
                 }
+                visible: !special_toggle.checked
             }
             Label {
                 width: col.width - Theme.paddingLarge * 2
@@ -192,6 +269,7 @@ Dialog {
                           "Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
+                visible: !special_toggle.checked
             }
             TextField {
                 id: dotmField
@@ -203,11 +281,12 @@ Dialog {
                     regExp: /[*]{0,1}[0-9,-]{0,25}/
                 }
                 text: str_dom
-                width: col.width / 2
+                width: col.width / 1.5
                 maximumLength: 25
                 EnterKey.onClicked: {
                     monthField.focus = true
                 }
+                visible: !special_toggle.checked
             }
             Label {
                 width: col.width - Theme.paddingLarge * 2
@@ -217,6 +296,7 @@ Dialog {
                           "Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
+                visible: !special_toggle.checked
             }
             TextField {
                 id: monthField
@@ -233,6 +313,7 @@ Dialog {
                 EnterKey.onClicked: {
                     dowField.focus = true
                 }
+                visible: !special_toggle.checked
             }
             Label {
                 width: col.width - Theme.paddingLarge * 2
@@ -242,6 +323,7 @@ Dialog {
                           "Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5")
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
+                visible: !special_toggle.checked
             }
             TextField {
                 id: dowField
@@ -254,11 +336,12 @@ Dialog {
                 }
                 EnterKey.enabled: text.trim().length > 0
                 text: str_dow
-                width: isPortrait ? font.pixelSize * 9 : font.pixelSize * 18
+                width: col.width / 1.5
                 maximumLength: 25
                 EnterKey.onClicked: {
                     commandField.focus = true
                 }
+                visible: !special_toggle.checked
             }
             Label {
                 width: col.width - Theme.paddingLarge * 2
@@ -333,40 +416,12 @@ Dialog {
                     isValidCron = false
                     console.log('python error: ' + traceback)
                 }
-                function call_sync(func, args) {
-                    // XXX: Work around a call_sync bug by using evaluate.
-                    // https://github.com/thp/pyotherside/issues/49
-                    args = args.map(py.stringify).join(", ");
-                    return py.evaluate("%1(%2)".arg(func).arg(args));
-                }
-                function stringify(obj) {
-                    // Return Python string representation of obj.
-                    if (Array.isArray(obj)) {
-                        return "[%1]".arg(obj.map(py.stringify).join(", "));
-                    } else if (obj === null || obj === undefined) {
-                        return "None";
-                    } else if (typeof obj === "string") {
-                        return "'%1'".arg(obj.replace(/'/, "\\'"));
-                    } else if (typeof obj === "number") {
-                        return obj.toString();
-                    } else if (typeof obj === "boolean") {
-                        return obj ? "True" : "False";
-                    } else if (typeof obj === "object") {
-                        // Assume all remaining objects are dictionaries.
-                        return "{%1}".arg(Object.keys(obj).map(function(x) {
-                            return [py.stringify(x), py.stringify(obj[x])].join(": ");
-                        }).join(", "));
-                    } else {
-                        throw "Unrecognized argument type: %1: %2"
-                        .arg(obj).arg(typeof obj);
-                    }
-                }
             }
             Button {
                 id: check_cron_string
-                enabled: minutesField.text !== "" && hoursField.text !== ""
-                         && dotmField.text !== "" && monthField.text !== ""
-                         && dowField.text !== ""
+                enabled: (minutesField.text !== "" && hoursField.text !== ""
+                          && dotmField.text !== "" && monthField.text !== ""
+                          && dowField.text !== "") || special_toggle.checked
                 text: qsTr("Verify cron time")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {

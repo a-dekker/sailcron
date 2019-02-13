@@ -3,8 +3,6 @@ import Sailfish.Silica 1.0
 
 Page {
     id: aboutPage
-    allowedOrientations: Orientation.Portrait | Orientation.Landscape
-                         | Orientation.LandscapeInverted
     property bool largeScreen: screen.width > 540
 
     SilicaFlickable {
@@ -69,7 +67,7 @@ Page {
                 visible: isPortrait || (largeScreen && screen.width > 1080)
             }
             Label {
-                text: "© Arno Dekker 2016-2017"
+                text: "© Arno Dekker 2016-2019"
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Label {

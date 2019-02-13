@@ -13,9 +13,6 @@ Page {
     property string isStarted
     property string isEnabled
 
-    allowedOrientations: Orientation.Portrait | Orientation.Landscape
-                         | Orientation.LandscapeInverted
-
     objectName: "SettingPage"
 
     function checkCronStatus() {

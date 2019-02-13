@@ -1,17 +1,24 @@
-# Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>
+# The MIT License (MIT)
 #
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# Copyright (c) 2016 Adam Schubert
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 import re
 
@@ -89,7 +96,7 @@ class ExpressionParser(object):
             elif expression_parts_temp_length == 6:
                 # If last element ends with 4 digits, a year element has been
                 # supplied and no seconds element
-                year_regex = re.compile("\d{4}$")
+                year_regex = re.compile(r"\d{4}$")
                 if year_regex.search(expression_parts_temp[5]) is not None:
                     for i, expression_part_temp in enumerate(expression_parts_temp):
                         parsed[i + 1] = expression_part_temp
@@ -167,3 +174,44 @@ class ExpressionParser(object):
         # convert 0 second to (empty)
         if expression_parts[0] == "0":
             expression_parts[0] = ''
+
+        # Loop through all parts and apply global normalization
+        length = len(expression_parts)
+        for i in range(length):
+
+            # convert all '*/1' to '*'
+            if expression_parts[i] == "*/1":
+                expression_parts[i] = "*"
+
+            """
+            Convert Month,DOW,Year step values with a starting value (i.e. not '*') to between expressions.
+            This allows us to reuse the between expression handling for step values.
+
+            For Example:
+            - month part '3/2' will be converted to '3-12/2' (every 2 months between March and December)
+            - DOW part '3/2' will be converted to '3-6/2' (every 2 days between Tuesday and Saturday)
+            """
+
+            if "/" in expression_parts[i] and any(exp in expression_parts[i] for exp in ['*', '-', ',']) is False:
+                choices = {
+                    4: "12",
+                    5: "6",
+                    6: "9999"
+                }
+
+                step_range_through = choices.get(i)
+
+                if step_range_through is not None:
+                    parts = expression_parts[i].split('/')
+                    expression_parts[i] = "{0}-{1}/{2}".format(parts[0], step_range_through, parts[1])
+
+    def decrease_days_of_week(self, day_of_week_expression_part):
+        dow_chars = list(day_of_week_expression_part)
+        for i, dow_char in enumerate(dow_chars):
+            if i == 0 or dow_chars[i - 1] != '#' and dow_chars[i - 1] != '/':
+                try:
+                    char_numeric = int(dow_char)
+                    dow_chars[i] = str(char_numeric - 1)[0]
+                except ValueError:
+                    pass
+        return ''.join(dow_chars)

@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library.
 #
+# pylint: disable=logging-format-interpolation,too-many-lines
 """
 from crontab import CronTab
 import sys
@@ -85,9 +86,11 @@ import os
 import re
 import shlex
 
+import types
 import codecs
 import logging
 import tempfile
+import platform
 import subprocess as sp
 
 from time import sleep
@@ -101,13 +104,13 @@ except ImportError:
         from ordereddict import OrderedDict
     except ImportError:
         raise ImportError("OrderedDict is required for python-crontab, you can"
-                " install ordereddict 1.1 from pypi for python2.6")
+                          " install ordereddict 1.1 from pypi for python2.6")
 
 __pkgname__ = 'python-crontab'
-__version__ = '2.2.3'
+__version__ = '2.3.6'
 
 ITEMREX = re.compile(r'^\s*([^@#\s]+)\s+([^@#\s]+)\s+([^@#\s]+)\s+([^@#\s]+)'
-                     r'\s+([^@#\s]+)\s+([^#\n]*)(\s+#\s*([^\n]*)|$)')
+                     r'\s+([^@#\s]+)\s+([^\n]*?)(\s+#\s*([^\n]*)|$)')
 SPECREX = re.compile(r'^\s*@(\w+)\s([^#\n]*)(\s+#\s*([^\n]*)|$)')
 DEVNULL = ">/dev/null 2>&1"
 
@@ -136,10 +139,17 @@ S_INFO = [
 ]
 
 # Detect Python3 and which OS for temperments.
-import platform
 PY3 = platform.python_version()[0] == '3'
 WINOS = platform.system() == 'Windows'
 SYSTEMV = not WINOS and os.uname()[0] in ["SunOS", "AIX", "HP-UX"]
+SYSTEMV = not WINOS and (
+    os.uname()[0] in ["SunOS", "AIX", "HP-UX"]
+    or
+    os.uname()[4] in ["mips"]
+)
+
+# Switch this on if you want your crontabs to have zero padding.
+ZERO_PAD = False
 
 LOG = logging.getLogger('crontab')
 
@@ -167,6 +177,7 @@ def open_pipe(cmd, *args, **flags):
     a. keyword args are flags and always appear /before/ arguments for bsd
     """
     cmd_args = tuple(shlex.split(cmd))
+    env = flags.pop('env', None)
     for (key, value) in flags.items():
         if len(key) == 1:
             cmd_args += ("-%s" % key),
@@ -175,13 +186,13 @@ def open_pipe(cmd, *args, **flags):
         else:
             cmd_args += ("--%s=%s" % (key, value)),
     args = tuple(arg for arg in (cmd_args + tuple(args)) if arg)
-    return sp.Popen(args, stdout=sp.PIPE, stderr=sp.PIPE)
+    return sp.Popen(args, stdout=sp.PIPE, stderr=sp.PIPE, env=env)
 
 def _unicode(text):
     """Convert to the best string format for this python version"""
-    if type(text) is str and not PY3:
+    if isinstance(text, str) and not PY3:
         return unicode(text, 'utf-8')
-    if type(text) is bytes and PY3:
+    if isinstance(text, bytes) and PY3:
         return text.decode('utf-8')
     return text
 
@@ -241,6 +252,16 @@ class CronTab(object):
                 return {'u': self._user}
         return {}
 
+    def __setattr__(self, name, value):
+        """Catch setting crons and lines directly"""
+        if name == 'lines' and value:
+            for line in value:
+                self.append(CronItem.from_line(line, cron=self), line, read=True)
+        elif name == 'crons' and value:
+            raise AttributeError("You can NOT set crons attribute directly")
+        else:
+            super(CronTab, self).__setattr__(name, value)
+
     def read(self, filename=None):
         """
         Read in the crontab from the system into the object, called
@@ -267,23 +288,19 @@ class CronTab(object):
                 raise IOError("Read crontab %s: %s" % (self.user, err))
             lines = out.decode('utf-8').split("\n")
 
-        for line in lines:
-            self.append(CronItem(line, cron=self), line, read=True)
+        self.lines = lines
 
     def append(self, item, line='', read=False):
         """Append a CronItem object to this CronTab"""
         if item.is_valid():
             item.env.update(self._parked_env)
             self._parked_env = OrderedDict()
-
             if read and not item.comment and self.lines and \
               self.lines[-1] and self.lines[-1][0] == '#':
                 item.set_comment(self.lines.pop()[1:].strip())
 
             self.crons.append(item)
             self.lines.append(item)
-            return item
-
         elif '=' in line:
             if ' ' not in line or line.index('=') < line.index(' '):
                 (name, value) = line.split('=', 1)
@@ -293,15 +310,13 @@ class CronTab(object):
                         value = value.strip(quot)
                         break
                 self._parked_env[name.strip()] = value
-                return None
+        else:
+            if not self.crons and self._parked_env:
+                self.env.update(self._parked_env)
+                self._parked_env = OrderedDict()
+            self.lines.append(line.replace('\n', ''))
 
-        elif not self.crons and self._parked_env:
-            self.env.update(self._parked_env)
-            self._parked_env = OrderedDict()
-
-        self.lines.append(line.replace('\n', ''))
-
-    def write(self, filename=None, user=None):
+    def write(self, filename=None, user=None, errors=False):
         """Write the crontab to it's source or a given filename."""
         if filename:
             self.filen = filename
@@ -323,7 +338,7 @@ class CronTab(object):
             filed, path = tempfile.mkstemp()
             fileh = os.fdopen(filed, 'wb')
 
-        fileh.write(self.render().encode('utf-8'))
+        fileh.write(self.render(errors=errors).encode('utf-8'))
         fileh.close()
 
         if not self.filen:
@@ -347,25 +362,43 @@ class CronTab(object):
         """Run all commands in this crontab if pending (generator)"""
         for job in self:
             ret = job.run_pending(**kwargs)
-            if ret is not None:
+            if ret not in [None, -1]:
                 yield ret
 
     def run_scheduler(self, timeout=-1, **kwargs):
         """Run the CronTab as an internal scheduler (generator)"""
         count = 0
-        self.run_pending()
         while count != timeout:
-            count += 1
-            sleep(kwargs.get('cadence', 60))
             now = datetime.now()
             if 'warp' in kwargs:
                 now += timedelta(seconds=count * 60)
             for value in self.run_pending(now=now):
                 yield value
 
-    def render(self):
-        """Render this crontab as it would be in the crontab."""
-        crons = [unicode(cron) for cron in self.lines]
+            sleep(kwargs.get('cadence', 60))
+            count += 1
+
+    def render(self, errors=False):
+        """Render this crontab as it would be in the crontab.
+
+        errors - Should we not comment out invalid entries and cause errors?
+        """
+        crons = []
+        for line in self.lines:
+            if isinstance(line, (unicode, str)):
+                if line.strip().startswith('#') or not line.strip():
+                    crons.append(line)
+                elif not errors:
+                    crons.append('# DISABLED LINE\n# ' + line)
+                else:
+                    raise ValueError("Invalid line: %s" % line)
+            elif isinstance(line, CronItem):
+                if not line.is_valid() and not errors:
+                    line.enabled = False
+                crons.append(unicode(line))
+
+        # Environment variables are attached to cron lines so order will
+        # always work no matter how you add lines in the middle of the stack.
         result = unicode(self.env) + u'\n'.join(crons)
         if result and result[-1] not in (u'\n', u'\r'):
             result += u'\n'
@@ -379,12 +412,14 @@ class CronTab(object):
         """
         if not user and self.user is False:
             raise ValueError("User is required for system crontabs.")
-        return self.append(CronItem(None, command, comment, user, self))
+        item = CronItem(command, comment, user=user, cron=self)
+        self.append(item)
+        return item
 
     def find_command(self, command):
         """Return an iter of jobs matching any part of the command."""
         for job in list(self.crons):
-            if isinstance(command, re._pattern_type):
+            if isinstance(command, type(ITEMREX)):
                 if command.findall(job.command):
                     yield job
             elif command in job.command:
@@ -393,7 +428,7 @@ class CronTab(object):
     def find_comment(self, comment):
         """Return an iter of jobs that match the comment field exactly."""
         for job in list(self.crons):
-            if isinstance(comment, re._pattern_type):
+            if isinstance(comment, type(ITEMREX)):
                 if comment.findall(job.comment):
                     yield job
             elif comment == job.comment:
@@ -445,7 +480,14 @@ class CronTab(object):
         """Remove a selected cron from the crontab."""
         result = 0
         for item in items:
-            result += self._remove(item)
+            if isinstance(item, (list, tuple, types.GeneratorType)):
+                for subitem in item:
+                    result += self._remove(subitem)
+            elif isinstance(item, CronItem):
+                result += self._remove(item)
+            else:
+                raise TypeError("You may only remove CronItem objects, "\
+                    "please use remove_all() to specify by name, id, etc.")
         return result
 
     def _remove(self, item):
@@ -468,7 +510,7 @@ class CronTab(object):
         return 1
 
     def __repr__(self):
-        kind = 'System ' if self._user == False else ''
+        kind = 'System ' if self._user is False else ''
         if self.filen:
             return "<%sCronTab '%s'>" % (kind, self.filen)
         elif self.user and not self.user_opt:
@@ -500,7 +542,7 @@ class CronItem(object):
     An item which objectifies a single line of a crontab and
     May be considered to be a cron job object.
     """
-    def __init__(self, line=None, command='', comment='', user=None, cron=None):
+    def __init__(self, command='', comment='', user=None, cron=None):
         self.cron = cron
         self.user = user
         self.valid = False
@@ -511,6 +553,9 @@ class CronItem(object):
         self.last_run = None
         self.env = OrderedVariableList(job=self)
 
+        # Marker labels Ansible jobs etc
+        self.marker = None
+        self.pre_comment = False
         self._log = None
 
         # Initalise five cron slices using static info.
@@ -518,11 +563,16 @@ class CronItem(object):
 
         self.set_comment(comment)
 
-        if line and line.strip():
-            self.parse(line.strip())
-        elif command:
+        if command:
             self.set_command(command)
             self.valid = True
+
+    @classmethod
+    def from_line(cls, line, user=None, cron=None):
+        """Generate CronItem from a cron-line and parse out command and comment"""
+        obj = cls(user=user, cron=cron)
+        obj.parse(line.strip())
+        return obj
 
     def delete(self):
         """Delete this item and remove it from it's parent"""
@@ -537,7 +587,12 @@ class CronItem(object):
 
     def set_comment(self, cmt):
         """Set the comment and don't filter"""
-        self.comment = cmt
+        if cmt and cmt[:8] == 'Ansible:':
+            self.marker = 'Ansible'
+            self.pre_comment = True
+            self.comment = cmt[8:].lstrip()
+        else:
+            self.comment = cmt
 
     def parse(self, line):
         """Parse a cron line string and save the info as the objects."""
@@ -545,6 +600,7 @@ class CronItem(object):
         if not line or line[0] == '#':
             self.enabled = False
             line = line[1:].strip()
+        # We parse all lines so we can detect disabled entries.
         self._set_parse(ITEMREX.findall(line))
         self._set_parse(SPECREX.findall(line))
 
@@ -552,16 +608,27 @@ class CronItem(object):
         """Set all the parsed variables into the item"""
         if not result:
             return
-        if self.cron.user == False:
+        self.comment = result[0][-1]
+        if self.cron.user is False:
             # Special flag to look for per-command user
-            (self.user, cmd) = (result[0][-3] + ' ').split(' ', 1)
-            self.set_command(cmd)
+            ret = result[0][-3].split(None, 1)
+            self.set_command(ret[-1])
+            if len(ret) == 2:
+                self.user = ret[0]
+            else:
+                self.valid = False
+                self.enabled = False
+                LOG.error(str("Missing user or command in system cron line."))
         else:
             self.set_command(result[0][-3])
-
-        self.valid = self.setall(*result[0][:-3])
-        self.comment = result[0][-1]
-        self.enabled = self.enabled and self.valid
+        try:
+            self.setall(*result[0][:-3])
+            self.valid = True
+        except (ValueError, KeyError) as err:
+            if self.enabled:
+                LOG.error(str(err))
+            self.valid = False
+            self.enabled = False
 
     def enable(self, enabled=True):
         """Set if this cron job is enabled or not"""
@@ -587,11 +654,17 @@ class CronItem(object):
             user = self.user + ' '
         result = u"%s %s%s" % (unicode(self.slices), user, self.command)
         if self.comment:
-            self.comment = _unicode(self.comment)
-            if SYSTEMV:
-                result = "# " + self.comment + "\n" + result
+            comment = self.comment = _unicode(self.comment)
+            if self.marker:
+                comment = u"#%s: %s" % (self.marker, comment)
             else:
-                result += u" # " + self.comment
+                comment = u"# " + comment
+
+            if SYSTEMV or self.pre_comment:
+                result = comment + "\n" + result
+            else:
+                result += ' ' + comment
+
         if not self.enabled:
             result = u"# " + result
         return unicode(self.env) + result
@@ -651,18 +724,21 @@ class CronItem(object):
         """Runs the command if scheduled"""
         now = now or datetime.now()
         if self.is_enabled():
-            if self.last_run is not None:
-                next_time = self.schedule(self.last_run).get_next()
-                if next_time < now:
-                    self.last_run = now
-                    return self.run()
-            else:
+            if self.last_run is None:
                 self.last_run = now
+
+            next_time = self.schedule(self.last_run).get_next()
+            if next_time < now:
+                self.last_run = now
+                return self.run()
+        return -1
 
     def run(self):
         """Runs the given command as a pipe"""
+        env = os.environ.copy()
+        env.update(self.env.all())
         shell = self.env.get('SHELL', SHELL)
-        (out, err) = open_pipe(shell, '-c', self.command).communicate()
+        (out, err) = open_pipe(shell, '-c', self.command, env=env).communicate()
         if err:
             LOG.error(err.decode("utf-8"))
         return out.decode("utf-8").strip()
@@ -676,31 +752,19 @@ class CronItem(object):
             from croniter.croniter import croniter
         except ImportError:
             raise ImportError("Croniter not available. Please install croniter"
-                          " python module via pip or your package manager")
-
-        class Croniter(croniter):
-            """Same as normal croniter, but always return datetime objects"""
-            def get_next(self, type_ref=datetime):
-                return croniter.get_next(self, type_ref)
-
-            def get_prev(self, type_ref=datetime):
-                return croniter.get_prev(self, type_ref)
-
-            def get_current(self, type_ref=datetime):
-                return croniter.get_current(self, type_ref)
-
-        return Croniter(self.slices.clean_render(), date_from)
+                              " python module via pip or your package manager")
+        return croniter(self.slices.clean_render(), date_from, ret_type=datetime)
 
     def description(self, **kw):
         """
         Returns a description of the crontab's schedule (if available)
-        
+
         **kw - Keyword arguments to pass to cron_descriptor (see docs)
         """
         try:
             from cron_descriptor import ExpressionDescriptor
         except ImportError:
-            raise ImportError("cron_descriptor not available. Please install"
+            raise ImportError("cron_descriptor not available. Please install"\
               "cron_descriptor python module via pip or your package manager")
 
         exdesc = ExpressionDescriptor(self.slices.clean_render(), **kw)
@@ -759,7 +823,7 @@ class CronItem(object):
         return self.slices[4]
 
     def __repr__(self):
-        return "<CronJob '%s'>" % unicode(self)
+        return "<CronItem '%s'>" % unicode(self)
 
     def __len__(self):
         return len(unicode(self))
@@ -777,7 +841,7 @@ class CronItem(object):
         return self.__unicode__()
 
     def __unicode__(self):
-        if not self.is_valid():
+        if not self.is_valid() and self.enabled:
             raise ValueError('Refusing to render invalid crontab.'
                              ' Disable to continue.')
         return self.render()
@@ -795,7 +859,7 @@ class Every(object):
         self.slices = item
         self.unit = units
         for (key, name) in enumerate(['minute', 'hour', 'dom', 'month', 'dow',
-                                 'min', 'hour', 'day', 'moon', 'weekday']):
+                                      'min', 'hour', 'day', 'moon', 'weekday']):
             setattr(self, name, self.set_attr(key % 5))
             setattr(self, name+'s', self.set_attr(key % 5))
 
@@ -825,69 +889,63 @@ class CronSlices(list):
     def __init__(self, *args):
         super(CronSlices, self).__init__([CronSlice(info) for info in S_INFO])
         self.special = None
-        if args and not self.setall(*args):
-            raise ValueError("Can't set cron value to: %s" % unicode(args))
+        self.setall(*args)
         self.is_valid = self.is_self_valid
 
     def is_self_valid(self, *args):
         """Object version of is_valid"""
-        args = args or (self,)
-        return CronSlices.is_valid(*args)
+        return CronSlices.is_valid(*(args or (self,)))
 
     @classmethod
-    def is_valid(cls, *args):
+    def is_valid(cls, *args): #pylint: disable=method-hidden
         """Returns true if the arguments are valid cron pattern"""
         try:
             return bool(cls(*args))
-        except Exception:
+        except (ValueError, KeyError):
             return False
 
-    def setall(self, value, *slices):
+    def setall(self, *slices):
         """Parses the various ways date/time frequency can be specified"""
         self.clear()
-        if isinstance(value, CronItem):
-            slices = value.slices
-        elif isinstance(value, datetime):
-            slices = [value.minute, value.hour, value.day, value.month, '*']
-        elif isinstance(value, time):
-            slices = [value.minute, value.hour, '*', '*', '*']
-        elif isinstance(value, date):
-            slices = [0, 0, value.day, value.month, '*']
-          # It might be possible to later understand timedelta objects
-          # but there's no convincing mathematics to do the conversion yet.
-        elif isinstance(value, list):
-            slices = value
-        elif slices:
-            slices = (value,) + slices
-        elif isinstance(value, basestring) and value:
-            if value.count(' ') == 4:
-                slices = value.strip().split(' ')
-            elif value.strip()[0] == '@':
-                value = value[1:]
-                slices = None
-            else:
-                slices = [value]
-
-            if 'reboot' in (value, value[1:]):
-                self.special = '@reboot'
-                return True
-            elif value in SPECIALS.keys():
-                return self.setall(SPECIALS[value])
-            elif not slices:
-                return False
-
+        if len(slices) == 1:
+            (slices, self.special) = self._parse_value(slices[0])
+            if slices[0] == '@reboot':
+                return
         if id(slices) == id(self):
             raise AssertionError("Can not set cron to itself!")
-
         for set_a, set_b in zip(self, slices):
-            try:
-                set_a.parse(set_b)
-            except ValueError as error:
-                LOG.warning(unicode(error))
-                return False
-            except Exception:
-                return False
-        return True
+            set_a.parse(set_b)
+
+    @staticmethod
+    def _parse_value(value):
+        """Parse a single value into an array of slices"""
+        if isinstance(value, basestring) and value:
+            return CronSlices._parse_str(value)
+        if isinstance(value, CronItem):
+            return value.slices, None
+        elif isinstance(value, datetime):
+            return [value.minute, value.hour, value.day, value.month, '*'], None
+        elif isinstance(value, time):
+            return [value.minute, value.hour, '*', '*', '*'], None
+        elif isinstance(value, date):
+            return [0, 0, value.day, value.month, '*'], None
+            # It might be possible to later understand timedelta objects
+            # but there's no convincing mathematics to do the conversion yet.
+        elif not isinstance(value, (list, tuple)):
+            raise ValueError("Unknown type: {}".format(type(value).__name__))
+        return value, None
+
+    @staticmethod
+    def _parse_str(value):
+        """Parse a string which contains slice information"""
+        key = value.lstrip('@').lower()
+        if value.count(' ') == 4:
+            return value.strip().split(' '), None
+        elif key in SPECIALS.keys():
+            return SPECIALS[key].split(' '), '@' + key
+        elif value.startswith('@'):
+            raise ValueError("Unknown special '{}'".format(value))
+        return [value], None
 
     def clean_render(self):
         """Return just numbered parts of this crontab"""
@@ -983,18 +1041,13 @@ class CronSlice(object):
 
     def parse(self, value):
         """Set values into the slice."""
-        self.parts = []
-        if value is None:
-            return self.clear()
-        for part in unicode(value).split(','):
-            if part.find("/") > 0 or part.find("-") > 0 or part == '*':
-                self.parts += self.get_range(part)
-                continue
-
-            try:
+        self.clear()
+        if value is not None:
+            for part in unicode(value).split(','):
+                if part.find("/") > 0 or part.find("-") > 0 or part == '*':
+                    self.parts += self.get_range(part)
+                    continue
                 self.parts.append(self.parse_value(part, sunday=0))
-            except ValueError as err:
-                raise ValueError('%s:%s/%s' % (unicode(err), self.name, part))
 
     def render(self, resolve=False):
         """Return the slice rendered as a crontab.
@@ -1002,7 +1055,7 @@ class CronSlice(object):
         resolve - return integer values instead of enums (default False)
 
         """
-        if len(self.parts) == 0:
+        if not self.parts:
             return '*'
         return _render_values(self.parts, ',', resolve)
 
@@ -1084,9 +1137,9 @@ class CronSlice(object):
         try:
             out = get_cronvalue(val, self.enum)
         except ValueError:
-            raise ValueError("Unrecognised '%s'='%s'" % (self.name, val))
+            raise ValueError("Unrecognised %s: '%s'" % (self.name, val))
         except KeyError:
-            raise KeyError("No enumeration '%s' got '%s'" % (self.name, val))
+            raise KeyError("No enumeration for %s: '%s'" % (self.name, val))
 
         if self.max == 6 and int(out) == 7:
             if sunday is not None:
@@ -1094,8 +1147,7 @@ class CronSlice(object):
             raise SundayError("Detected Sunday as 7 instead of 0!")
 
         if int(out) < self.min or int(out) > self.max:
-            raise ValueError("Invalid value '%s', expected %d-%d for %s" % (
-                unicode(val), self.min, self.max, self.name))
+            raise ValueError("'{1}', not in {0.min}-{0.max} for {0.name}".format(self, val))
         return out
 
 
@@ -1110,10 +1162,10 @@ def get_cronvalue(value, enums):
     return CronValue(unicode(value), enums)
 
 
-class CronValue(object):
+class CronValue(object): # pylint: disable=too-few-public-methods
     """Represent a special value in the cron line"""
     def __init__(self, value, enums):
-        self.enum = value
+        self.text = value
         self.value = enums.index(value.lower())
 
     def __lt__(self, value):
@@ -1123,7 +1175,7 @@ class CronValue(object):
         return unicode(self)
 
     def __str__(self):
-        return self.enum
+        return self.text
 
     def __int__(self):
         return self.value
@@ -1142,7 +1194,7 @@ def _render(value, resolve=False):
         return value.render(resolve)
     if resolve:
         return str(int(value))
-    return unicode(value)
+    return unicode(u'{:02d}'.format(value) if ZERO_PAD else value)
 
 
 class CronRange(object):
@@ -1158,7 +1210,7 @@ class CronRange(object):
             self.all()
         elif isinstance(vrange[0], basestring):
             self.parse(vrange[0])
-        elif isinstance(vrange[0], int) or isinstance(vrange[0], CronValue):
+        elif isinstance(vrange[0], (int, CronValue)):
             if len(vrange) == 2:
                 (self.vfrom, self.vto) = vrange
             else:
@@ -1174,7 +1226,7 @@ class CronRange(object):
             except SundayError:
                 self.seq = 1
                 value = "0-0"
-            if self.seq < 1 or self.seq > self.slice.max - 1:
+            if self.seq < 1 or self.seq > self.slice.max:
                 raise ValueError("Sequence can not be divided by zero or max")
         if value.count('-') == 1:
             vfrom, vto = value.split('-')
@@ -1188,9 +1240,7 @@ class CronRange(object):
                     self.dangling = 0
                 self.vto = self.slice.parse_value(vto, sunday=6)
             if self.vto < self.vfrom:
-                # ADE: need to exit here with a not valid
-                raise ValueError("Cron range is backwards '%d-%d'" % \
-                        (self.vfrom, self.vto))
+                LOG.warning("Bad range '{0.vfrom}-{0.vto}'".format(self))
         elif value == '*':
             self.all()
         else:
@@ -1260,8 +1310,7 @@ class OrderedVariableList(OrderedDict):
             index = self.job.cron.crons.index(self.job)
             if index == 0:
                 return self.job.cron.env
-            else:
-                return self.job.cron[index-1].env
+            return self.job.cron[index-1].env
         return None
 
     def all(self):
@@ -1286,15 +1335,12 @@ class OrderedVariableList(OrderedDict):
     def __str__(self):
         """Constructs to variable list output used in cron jobs"""
         ret = []
-        previous = self.previous.all() if self.previous else None
         for key, value in self.items():
             if self.previous:
                 if self.previous.all().get(key, None) == value:
                     continue
-            if ' ' in unicode(value):
+            if ' ' in unicode(value) or value == '':
                 value = '"%s"' % value
             ret.append("%s=%s" % (key, unicode(value)))
         ret.append('')
         return "\n".join(ret)
-
-
