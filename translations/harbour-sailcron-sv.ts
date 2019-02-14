@@ -65,22 +65,22 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="170"/>
         <source>Special</source>
-        <translation type="unfinished"></translation>
+        <translation>Special</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="171"/>
         <source>Use alternative cron time indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd alternativ cron tidsindikator</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="180"/>
         <source>Interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervall</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="181"/>
         <source>Choose the preferred moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj önskat ögonblick.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="213"/>
