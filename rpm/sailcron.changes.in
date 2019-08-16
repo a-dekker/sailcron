@@ -8,6 +8,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Feb 13 2019 Arno Dekker <jack.tar@example.com> 0.0.1-21
+- Added button to cleanup orphaned custom texts
+- Upgraded python-crontab to 2.3.7
+- Latest changes from cron-descriptor
 * Wed Feb 13 2019 Arno Dekker <jack.tar@example.com> 0.0.1-20
 - Now support @reboot, @weekly etc.
 - Updated python-crontab and cron descriptor to latest version

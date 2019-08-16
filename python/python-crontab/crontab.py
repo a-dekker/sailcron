@@ -107,7 +107,7 @@ except ImportError:
                           " install ordereddict 1.1 from pypi for python2.6")
 
 __pkgname__ = 'python-crontab'
-__version__ = '2.3.6'
+__version__ = '2.3.7'
 
 ITEMREX = re.compile(r'^\s*([^@#\s]+)\s+([^@#\s]+)\s+([^@#\s]+)\s+([^@#\s]+)'
                      r'\s+([^@#\s]+)\s+([^\n]*?)(\s+#\s*([^\n]*)|$)')
@@ -387,7 +387,7 @@ class CronTab(object):
         for line in self.lines:
             if isinstance(line, (unicode, str)):
                 if line.strip().startswith('#') or not line.strip():
-                    crons.append(line)
+                    crons.append(line.strip())
                 elif not errors:
                     crons.append('# DISABLED LINE\n# ' + line)
                 else:
@@ -395,7 +395,7 @@ class CronTab(object):
             elif isinstance(line, CronItem):
                 if not line.is_valid() and not errors:
                     line.enabled = False
-                crons.append(unicode(line))
+                crons.append(unicode(line).strip())
 
         # Environment variables are attached to cron lines so order will
         # always work no matter how you add lines in the middle of the stack.
@@ -955,8 +955,10 @@ class CronSlices(list):
         "Return just the first part of a cron job (the numbers or special)"
         slices = self.clean_render()
         if self.special:
-            return self.special
-        elif not SYSTEMV:
+            if self.special == '@reboot' or \
+                    SPECIALS[self.special.strip('@')] == slices:
+                return self.special
+        if not SYSTEMV:
             for (name, value) in SPECIALS.items():
                 if value == slices and name not in SPECIAL_IGNORE:
                     return "@%s" % name

@@ -5,19 +5,10 @@ import Nemo.Notifications 1.0
 import harbour.sailcron.Settings 1.0
 import io.thp.pyotherside 1.5
 
-
 // using cron_descriptor: https://github.com/Salamek/cron-descriptor
-// using python-crontab : https://github.com/doctormo/python-crontab
+// using python-crontab : https://gitlab.com/doctormo/python-crontab
 Page {
     id: mainPage
-
-    App {
-        id: bar
-    }
-
-    MySettings {
-        id: myset
-    }
 
     property string lineNbr
     property string isEnabled
@@ -28,6 +19,16 @@ Page {
     property string dayOfWeek
     property string command_string
     property var specials: ["@reboot", "@hourly", "@daily", "@weekly", "@monthly", "@yearly", "@annually", "@midnight"]
+
+    App {
+        id: bar
+        // onMessageChanged: setIpInfo(message)
+        // onDoneChanged: busy_sign.running = false
+    }
+
+    MySettings {
+        id: myset
+    }
 
     function banner(notificationType, message) {
         notification.close()
@@ -168,20 +169,38 @@ Page {
             // console.log(data[0]-1, "timeStringHuman", data[1])
         }
     }
-    BusyIndicator {
-        anchors.centerIn: parent
-        running: listCronModel.count === 0
-        size: BusyIndicatorSize.Large
-    }
-
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
         anchors.fill: parent
+            PageHeader {
+                id: pageHeader
+                width: listPass.width
+                title: qsTr("Sailcron" + " (" + current_cron_user + ")")
+                BusyIndicator {
+                    id: busy_sign
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    size: BusyIndicatorSize.Small
+                    running: false
+                }
+            }
 
         SilicaListView {
             id: listPass
             width: parent.width
             height: parent.height
+            clip: true
+
+            header: Item {
+                id: header
+                // This is just a placeholder for the header box. To avoid the
+                // list view resetting the input box everytime the model resets,
+                // the search entry is defined outside the list view.
+                width: pageHeader.width
+                height: pageHeader.height
+                Component.onCompleted: pageHeader.parent = header
+            }
             // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
             PullDownMenu {
                 MenuItem {
@@ -215,10 +234,6 @@ Page {
                         })
                     }
                 }
-            }
-            header: PageHeader {
-                width: listPass.width
-                title: qsTr("Sailcron" + " (" + current_cron_user + ")")
             }
             VerticalScrollDecorator {
             }

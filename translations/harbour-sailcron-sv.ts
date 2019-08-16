@@ -196,37 +196,37 @@
 <context>
     <name>DetailsPage</name>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="38"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="37"/>
         <source>Edit</source>
         <translation>Redigera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="73"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="71"/>
         <source>Cron entry details</source>
         <translation>Cron-postdetaljer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="77"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="75"/>
         <source>User</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="89"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="87"/>
         <source>Command displayed</source>
         <translation>Visat kommando</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="101"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="99"/>
         <source>Command to execute</source>
         <translation>Kommando att köra</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="113"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="111"/>
         <source>Cron format execution time</source>
         <translation>Exekveringstid i cron-format</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="124"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="122"/>
         <source>Human readable execution time</source>
         <translation>Mänskligt läsbar exekveringstid</translation>
     </message>
@@ -234,72 +234,72 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="122"/>
+        <location filename="../qml/pages/MainPage.qml" line="123"/>
         <source>Cron daemon is not running!</source>
         <translation>Cron-tjänsten är inte startad!</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="188"/>
+        <location filename="../qml/pages/MainPage.qml" line="207"/>
         <source>About</source>
         <translation>Om</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="192"/>
+        <location filename="../qml/pages/MainPage.qml" line="211"/>
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="197"/>
+        <location filename="../qml/pages/MainPage.qml" line="216"/>
         <source>Switch to user root</source>
         <translation>Byt till användare root</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="197"/>
+        <location filename="../qml/pages/MainPage.qml" line="216"/>
         <source>Switch to user nemo</source>
         <translation>Byt till användare nemo</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="208"/>
+        <location filename="../qml/pages/MainPage.qml" line="227"/>
         <source>Add new entry</source>
         <translation>Lägg till ny post</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="232"/>
+        <location filename="../qml/pages/MainPage.qml" line="247"/>
         <source>No cron entries found for user </source>
         <translation>Inga cron-poster hittades för användare </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="239"/>
+        <location filename="../qml/pages/MainPage.qml" line="254"/>
         <source>Enabling</source>
         <translation>Aktiverar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="253"/>
+        <location filename="../qml/pages/MainPage.qml" line="268"/>
         <source>Disabling</source>
         <translation>Avaktiverar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="265"/>
+        <location filename="../qml/pages/MainPage.qml" line="280"/>
         <source>Deleting</source>
         <translation>Tar bort</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="330"/>
+        <location filename="../qml/pages/MainPage.qml" line="345"/>
         <source>Edit</source>
         <translation>Redigera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="354"/>
+        <location filename="../qml/pages/MainPage.qml" line="369"/>
         <source>Disable</source>
         <translation>Inaktivera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="354"/>
+        <location filename="../qml/pages/MainPage.qml" line="369"/>
         <source>Enable</source>
         <translation>Aktivera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="365"/>
+        <location filename="../qml/pages/MainPage.qml" line="380"/>
         <source>Remove</source>
         <translation>Ta bort</translation>
     </message>
@@ -332,27 +332,32 @@
         <translation>root</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="78"/>
+        <location filename="../qml/pages/SettingPage.qml" line="80"/>
+        <source>Cleanup orphaned custom texts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingPage.qml" line="88"/>
         <source>Cron(d) daemon actions</source>
         <translation>Cron(d) tjänståtgärder</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="91"/>
+        <location filename="../qml/pages/SettingPage.qml" line="101"/>
         <source>Start</source>
         <translation>Starta</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="103"/>
+        <location filename="../qml/pages/SettingPage.qml" line="112"/>
         <source>Stop</source>
         <translation>Stoppa</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="135"/>
+        <location filename="../qml/pages/SettingPage.qml" line="142"/>
         <source>No autostart</source>
         <translation>Ingen autostart</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingPage.qml" line="123"/>
+        <location filename="../qml/pages/SettingPage.qml" line="131"/>
         <source>Autostart</source>
         <translation>Autostarta</translation>
     </message>

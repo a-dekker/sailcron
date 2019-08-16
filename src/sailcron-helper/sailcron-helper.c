@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 
 int main(int argc, char **argv) {
     char command[4096], cmdline[4096];
@@ -10,11 +10,12 @@ int main(int argc, char **argv) {
         perror("Setuid failed, no suid-bit set?");
         return 1;
     }
-    for (i=1; i< argc; i++) {
-        strcat(command,argv[i]);
-        strcat(command," ");
+    for (i = 1; i < argc; i++) {
+        strcat(command, argv[i]);
+        strcat(command, " ");
     }
-    sprintf(cmdline, "/usr/share/harbour-sailcron/helper/sailcronhelper.sh %s", command);
+    sprintf(cmdline, "/usr/share/harbour-sailcron/helper/sailcronhelper.sh %s",
+            command);
 
     system(cmdline);
     return 0;

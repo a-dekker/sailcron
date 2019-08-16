@@ -87,7 +87,7 @@ Page {
                 text: "Using <a href='#'>python-crontab</a> for validation checks"
                 linkColor: Theme.highlightColor
                 onLinkActivated: Qt.openUrlExternally(
-                                     "https://github.com/doctormo/python-crontab")
+                                     "https://gitlab.com/doctormo/python-crontab")
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

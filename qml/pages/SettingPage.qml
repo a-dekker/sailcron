@@ -17,16 +17,16 @@ Page {
 
     function checkCronStatus() {
         isStarted = bar.launch(
-            "/usr/share/harbour-sailcron/helper/sailcronhelper isStarted")
+                    "/usr/share/harbour-sailcron/helper/sailcronhelper isStarted")
         console.log(isStarted)
         isEnabled = bar.launch(
-            "/usr/share/harbour-sailcron/helper/sailcronhelper isEnabled")
+                    "/usr/share/harbour-sailcron/helper/sailcronhelper isEnabled")
         console.log(isEnabled)
     }
 
     Component.onCompleted: {
         checkCronStatus()
-                    }
+    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -39,7 +39,7 @@ Page {
 
         clip: true
 
-        ScrollDecorator {
+        VerticalScrollDecorator {
         }
 
         Column {
@@ -74,6 +74,16 @@ Page {
                     myset.sync()
                 }
             }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: (parent.width * .95)
+                text: qsTr("Cleanup orphaned custom texts")
+                onClicked: {
+                    var result = bar.launch(
+                                "/usr/share/harbour-sailcron/helper/sailcronhelper rm_orphaned_aliases")
+                    console.log(result)
+                }
+            }
             SectionHeader {
                 text: qsTr("Cron(d) daemon actions")
             }
@@ -91,8 +101,7 @@ Page {
                     text: qsTr("Start")
                     enabled: isStarted === "false"
                     onClicked: {
-                        bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper start_cron")
+                        bar.launch("/usr/share/harbour-sailcron/helper/sailcronhelper start_cron")
                         checkCronStatus()
                     }
                 }
@@ -103,8 +112,7 @@ Page {
                     text: qsTr("Stop")
                     enabled: isStarted === "true"
                     onClicked: {
-                        bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper stop_cron")
+                        bar.launch("/usr/share/harbour-sailcron/helper/sailcronhelper stop_cron")
                         checkCronStatus()
                     }
                 }
@@ -123,8 +131,7 @@ Page {
                     text: qsTr("Autostart")
                     enabled: isEnabled !== "enabled"
                     onClicked: {
-                        bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper enable_cron")
+                        bar.launch("/usr/share/harbour-sailcron/helper/sailcronhelper enable_cron")
                         checkCronStatus()
                     }
                 }
@@ -135,8 +142,7 @@ Page {
                     text: qsTr("No autostart")
                     enabled: isEnabled === "enabled"
                     onClicked: {
-                        bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper disable_cron")
+                        bar.launch("/usr/share/harbour-sailcron/helper/sailcronhelper disable_cron")
                         checkCronStatus()
                     }
                 }
