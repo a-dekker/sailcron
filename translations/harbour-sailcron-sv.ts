@@ -334,7 +334,7 @@
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="80"/>
         <source>Cleanup orphaned custom texts</source>
-        <translation type="unfinished"></translation>
+        <translation>Rensa bort överblivna anpassade texter</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="88"/>
