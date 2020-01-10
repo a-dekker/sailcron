@@ -1,10 +1,20 @@
 #!/bin/bash
 #
 
+check_cron_prog() {
+    if [ $(crontab -V|awk '{print $1}') == "cronie" ]; then
+        # cronie
+        CRON_PATH="/var/spool/cron/tabs"
+    else
+        # vixie
+        CRON_PATH="/var/cron/tabs"
+    fi
+}
+
 check_params() {
     LINE_NBR=$2
     CRON_USER=$3
-    CRON_FILE="/var/cron/tabs/${CRON_USER}"
+    CRON_FILE="${CRON_PATH}/${CRON_USER}"
     case "$1" in
     "readcron")
         CRON_USER=$2
@@ -173,7 +183,7 @@ rm_orphaned_aliases() {
     cat "${ALIAS_FILE}" | sed "s/~separator~/ /g" | while read RECORD; do
         COMMAND=$(echo "${RECORD}" | awk '{print $1}')
         TEXT=$(echo "${RECORD}" | awk '{print $2}')
-        cat /var/cron/tabs/nemo /var/cron/tabs/root | grep -Fq "$(echo ${COMMAND} | base64 --decode)"
+        cat ${CRON_PATH}/nemo ${CRON_PATH}/root | grep -Fq "$(echo ${COMMAND} | base64 --decode)"
         if [ $? -ne 0 ]; then
             sed -i "${counter}d" "${ALIAS_FILE}"
             printf "Removed line %s: " "${counter}"
@@ -196,6 +206,7 @@ main() {
         touch ${ALIAS_FILE}
         chown nemo:nemo ${ALIAS_FILE}
     fi
+    check_cron_prog
     check_params "$@"
 }
 

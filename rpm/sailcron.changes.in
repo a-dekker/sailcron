@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Feb 13 2020 Arno Dekker <jack.tar@example.com> 0.0.2-1
+- updated python-crontab and cron-descriptor
+- No longer require vixie-cron as a dependency
 * Wed Feb 13 2019 Arno Dekker <jack.tar@example.com> 0.0.1-21
 - Added button to cleanup orphaned custom texts
 - Upgraded python-crontab to 2.3.7

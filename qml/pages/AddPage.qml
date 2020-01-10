@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
 import io.thp.pyotherside 1.5
 import harbour.sailcron.Launcher 1.0

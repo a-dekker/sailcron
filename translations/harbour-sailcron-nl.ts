@@ -234,72 +234,72 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="123"/>
+        <location filename="../qml/pages/MainPage.qml" line="125"/>
         <source>Cron daemon is not running!</source>
         <translation>De cron daemon is niet actief!</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="207"/>
+        <location filename="../qml/pages/MainPage.qml" line="210"/>
         <source>About</source>
         <translation>Over</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="211"/>
+        <location filename="../qml/pages/MainPage.qml" line="214"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="216"/>
+        <location filename="../qml/pages/MainPage.qml" line="219"/>
         <source>Switch to user root</source>
         <translation>Naar gebruiker root</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="216"/>
+        <location filename="../qml/pages/MainPage.qml" line="219"/>
         <source>Switch to user nemo</source>
         <translation>Naar gebruiker nemo</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="227"/>
+        <location filename="../qml/pages/MainPage.qml" line="230"/>
         <source>Add new entry</source>
         <translation>Voeg nieuwe regel toe</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="247"/>
+        <location filename="../qml/pages/MainPage.qml" line="250"/>
         <source>No cron entries found for user </source>
         <translation>Geen cron regels aanwezig voor gebruiker </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="254"/>
+        <location filename="../qml/pages/MainPage.qml" line="257"/>
         <source>Enabling</source>
         <translation>Aanzetten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="268"/>
+        <location filename="../qml/pages/MainPage.qml" line="271"/>
         <source>Disabling</source>
         <translation>Aan het uitzetten van</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="280"/>
+        <location filename="../qml/pages/MainPage.qml" line="283"/>
         <source>Deleting</source>
         <translation>Aan het verwijderen van</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="345"/>
+        <location filename="../qml/pages/MainPage.qml" line="348"/>
         <source>Edit</source>
         <translation>Wijzigen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="369"/>
+        <location filename="../qml/pages/MainPage.qml" line="372"/>
         <source>Disable</source>
         <translation>Uitzetten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="369"/>
+        <location filename="../qml/pages/MainPage.qml" line="372"/>
         <source>Enable</source>
         <translation>Aanzetten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="380"/>
+        <location filename="../qml/pages/MainPage.qml" line="383"/>
         <source>Remove</source>
         <translation>Verwijderen</translation>
     </message>

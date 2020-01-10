@@ -13,14 +13,14 @@ Name:       harbour-sailcron
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Manage your crontabs
-Version:    0.1
-Release:    21
+Version:    0.2
+Release:    1
 Group:      Qt/Qt
 License:    LICENSE
 URL:        https://github.com/a-dekker/sailcron
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
-Requires:   vixie-cron
+Suggests:   cronie
 Requires:   pyotherside-qml-plugin-python3-qt5 >= 1.5.0
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)

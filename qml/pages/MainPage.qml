@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
 import harbour.sailcron.Launcher 1.0
 import Nemo.Notifications 1.0
@@ -118,9 +118,12 @@ Page {
     }
 
     Component.onCompleted: {
-        var cronpid = bar.launch("pgrep -f crond")
+        var cronpid = bar.launch("pgrep -x crond")
         if (cronpid === "") {
-            banner("WARNING", qsTr("Cron daemon is not running!"))
+            cronpid = bar.launch("pgrep -x cron")
+            if (cronpid === "") {
+                banner("WARNING", qsTr("Cron daemon is not running!"))
+            }
         }
         loadConfig()
         loadCron()
