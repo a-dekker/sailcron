@@ -65,10 +65,6 @@ check_params() {
     "isStarted")
         check_cron_service isStarted
         ;;
-    "readalias")
-        CRON_ALIAS=$2
-        read_alias
-        ;;
     "rm_orphaned_aliases")
         rm_orphaned_aliases
         ;;
@@ -149,15 +145,6 @@ disable_cron_service() {
 enable_cron_service() {
     /bin/systemctl enable cron.service
     EXIT_CODE=$?
-}
-
-read_alias() {
-    SEP='[~][s][e][p][a][r][a][t][o][r][~]'
-    ALIAS_LINE=$(grep "${CRON_ALIAS}" "${ALIAS_FILE}" | head -1)
-    # echo "${CRON_ALIAS}"|base64 --decode
-    # echo "alias_line: ${ALIAS_LINE}"
-    ALIAS_VALUE=$(echo "${ALIAS_LINE}" | awk -F "${SEP}" '{print $2}' | base64 --decode | sed -e 's/[\/&]/\\&/g')
-    printf "%s" "${ALIAS_VALUE}"
 }
 
 check_cron_service() {

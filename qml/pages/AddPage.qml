@@ -428,6 +428,10 @@ Dialog {
                     check_validity()
                 }
             }
+            Label {
+                // just some whitespace
+                text: " "
+            }
         }
     }
 }

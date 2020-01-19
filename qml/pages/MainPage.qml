@@ -92,15 +92,15 @@ Page {
                 dayOfWeek = myElement[6].trim()
             }
             command_string = myElement[7].trim()
-            // check if alias is present
-            aliasString = bar.launch(
-                        "/usr/share/harbour-sailcron/helper/sailcronhelper readalias " + Qt.btoa(
-                            command_string)).trim()
             appendList(lineNbr, isEnabled, minutes, hours, dayOfMonth, month,
-                       dayOfWeek, command_string, aliasString, "")
+                       dayOfWeek, command_string, "", "")
+            cronString = minutes + " " + hours + " " + dayOfMonth + " " + month + " " + dayOfWeek
+            // check if alias is present
+            // we deal with that async in the onReceived python part, with index-id as reference
+            python.call("read_alias.get_alias",
+                        [listCronModel.count, Qt.btoa(command_string).trim()])
             // we did add an empty string for the human value
             // we deal with that async in the onReceived python part, with index-id as reference
-            cronString = minutes + " " + hours + " " + dayOfMonth + " " + month + " " + dayOfWeek
             python.call("pretty_cron.get_pretty",
                         [listCronModel.count, cronString])
         }
@@ -160,6 +160,13 @@ Page {
                                           human_string)
                 // console.log(result_index,human_string)
             })
+            importModule('read_alias', function () {
+                console.log('read_alias module is now imported')
+            })
+            setHandler('alias', function (result_index, alias_txt) {
+                listCronModel.setProperty(result_index - 1, "aliasString",
+                                          alias_txt)
+            })
         }
         onError: {
             // when an exception is raised, this error handler will be called
@@ -175,19 +182,20 @@ Page {
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
         anchors.fill: parent
-            PageHeader {
-                id: pageHeader
-                width: listPass.width
-                title: qsTr("Sailcron" + " (" + current_cron_user + ")")
-                BusyIndicator {
-                    id: busy_sign
-                    anchors.left: parent.left
-                    anchors.leftMargin: Theme.horizontalPageMargin
-                    anchors.verticalCenter: parent.verticalCenter
-                    size: BusyIndicatorSize.Small
-                    running: false
-                }
+        PageHeader {
+            id: pageHeader
+            width: listPass.width
+            title: qsTr("Sailcron")
+            description: current_cron_user
+            BusyIndicator {
+                id: busy_sign
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.verticalCenter: parent.verticalCenter
+                size: BusyIndicatorSize.Small
+                running: false
             }
+        }
 
         SilicaListView {
             id: listPass

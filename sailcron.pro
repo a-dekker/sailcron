@@ -33,6 +33,7 @@ OTHER_FILES += qml/sailcron.qml \
     qml/pages/SettingPage.qml \
     qml/pages/AddPage.qml \
     qml/pages/pretty_cron.py \
+    qml/pages/read_alias.py \
     qml/pages/valid_cron.py \
     helper/sailcronhelper.sh \
     python/python-crontab/crontab.py \

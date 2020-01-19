@@ -8,7 +8,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Wed Feb 13 2020 Arno Dekker <jack.tar@example.com> 0.0.2-1
+* Sat Jan 18 2020 Arno Dekker <jack.tar@example.com> 0.0.3-1
+- Load custom texts async for faster loading
+- Minor layout changes
+* Sat Jan 11 2020 Arno Dekker <jack.tar@example.com> 0.0.2-1
 - updated python-crontab and cron-descriptor
 - No longer require vixie-cron as a dependency
 * Wed Feb 13 2019 Arno Dekker <jack.tar@example.com> 0.0.1-21
