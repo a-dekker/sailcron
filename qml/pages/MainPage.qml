@@ -165,7 +165,7 @@ Page {
             })
             setHandler('alias', function (result_index, alias_txt) {
                 listCronModel.setProperty(result_index - 1, "aliasString",
-                                          alias_txt)
+                                          alias_txt.toString())
             })
         }
         onError: {

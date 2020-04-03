@@ -125,7 +125,7 @@ Dialog {
             timeStringHuman = py.call_sync("pretty_cron.get_pretty",
                                            [1, cronString])
             if (timeStringHuman.indexOf("error") >= 0) {
-                banner("ERROR", qsTr("Invalid cron syntax!"))
+                banner("ERROR", '❌ ' + qsTr("Invalid cron syntax!"))
                 isValidCron = false
             } else {
                 banner("OK", '✓ ' + qsTr("Cron syntax valid"))
