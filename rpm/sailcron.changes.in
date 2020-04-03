@@ -8,6 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Fri Apr 03 2020 Arno Dekker <jack.tar@example.com> 0.0.4-2
+- Yet another fix for SFOS 3.3.0: writing failed as Jolla moved to busybox base64 command
 * Fri Apr 03 2020 Arno Dekker <jack.tar@example.com> 0.0.4-1
 - Fix for SFOS 3.3.0 so custom descriptions are displayed again
 - Small change in notification
