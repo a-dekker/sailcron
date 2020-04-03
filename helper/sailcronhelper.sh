@@ -31,18 +31,18 @@ check_params() {
         ;;
     "append")
         SEP='[~][s][e][p][a][r][a][t][o][r][~]'
-        CRON_COMMAND=$(echo "$2" | base64 --decode)
-        EXEC_COMMAND=$(echo "$4" | awk -F "${SEP}" '{print $1}' | base64 --decode)
-        ALIAS_COMMAND=$(echo "$4" | awk -F "${SEP}" '{print $2}' | base64 --decode)
+        CRON_COMMAND=$(echo "$2" | base64 -d)
+        EXEC_COMMAND=$(echo "$4" | awk -F "${SEP}" '{print $1}' | base64 -d)
+        ALIAS_COMMAND=$(echo "$4" | awk -F "${SEP}" '{print $2}' | base64 -d)
         EXEC_COMMAND_B64=$(echo "$4" | awk -F "${SEP}" '{print $1}')
         ALIAS_COMMAND_B64=$(echo "$4" | awk -F "${SEP}" '{print $2}')
         append_entry
         ;;
     "edit")
         SEP='[~][s][e][p][a][r][a][t][o][r][~]'
-        CRON_COMMAND=$(echo "$4" | base64 --decode | sed 's/\//\\\//g')
-        EXEC_COMMAND=$(echo "$5" | awk -F "${SEP}" '{print $1}' | base64 --decode | sed -e 's/[\/&]/\\&/g')
-        ALIAS_COMMAND=$(echo "$5" | awk -F "${SEP}" '{print $2}' | base64 --decode | sed -e 's/[\/&]/\\&/g')
+        CRON_COMMAND=$(echo "$4" | base64 -d | sed 's/\//\\\//g')
+        EXEC_COMMAND=$(echo "$5" | awk -F "${SEP}" '{print $1}' | base64 -d | sed -e 's/[\/&]/\\&/g')
+        ALIAS_COMMAND=$(echo "$5" | awk -F "${SEP}" '{print $2}' | base64 -d | sed -e 's/[\/&]/\\&/g')
         EXEC_COMMAND_B64=$(echo "$5" | awk -F "${SEP}" '{print $1}')
         ALIAS_COMMAND_B64=$(echo "$5" | awk -F "${SEP}" '{print $2}')
         edit_entry
@@ -170,11 +170,11 @@ rm_orphaned_aliases() {
     cat "${ALIAS_FILE}" | sed "s/~separator~/ /g" | while read RECORD; do
         COMMAND=$(echo "${RECORD}" | awk '{print $1}')
         TEXT=$(echo "${RECORD}" | awk '{print $2}')
-        cat ${CRON_PATH}/nemo ${CRON_PATH}/root | grep -Fq "$(echo ${COMMAND} | base64 --decode)"
+        cat ${CRON_PATH}/nemo ${CRON_PATH}/root | grep -Fq "$(echo ${COMMAND} | base64 -d)"
         if [ $? -ne 0 ]; then
             sed -i "${counter}d" "${ALIAS_FILE}"
             printf "Removed line %s: " "${counter}"
-            echo "${TEXT}" | base64 --decode
+            echo "${TEXT}" | base64 -d
             echo
         else
             counter=$((counter + 1))
