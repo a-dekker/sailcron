@@ -128,33 +128,33 @@ edit_entry() {
 }
 
 start_cron_service() {
-    /bin/systemctl start cron.service
+    systemctl start cron.service
     EXIT_CODE=$?
 }
 
 stop_cron_service() {
-    /bin/systemctl stop cron.service
+    systemctl stop cron.service
     EXIT_CODE=$?
 }
 
 disable_cron_service() {
-    /bin/systemctl disable cron.service
+    systemctl disable cron.service
     EXIT_CODE=$?
 }
 
 enable_cron_service() {
-    /bin/systemctl enable cron.service
+    systemctl enable cron.service
     EXIT_CODE=$?
 }
 
 check_cron_service() {
     case "$1" in
     "isEnabled")
-        RESULT=$(/bin/systemctl is-enabled cron)
+        RESULT=$(systemctl is-enabled cron)
         printf "%s" "${RESULT}"
         ;;
     "isStarted")
-        /bin/systemctl status cron >/dev/null 2>&1
+        systemctl status cron >/dev/null 2>&1
         EXIT_CODE=$?
         if [ ${EXIT_CODE} -eq 0 ]; then
             printf "true"
