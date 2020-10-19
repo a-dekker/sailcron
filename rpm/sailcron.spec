@@ -14,7 +14,7 @@ Name:       harbour-sailcron
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Manage your crontabs
 Version:    0.4
-Release:    3
+Release:    4
 Group:      Qt/Qt
 License:    LICENSE
 URL:        https://github.com/a-dekker/sailcron
@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  desktop-file-utils
 
 %description
-App to manage your crontab entries (nemo and root)
+App to manage your crontab entries (user and root)
 
 
 %prep

@@ -241,7 +241,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="188"/>
         <source>Sailcron</source>
-        <translation type="unfinished"></translation>
+        <translation>Sailcron</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="218"/>
@@ -260,8 +260,8 @@
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="227"/>
-        <source>Switch to user nemo</source>
-        <translation>Naar gebruiker nemo</translation>
+        <source>Switch to user </source>
+        <translation>Naar gebruiker </translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="238"/>
@@ -325,11 +325,6 @@
         <location filename="../qml/pages/SettingPage.qml" line="57"/>
         <source>Which users crontab is shown at startup</source>
         <translation>Welke gebruiker wordt bij het opstarten getoond</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SettingPage.qml" line="61"/>
-        <source>nemo</source>
-        <translation>nemo</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="64"/>

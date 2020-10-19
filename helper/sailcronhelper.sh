@@ -122,7 +122,7 @@ edit_entry() {
     # remove any existing alias entry
     LINE_NBR=$(grep -n "${EXEC_COMMAND_B64}~separator~" ${ALIAS_FILE} | cut -f1 -d:)
     if [ -n "${LINE_NBR}" ]; then
-        sed -i "${LINE_NBR}d" ${ALIAS_FILE}
+        sed -i "${LINE_NBR}d" "${ALIAS_FILE}"
     fi
     add_alias
 }
@@ -170,7 +170,7 @@ rm_orphaned_aliases() {
     cat "${ALIAS_FILE}" | sed "s/~separator~/ /g" | while read RECORD; do
         COMMAND=$(echo "${RECORD}" | awk '{print $1}')
         TEXT=$(echo "${RECORD}" | awk '{print $2}')
-        cat ${CRON_PATH}/nemo ${CRON_PATH}/root | grep -Fq "$(echo ${COMMAND} | base64 -d)"
+        cat ${CRON_PATH}/${USER} ${CRON_PATH}/root | grep -Fq "$(echo ${COMMAND} | base64 -d)"
         if [ $? -ne 0 ]; then
             sed -i "${counter}d" "${ALIAS_FILE}"
             printf "Removed line %s: " "${counter}"
@@ -183,15 +183,15 @@ rm_orphaned_aliases() {
 }
 
 main() {
-    CONFIG_DIR="/home/nemo/.config/harbour-sailcron"
+    CONFIG_DIR="${HOME}/.config/harbour-sailcron"
     ALIAS_FILE="${CONFIG_DIR}/cron_command_alias.txt"
     if [ ! -d "${CONFIG_DIR}" ]; then
-        mkdir ${CONFIG_DIR}
-        chown nemo:nemo ${CONFIG_DIR}
+        mkdir "${CONFIG_DIR}"
+        chown ${USER}:$(id -g ${USER}) ${CONFIG_DIR}
     fi
     if [ ! -f "${ALIAS_FILE}" ]; then
-        touch ${ALIAS_FILE}
-        chown nemo:nemo ${ALIAS_FILE}
+        touch "${ALIAS_FILE}"
+        chown ${USER}:$(id -g ${USER}) "${ALIAS_FILE}"
     fi
     check_cron_prog
     check_params "$@"

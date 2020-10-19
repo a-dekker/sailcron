@@ -260,8 +260,8 @@
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="227"/>
-        <source>Switch to user nemo</source>
-        <translation>Byt till användare nemo</translation>
+        <source>Switch to user </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="238"/>
@@ -325,11 +325,6 @@
         <location filename="../qml/pages/SettingPage.qml" line="57"/>
         <source>Which users crontab is shown at startup</source>
         <translation>Vilken användares cron-flik som visas vid uppstart</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SettingPage.qml" line="61"/>
-        <source>nemo</source>
-        <translation>nemo</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingPage.qml" line="64"/>

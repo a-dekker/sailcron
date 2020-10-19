@@ -58,7 +58,7 @@ Page {
                 currentIndex: myset.value("default_cron") === "root" ? 1 : 0
                 menu: ContextMenu {
                     MenuItem {
-                        text: qsTr("nemo") // 0
+                        text: username // 0
                     }
                     MenuItem {
                         text: qsTr("root") // 1
@@ -66,7 +66,7 @@ Page {
                 }
                 onCurrentItemChanged: {
                     if (cron_user.currentIndex === 0) {
-                        myset.setValue("default_cron", "nemo")
+                        myset.setValue("default_cron", username)
                     }
                     if (cron_user.currentIndex === 1) {
                         myset.setValue("default_cron", "root")

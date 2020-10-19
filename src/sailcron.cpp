@@ -63,6 +63,9 @@ int main(int argc, char* argv[]) {
         appversion = appinfo.readAll();
     }
 
+    QString username;
+    username = qgetenv("USER");
+
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     QQuickView* view = SailfishApp::createView();
     qmlRegisterType<Launcher>("harbour.sailcron.Launcher", 1, 0, "App");
@@ -84,6 +87,7 @@ int main(int argc, char* argv[]) {
     }
 
     view->rootContext()->setContextProperty("version", appversion);
+    view->rootContext()->setContextProperty("username", username);
     view->setSource(SailfishApp::pathTo("qml/sailcron.qml"));
     view->showFullScreen();
     return app->exec();

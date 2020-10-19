@@ -8,6 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Mon Oct 19 2020 Arno Dekker <jack.tar@example.com> 0.0.4-4
+- Do not assume nemo as default username
 * Tue Sep 29 2020 Arno Dekker <jack.tar@example.com> 0.0.4-3
 - Fix for SFOS 3.4
 * Fri Apr 03 2020 Arno Dekker <jack.tar@example.com> 0.0.4-2

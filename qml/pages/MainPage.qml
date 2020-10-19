@@ -62,7 +62,7 @@ Page {
         if (myset.contains("default_cron")) {
             current_cron_user = myset.value("default_cron").toString()
         } else {
-            current_cron_user = "nemo"
+            current_cron_user = username
         }
     }
 
@@ -224,12 +224,12 @@ Page {
                 }
                 MenuItem {
                     text: mainapp.current_cron_user
-                          === "nemo" ? qsTr("Switch to user root") : qsTr(
-                                           "Switch to user nemo")
+                          === username ? qsTr("Switch to user root") : qsTr(
+                                           "Switch to user ") + username
                     onClicked: {
                         mainapp.current_cron_user
-                                === "nemo" ? mainapp.current_cron_user
-                                             = "root" : mainapp.current_cron_user = "nemo"
+                                === username ? mainapp.current_cron_user
+                                             = "root" : mainapp.current_cron_user = username
                         listCronModel.clear()
                         loadCron()
                     }

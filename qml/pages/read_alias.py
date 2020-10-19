@@ -2,10 +2,12 @@ def get_alias(line_nbr, alias):
     """ Search for base64 encoded alias """
     import pyotherside
     import base64
+    from pathlib import Path
 
     sep = "~separator~"
-    config_dir = "/home/nemo/.config/harbour-sailcron"
-    alias_file = config_dir + "/cron_command_alias.txt"
+    homedir = str(Path.home())
+    config_dir = f"{homedir}/.config/harbour-sailcron"
+    alias_file = f"{config_dir}/cron_command_alias.txt"
     alias_txt = ""
 
     with open(alias_file, "r") as file_pointer:
