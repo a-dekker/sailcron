@@ -118,9 +118,9 @@ Page {
     }
 
     Component.onCompleted: {
-        var cronpid = bar.launch("pgrep -x crond")
+        var cronpid = bar.launch("pgrep -f /usr/sbin/crond")
         if (cronpid === "") {
-            cronpid = bar.launch("pgrep -x cron")
+            cronpid = bar.launch("pgrep -f /usr/sbin/cron")
             if (cronpid === "") {
                 banner("WARNING", qsTr("Cron daemon is not running!"))
             }

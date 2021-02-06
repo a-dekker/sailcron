@@ -8,6 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Thu Feb 04 2021 Arno Dekker <jack.tar@example.com> 0.0.4-5
+- Switched to crippled busybox pgrep in SFOS4
 * Mon Oct 19 2020 Arno Dekker <jack.tar@example.com> 0.0.4-4
 - Do not assume nemo as default username
 * Tue Sep 29 2020 Arno Dekker <jack.tar@example.com> 0.0.4-3
