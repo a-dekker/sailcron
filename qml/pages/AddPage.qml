@@ -103,7 +103,7 @@ Dialog {
         }
         notification.category = notificationCategory
         notification.previewBody = message
-        notification.previewSummary = "Sailcron"
+        notification.previewSummary = ""
         notification.publish()
     }
 

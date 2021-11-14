@@ -38,10 +38,8 @@ ApplicationWindow
     property string current_cron_user
     property string changestatus
 
-    allowedOrientations: Orientation.Portrait | Orientation.Landscape
-                         | Orientation.LandscapeInverted
-    _defaultPageOrientations: Orientation.Portrait | Orientation.Landscape
-    | Orientation.LandscapeInverted
+    allowedOrientations: defaultAllowedOrientations
+    _defaultPageOrientations: defaultAllowedOrientations
 
     initialPage: Component { MainPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")

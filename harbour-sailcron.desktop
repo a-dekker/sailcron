@@ -4,3 +4,7 @@ X-Nemo-Application-Type=silica-qt5
 Name=Sailcron
 Icon=harbour-sailcron
 Exec=harbour-sailcron
+[X-HarbourBackup]
+BackupPathList=.config/harbour-sailcron
+[X-Sailjail]
+Sandboxing=Disabled
