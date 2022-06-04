@@ -32,163 +32,203 @@
 <context>
     <name>AddPage</name>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="121"/>
-        <location filename="../qml/pages/AddPage.qml" line="128"/>
+        <location filename="../qml/pages/AddPage.qml" line="123"/>
+        <location filename="../qml/pages/AddPage.qml" line="130"/>
         <source>Invalid cron syntax!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="131"/>
+        <location filename="../qml/pages/AddPage.qml" line="133"/>
         <source>Cron syntax valid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="160"/>
+        <location filename="../qml/pages/AddPage.qml" line="162"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="161"/>
+        <location filename="../qml/pages/AddPage.qml" line="163"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="164"/>
+        <location filename="../qml/pages/AddPage.qml" line="166"/>
         <source>Add cron entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="164"/>
+        <location filename="../qml/pages/AddPage.qml" line="166"/>
         <source>Edit cron entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="170"/>
+        <location filename="../qml/pages/AddPage.qml" line="172"/>
         <source>Special</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="171"/>
+        <location filename="../qml/pages/AddPage.qml" line="173"/>
         <source>Use alternative cron time indicator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="180"/>
+        <location filename="../qml/pages/AddPage.qml" line="182"/>
         <source>Interval</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="181"/>
+        <location filename="../qml/pages/AddPage.qml" line="183"/>
         <source>Choose the preferred moment.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="213"/>
+        <location filename="../qml/pages/AddPage.qml" line="189"/>
+        <source>reboot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="192"/>
+        <source>yearly (=annually)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="195"/>
+        <source>annually (=yearly)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="198"/>
+        <source>monthly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="201"/>
+        <source>weekly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="204"/>
+        <source>daily</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="207"/>
+        <source>hourly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="210"/>
+        <source>midnight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddPage.qml" line="221"/>
         <source>Minutes past every hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="214"/>
+        <location filename="../qml/pages/AddPage.qml" line="222"/>
         <source>Range from 0-59. Wildcard (*) means every minute, */15 every 15 minutes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="224"/>
+        <location filename="../qml/pages/AddPage.qml" line="232"/>
         <source>Enter minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="241"/>
+        <location filename="../qml/pages/AddPage.qml" line="249"/>
         <source>Hours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="241"/>
+        <location filename="../qml/pages/AddPage.qml" line="249"/>
         <source>Range from 0-23. Wildcard (*) means every hour, */2 every other hour. Multiple hours like 7-11 or 6,7,9</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="251"/>
+        <location filename="../qml/pages/AddPage.qml" line="259"/>
         <source>Enter hours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="268"/>
+        <location filename="../qml/pages/AddPage.qml" line="276"/>
         <source>Day of the month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="268"/>
+        <location filename="../qml/pages/AddPage.qml" line="276"/>
         <source>Range from 1-31. Wildcard (*) means every day. Multiple days like 1-11 or 20,21</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="278"/>
+        <location filename="../qml/pages/AddPage.qml" line="286"/>
         <source>Enter day of month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="295"/>
+        <location filename="../qml/pages/AddPage.qml" line="303"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="295"/>
+        <location filename="../qml/pages/AddPage.qml" line="303"/>
         <source>Range from 1-12. Wildcard (*) means every month. Multiple months like 2-4 or 2,5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="304"/>
+        <location filename="../qml/pages/AddPage.qml" line="312"/>
         <source>Enter month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="322"/>
+        <location filename="../qml/pages/AddPage.qml" line="330"/>
         <source>Day of the week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="322"/>
+        <location filename="../qml/pages/AddPage.qml" line="330"/>
         <source>Range from 0-6. Wildcard (*) means every day of the week. Sunday is 0 (or enter SUN). Multiple days of the week like 2-4 or 2,5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="333"/>
+        <location filename="../qml/pages/AddPage.qml" line="341"/>
         <source>Enter day of week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="350"/>
+        <location filename="../qml/pages/AddPage.qml" line="358"/>
         <source>Command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="350"/>
+        <location filename="../qml/pages/AddPage.qml" line="358"/>
         <source>This command will be executed if it is matched with the time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="360"/>
+        <location filename="../qml/pages/AddPage.qml" line="368"/>
         <source>Enter command here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="372"/>
+        <location filename="../qml/pages/AddPage.qml" line="380"/>
         <source>Custom text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="372"/>
+        <location filename="../qml/pages/AddPage.qml" line="380"/>
         <source>Show a more meaningful command text, e.g. &apos;Flightmode on&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="382"/>
+        <location filename="../qml/pages/AddPage.qml" line="390"/>
         <source>Enter custom text here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AddPage.qml" line="425"/>
+        <location filename="../qml/pages/AddPage.qml" line="433"/>
         <source>Verify cron time</source>
         <translation type="unfinished"></translation>
     </message>

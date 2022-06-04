@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Jun 04 2022 Arno Dekker <jack.tar@example.com> 0.0.6-1
+- Do not notify cronline is ok at save
+- Added midnight and anually as special cron entries
 * Sun Nov 14 2021 Arno Dekker <jack.tar@example.com> 0.0.5-1
 - Opt out of sailjail
 - Switch from popup messages to smaller banner

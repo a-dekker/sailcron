@@ -21,6 +21,7 @@ Dialog {
     property string commandTXT: ""
     property string aliasTXT: ""
     property bool isValidCron: false
+    property bool showOkNotification: true
     property string linenumber: ""
     property string str_minute: ""
     property string str_hour: ""
@@ -38,6 +39,7 @@ Dialog {
     }
 
     onAccepted: {
+        showOkNotification = false
         check_validity()
         if (isValidCron === true) {
             var data
@@ -70,15 +72,17 @@ Dialog {
         case "@yearly":
             return 1
         case "@annually":
-            return 1
-        case "@monthly":
             return 2
-        case "@weekly":
+        case "@monthly":
             return 3
-        case "@daily":
+        case "@weekly":
             return 4
-        case "@hourly":
+        case "@daily":
             return 5
+        case "@hourly":
+            return 6
+        case "@midnight":
+            return 7
         default:
             return 0
         }
@@ -117,7 +121,7 @@ Dialog {
         // sync python call else timeStringValid is not filled on time ?
         timeStringIsValid = py.call_sync("valid_cron.validate_cron",
                                          [cronString.trim()])
-        if (timeStringIsValid == false) {
+        if (timeStringIsValid === false) {
             banner("ERROR", qsTr("Invalid cron syntax!"))
             isValidCron = false
         } else {
@@ -128,7 +132,10 @@ Dialog {
                 banner("ERROR", '❌ ' + qsTr("Invalid cron syntax!"))
                 isValidCron = false
             } else {
-                banner("OK", '✓ ' + qsTr("Cron syntax valid"))
+                if (showOkNotification) {
+                    banner("OK", '✓ ' + qsTr("Cron syntax valid"))
+                }
+                showOkNotification = true
                 isValidCron = true
             }
         }
@@ -148,8 +155,7 @@ Dialog {
 
         clip: true
 
-        ScrollDecorator {
-        }
+        ScrollDecorator {}
 
         Column {
             id: col
@@ -190,17 +196,23 @@ Dialog {
                         text: "yearly"
                     } // 2
                     MenuItem {
-                        text: "monthly"
+                        text: "annually"
                     } // 3
                     MenuItem {
-                        text: "weekly"
+                        text: "monthly"
                     } // 4
                     MenuItem {
-                        text: "daily"
+                        text: "weekly"
                     } // 5
                     MenuItem {
-                        text: "hourly"
+                        text: "daily"
                     } // 6
+                    MenuItem {
+                        text: "hourly"
+                    } // 7
+                    MenuItem {
+                        text: "midnight"
+                    } // 8
                 }
                 onCurrentIndexChanged: {
                     special = '@' + specialtime.value

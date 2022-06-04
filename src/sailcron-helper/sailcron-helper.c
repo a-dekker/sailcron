@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 int main(int argc, char **argv) {
-    char command[4096], cmdline[4096];
+    char command[4042], cmdline[4096];
     int i;
     if (setuid(0) != 0) {
         perror("Setuid failed, no suid-bit set?");

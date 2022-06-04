@@ -19,3 +19,9 @@ CONFIG(release, debug|release) {
 
 OTHER_FILES +=
 
+isEmpty(VERSION) {
+    VERSION = $$system( egrep "^Version:\|^Release:" ../rpm/sailcron.spec |tr -d "[A-Z][a-z]: " | tr "\\\n" "-" | sed "s/\.$//g"| tr -d "[:space:]")
+    message("VERSION is unset, assuming $$VERSION")
+}
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+DEFINES += BUILD_YEAR=$$system(date '+%Y')

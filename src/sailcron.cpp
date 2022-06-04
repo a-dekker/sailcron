@@ -50,18 +50,6 @@ int main(int argc, char* argv[]) {
     //   - SailfishApp::createView() to get a new QQuickView * instance
     //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
     //
-    QProcess appinfo;
-    QString appversion;
-    // QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
-    // read app version from rpm database on startup
-    appinfo.start("/bin/rpm", QStringList() << "-qa"
-                                            << "--queryformat"
-                                            << "%{version}-%{RELEASE}"
-                                            << "harbour-sailcron");
-    appinfo.waitForFinished(-1);
-    if (appinfo.bytesAvailable() > 0) {
-        appversion = appinfo.readAll();
-    }
 
     QString username;
     username = qgetenv("USER");
@@ -86,7 +74,8 @@ int main(int argc, char* argv[]) {
         app->installTranslator(&translator);
     }
 
-    view->rootContext()->setContextProperty("version", appversion);
+    view->rootContext()->setContextProperty("version", APP_VERSION);
+    view->rootContext()->setContextProperty("buildyear", BUILD_YEAR);
     view->rootContext()->setContextProperty("username", username);
     view->setSource(SailfishApp::pathTo("qml/sailcron.qml"));
     view->showFullScreen();

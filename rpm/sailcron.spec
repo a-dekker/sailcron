@@ -13,10 +13,10 @@ Name:       harbour-sailcron
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Manage your crontabs
-Version:    0.5
+Version:    0.6
 Release:    1
 Group:      Qt/Qt
-License:    LICENSE
+License:    GPLv2
 URL:        https://github.com/a-dekker/sailcron
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
@@ -64,7 +64,7 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}
+%attr(755,root,root) %{_bindir}/harbour-sailcron
 %{_datadir}/%{name}/qml
 %{_datadir}/%{name}/helper
 %{_datadir}/%{name}/python
@@ -72,16 +72,9 @@ desktop-file-install --delete-original       \
 %attr(700,root,root) %{_datadir}/%{name}/helper/sailcronhelper.sh
 %attr(4755,root,root) %{_datadir}/%{name}/helper/sailcronhelper
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/86x86/apps/%{name}.png
-%{_datadir}/icons/hicolor/108x108/apps/%{name}.png
-%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
-%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/%{name}/translations
-/usr/bin
+/usr/bin/harbour-sailcron
 /usr/share/harbour-sailcron
 /usr/share/applications
-/usr/share/icons/hicolor/86x86/apps
-/usr/share/icons/hicolor/108x108/apps
-/usr/share/icons/hicolor/128x128/apps
-/usr/share/icons/hicolor/172x172/apps
-/usr/share/icons/hicolor/256x256/apps
+/usr/share/icons/hicolor/*/apps
