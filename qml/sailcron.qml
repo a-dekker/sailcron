@@ -37,6 +37,7 @@ ApplicationWindow
     id: mainapp
     property string current_cron_user
     property string changestatus
+    property var specials: ["@reboot", "@yearly", "@annually", "@monthly", "@weekly", "@daily", "@hourly", "@midnight"]
 
     allowedOrientations: defaultAllowedOrientations
     _defaultPageOrientations: defaultAllowedOrientations

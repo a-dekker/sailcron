@@ -18,7 +18,6 @@ Page {
     property string month
     property string dayOfWeek
     property string command_string
-    property var specials: ["@reboot", "@hourly", "@daily", "@weekly", "@monthly", "@yearly", "@annually", "@midnight"]
 
     App {
         id: bar
@@ -346,7 +345,7 @@ Page {
                     width: parent.width
                     truncationMode: TruncationMode.Fade
                     font.pixelSize: Theme.fontSizeExtraSmall
-                    color: Theme.secondaryColor
+                    color: isEnabled === "true" ? Theme.primaryColor : Theme.secondaryColor
                 }
                 Component {
                     id: contextMenu

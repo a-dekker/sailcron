@@ -8,6 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Mon Jun 06 2022 Arno Dekker <jack.tar@example.com> 0.0.7-1
+- Special cron entries now translatable
 * Sat Jun 04 2022 Arno Dekker <jack.tar@example.com> 0.0.6-1
 - Do not notify cronline is ok at save
 - Added midnight and anually as special cron entries

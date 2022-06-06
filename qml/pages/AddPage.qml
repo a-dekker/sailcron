@@ -177,7 +177,8 @@ Dialog {
                 description: qsTr("Use alternative cron time indicator")
                 onCheckedChanged: {
                     if (checked) {
-                        special = '@' + specialtime.value
+                        special = specials[specialtime.currentIndex]
+                        // special = '@' + specialtime.value
                     }
                 }
             }
@@ -190,32 +191,32 @@ Dialog {
                 width: col.width
                 menu: ContextMenu {
                     MenuItem {
-                        text: "reboot"
+                        text: qsTr("reboot")
                     } // 1
                     MenuItem {
-                        text: "yearly"
+                        text: qsTr("yearly (=annually)")
                     } // 2
                     MenuItem {
-                        text: "annually"
+                        text: qsTr("annually (=yearly)")
                     } // 3
                     MenuItem {
-                        text: "monthly"
+                        text: qsTr("monthly")
                     } // 4
                     MenuItem {
-                        text: "weekly"
+                        text: qsTr("weekly")
                     } // 5
                     MenuItem {
-                        text: "daily"
+                        text: qsTr("daily")
                     } // 6
                     MenuItem {
-                        text: "hourly"
+                        text: qsTr("hourly")
                     } // 7
                     MenuItem {
-                        text: "midnight"
+                        text: qsTr("midnight")
                     } // 8
                 }
                 onCurrentIndexChanged: {
-                    special = '@' + specialtime.value
+                    special = specials[specialtime.currentIndex]
                 }
             }
             Label {

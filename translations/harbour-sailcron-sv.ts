@@ -85,42 +85,42 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="189"/>
         <source>reboot</source>
-        <translation type="unfinished"></translation>
+        <translation>starta om</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="192"/>
         <source>yearly (=annually)</source>
-        <translation type="unfinished"></translation>
+        <translation>varje år</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="195"/>
         <source>annually (=yearly)</source>
-        <translation type="unfinished"></translation>
+        <translation>varje år</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="198"/>
         <source>monthly</source>
-        <translation type="unfinished"></translation>
+        <translation>varje månad</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="201"/>
         <source>weekly</source>
-        <translation type="unfinished"></translation>
+        <translation>arje vecka</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="204"/>
         <source>daily</source>
-        <translation type="unfinished"></translation>
+        <translation>varje dag</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="207"/>
         <source>hourly</source>
-        <translation type="unfinished"></translation>
+        <translation>varje timma</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="210"/>
         <source>midnight</source>
-        <translation type="unfinished"></translation>
+        <translation>vid midnatt</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="221"/>
@@ -281,7 +281,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="188"/>
         <source>Sailcron</source>
-        <translation type="unfinished"></translation>
+        <translation>Sailcron</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="218"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="227"/>
         <source>Switch to user </source>
-        <translation type="unfinished"></translation>
+        <translation>Byt till användare </translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="238"/>
