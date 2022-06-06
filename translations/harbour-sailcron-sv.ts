@@ -105,7 +105,7 @@
     <message>
         <location filename="../qml/pages/AddPage.qml" line="201"/>
         <source>weekly</source>
-        <translation>arje vecka</translation>
+        <translation>varje vecka</translation>
     </message>
     <message>
         <location filename="../qml/pages/AddPage.qml" line="204"/>
