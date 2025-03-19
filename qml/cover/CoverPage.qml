@@ -35,18 +35,6 @@ CoverBackground {
     id: covB
     property bool largeScreen: screen.width >= 1080
 
-    RotationAnimation on rotation {
-        running: mainapp.orientation === Orientation.Landscape && active && Screen.sizeCategory < 2
-        duration: 1000
-        from: 90; to: 90
-    }
-    RotationAnimation on rotation {
-        running: mainapp.orientation === Orientation.Portrait && active && Screen.sizeCategory < 2
-        duration: 1000
-        from: 0; to: 0
-    }
-    property bool active: status === Cover.Active || Cover.Activating
-
     Column {
         width: parent.width
         spacing: Theme.paddingMedium

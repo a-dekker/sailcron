@@ -8,6 +8,8 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Mar 19 2025 Arno Dekker <jack.tar@example.com> 0.0.8-1
+- Fix handling of backslash before percent sign
 * Mon Jun 06 2022 Arno Dekker <jack.tar@example.com> 0.0.7-1
 - Special cron entries now translatable
 * Sat Jun 04 2022 Arno Dekker <jack.tar@example.com> 0.0.6-1

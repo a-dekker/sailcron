@@ -178,7 +178,6 @@ Dialog {
                 onCheckedChanged: {
                     if (checked) {
                         special = specials[specialtime.currentIndex]
-                        // special = '@' + specialtime.value
                     }
                 }
             }
