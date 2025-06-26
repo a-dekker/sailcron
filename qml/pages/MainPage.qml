@@ -345,7 +345,7 @@ Page {
                     width: parent.width
                     truncationMode: TruncationMode.Fade
                     font.pixelSize: Theme.fontSizeExtraSmall
-                    color: isEnabled === "true" ? Theme.primaryColor : Theme.secondaryColor
+                    color: Theme.secondaryColor
                 }
                 Component {
                     id: contextMenu
