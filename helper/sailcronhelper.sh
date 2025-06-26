@@ -2,7 +2,7 @@
 #
 
 check_cron_prog() {
-    if [ $(crontab -V|awk '{print $1}') == "cronie" ]; then
+    if [ "$(crontab -V | awk '{print $1}')" == "cronie" ]; then
         # cronie
         CRON_PATH="/var/spool/cron/tabs"
     else
@@ -40,8 +40,8 @@ check_params() {
         ;;
     "edit")
         SEP='[~][s][e][p][a][r][a][t][o][r][~]'
-        CRON_COMMAND=$(echo "$4" | base64 -d | sed 's/\//\\\//g')
-        EXEC_COMMAND=$(echo "$5" | awk -F "${SEP}" '{print $1}' | base64 -d | sed -e 's/[\/&]/\\&/g')
+        CRON_COMMAND=$(echo "$4" | base64 -d)
+        EXEC_COMMAND=$(echo "$5" | awk -F "${SEP}" '{print $1}' | base64 -d | sed -e 's/"/\\"/g')
         ALIAS_COMMAND=$(echo "$5" | awk -F "${SEP}" '{print $2}' | base64 -d | sed -e 's/[\/&]/\\&/g')
         EXEC_COMMAND_B64=$(echo "$5" | awk -F "${SEP}" '{print $1}')
         ALIAS_COMMAND_B64=$(echo "$5" | awk -F "${SEP}" '{print $2}')
@@ -89,7 +89,7 @@ get_cron_data() {
 }
 
 disable_entry() {
-    sed -i -r "${LINE_NBR}s/^.{0}/&# Disabled by Sailcron /" ${CRON_FILE}
+    sed -i -r "${LINE_NBR}s/^.{0}/&# Disabled by Sailcron /" "${CRON_FILE}"
 }
 
 enable_entry() {
@@ -103,24 +103,24 @@ delete_entry() {
 add_alias() {
     if [ -n "${ALIAS_COMMAND}" ]; then
         # see if alias is already added
-        grep -q "${EXEC_COMMAND_B64}~separator~${ALIAS_COMMAND_B64}" ${ALIAS_FILE}
+        grep -q "${EXEC_COMMAND_B64}~separator~${ALIAS_COMMAND_B64}" "${ALIAS_FILE}"
         if [ $? -ne 0 ]; then
-            echo "${EXEC_COMMAND_B64}~separator~${ALIAS_COMMAND_B64}" >>${ALIAS_FILE}
+            echo "${EXEC_COMMAND_B64}~separator~${ALIAS_COMMAND_B64}" >>"${ALIAS_FILE}"
         fi
     fi
 }
 
 append_entry() {
-    echo "${CRON_COMMAND} ${EXEC_COMMAND}" >>${CRON_FILE}
+    echo "${CRON_COMMAND} ${EXEC_COMMAND}" >>"${CRON_FILE}"
     add_alias
 }
 
 edit_entry() {
     set -f
-    sed -i -r "${LINE_NBR}s/.*$/${CRON_COMMAND} ${EXEC_COMMAND}/" ${CRON_FILE} 2>&1
+    ex -sc "${LINE_NBR}c|${CRON_COMMAND} ${EXEC_COMMAND}" -cx "${CRON_FILE}" 2>&1
     echo "${LINE_NBR} ${CRON_COMMAND} ${EXEC_COMMAND} ${CRON_FILE}"
     # remove any existing alias entry
-    LINE_NBR=$(grep -n "${EXEC_COMMAND_B64}~separator~" ${ALIAS_FILE} | cut -f1 -d:)
+    LINE_NBR=$(grep -n "${EXEC_COMMAND_B64}~separator~" "${ALIAS_FILE}" | cut -f1 -d:)
     if [ -n "${LINE_NBR}" ]; then
         sed -i "${LINE_NBR}d" "${ALIAS_FILE}"
     fi
