@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Jul 09 2025 Arno Dekker <jack.tar@example.com> 0.0.9-1
+- Change fontcolor of disabled lines
+- Fix small issue with asteriks in lines
 * Wed Mar 19 2025 Arno Dekker <jack.tar@example.com> 0.0.8-1
 - Fix handling of backslash before percent sign
 * Mon Jun 06 2022 Arno Dekker <jack.tar@example.com> 0.0.7-1

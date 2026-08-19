@@ -117,7 +117,12 @@ append_entry() {
 
 edit_entry() {
     set -f
-    ex -sc "${LINE_NBR}c|${CRON_COMMAND} ${EXEC_COMMAND}" -cx "${CRON_FILE}" 2>&1
+    export NEW_LINE="${CRON_COMMAND} ${EXEC_COMMAND}"
+    export LINE_NBR
+    awk '
+      NR == ENVIRON["LINE_NBR"] { print ENVIRON["NEW_LINE"]; next }
+      { print }
+    ' "${CRON_FILE}" >"${CRON_FILE}.tmp" && mv "${CRON_FILE}.tmp" "${CRON_FILE}"
     echo "${LINE_NBR} ${CRON_COMMAND} ${EXEC_COMMAND} ${CRON_FILE}"
     # remove any existing alias entry
     LINE_NBR=$(grep -n "${EXEC_COMMAND_B64}~separator~" "${ALIAS_FILE}" | cut -f1 -d:)
