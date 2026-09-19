@@ -111,7 +111,9 @@ add_alias() {
 }
 
 append_entry() {
+    umask 077 # set this for 600 mode on new CRON_FILE
     echo "${CRON_COMMAND} ${EXEC_COMMAND}" >>"${CRON_FILE}"
+    umask 0022 # restore umask
     add_alias
 }
 

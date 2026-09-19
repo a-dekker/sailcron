@@ -8,6 +8,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Sep 19 2026 Arno Dekker <jack.tar@example.com> 0.0.9-3
+- Make sure initial permissions on cron file are correct
+* Wed Jul 09 2026 Arno Dekker <jack.tar@example.com> 0.0.9-2
+- No longer use 'ex' tool, as it is not available by default
 * Wed Jul 09 2025 Arno Dekker <jack.tar@example.com> 0.0.9-1
 - Change fontcolor of disabled lines
 - Fix small issue with asteriks in lines
