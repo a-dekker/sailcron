@@ -121,10 +121,12 @@ edit_entry() {
     set -f
     export NEW_LINE="${CRON_COMMAND} ${EXEC_COMMAND}"
     export LINE_NBR
+    umask 077 # set this for 600 mode on new CRON_FILE
     awk '
       NR == ENVIRON["LINE_NBR"] { print ENVIRON["NEW_LINE"]; next }
       { print }
     ' "${CRON_FILE}" >"${CRON_FILE}.tmp" && mv "${CRON_FILE}.tmp" "${CRON_FILE}"
+    umask 0022 # restore umask
     echo "${LINE_NBR} ${CRON_COMMAND} ${EXEC_COMMAND} ${CRON_FILE}"
     # remove any existing alias entry
     LINE_NBR=$(grep -n "${EXEC_COMMAND_B64}~separator~" "${ALIAS_FILE}" | cut -f1 -d:)
